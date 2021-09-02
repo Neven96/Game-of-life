@@ -1,0 +1,23 @@
+.hjem {
+  align-items: center;
+  left: auto;
+  right: auto;
+  text-align: center;
+}
+
+.bane {
+  border-style: outset;
+}
+
+.hidden {
+  display: none;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.speedName {
+  width: 57px;
+}
