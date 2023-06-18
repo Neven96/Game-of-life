@@ -4,6 +4,75 @@ function mod(n, m) {
 
 document.addEventListener('DOMContentLoaded',domloaded,false);
 function domloaded() {
+
+  // OBJECTS
+  // Sets the speed, so that we don't have to use the switch statement each round
+  const speedObject = {
+    speed: 500,
+
+    get getSpeed() {
+      return this.speed;
+    },
+
+    /**
+     * @param {number} speed
+     */
+    set setSpeed(speed) {
+      this.speed = speed;
+    }
+  }
+
+  // Sets the type of level, so that pause knows which game to start
+  const levelType = {
+    typeLevel: 1,
+
+    get getTypeLevel() {
+      return this.typeLevel;
+    },
+
+    /**
+     * @param {number} typeLevel
+     */
+    set setTypeLevel(typeLevel) {
+      this.typeLevel = typeLevel;
+    }
+  };
+
+  // Sets the type of board, auto-populate or drawing
+  const spillType = {
+    typeSpill: 1,
+
+    get getTypeSpill() {
+      return this.typeSpill;
+    },
+
+    /**
+     * @param {number} typeSpill
+     */
+    set setTypeSpill(typeSpill) {
+      this.typeSpill = typeSpill;
+    }
+  }
+
+  const generationsObject = {
+    generations: 0,
+
+    get getGenerations() {
+      return this.generations;
+    },
+
+    /**
+     * @param {number} generations
+     */
+    set setGenerations(generations) {
+      this.generations = generations;
+    },
+
+    increaseGenerations() {
+      this.generations++;
+    }
+  }
+
   // Change column and row...
   let columnArray;
   let rowArray;
@@ -19,12 +88,6 @@ function domloaded() {
   let backgroundColor = "#D3D3D3"
 
   let playGame;
-  let percentageAlive;
-  let gameSpeed;
-  let speed;
-  let typeLevel;
-  let typeSpill;
-  let generations;
   let t1;
   let t2;
   let time;
@@ -36,18 +99,41 @@ function domloaded() {
   let equal;
   let equalOnce;
 
+  // Used to show the speed name at the start
   selectSpeed();
 
   const bane = document.getElementById("bane");
   const innhold = bane.getContext("2d");
 
-  document.getElementById("populateKnapp").onclick = function() {populateSpill(1)};
-  document.getElementById("drawKnapp").onclick = function() {populateSpill(2)};
+  document.getElementById("populateKnapp").onclick = function() {
+    spillType.setTypeSpill = 1;
+    populateSpill();
+  };
+  document.getElementById("drawKnapp").onclick = function() {
+    spillType.setTypeSpill = 2;
+    populateSpill();
+  };
+
+  document.getElementById("playBoxedKnapp").onclick = function () { 
+    levelType.setTypeLevel = 1;
+    startSpill();
+  };
+  document.getElementById("playInfinityKnapp").onclick = function () { 
+    levelType.setTypeLevel = 2;
+    startSpill();
+  };
+
+  document.getElementById("pauseKnapp").onclick = function () { 
+    pauseSpill();
+  };
+  document.getElementById("fart").onchange = function () { 
+    selectSpeed();
+  };
 
   //Creates board
-  function populateSpill(type) {
+  function populateSpill() {
     clearTimeout(playGame);
-    generations = 0;
+    generationsObject.setGenerations = 0;
     aliveCount = 0;
 
     totalTime = 0;
@@ -64,12 +150,13 @@ function domloaded() {
     changedArray = [];
     aliveArray = [];
 
-    typeSpill = type;
+    let typeSpill = spillType.getTypeSpill;
 
+    // The game auto-populates the board
     if (typeSpill == 1) {
 
 
-      percentageAlive = document.getElementById("prosent").value;
+      let percentageAlive = document.getElementById("prosent").value;
       if (percentageAlive <= 0) {
         percentageAlive = 10;
       } else if (percentageAlive >= 50) {
@@ -92,6 +179,8 @@ function domloaded() {
       //console.log(columnArray);
       document.getElementById("populateKnapp").textContent = "Repopulate";
       document.getElementById("drawKnapp").textContent = "Draw";
+
+    // The game is ready for drawing(dotting) the board
     } else if (typeSpill == 2) {
       for (var i = 0; i <= bane.height/(rectSize); i++) {
         rowArray = [];
@@ -153,7 +242,7 @@ function domloaded() {
 
     aliveCount = countAlives(columnArray);
 
-    document.getElementById("generationsSpan").textContent = generations;
+    document.getElementById("generationsSpan").textContent = generationsObject.getGenerations;
     document.getElementById("aliveSpan").textContent = aliveCount;
   }
 
@@ -173,15 +262,36 @@ function domloaded() {
       }
     }
 
+    generationsObject.increaseGenerations();
     aliveCount = countAlives(columnArray);
 
-    document.getElementById("generationsSpan").textContent = generations;
+    if (!equalOnce) {
+      if (aliveArray.length < 10) {
+        aliveArray.push(aliveCount);
+      } else {
+        aliveArray.shift();
+        aliveArray.push(aliveCount);
+        equal = aliveArray.every((val, ind, arr) => val === arr[0]);
+
+        if (equal) {
+          if (aliveArray.at(-1) === 0) {
+            document.getElementById("stabilizedSpan").textContent = "Life is dead"
+          } else {
+            document.getElementById("stabilizedSpan").textContent = "Life is stabilized"
+          }
+          equalOnce = true;
+          pauseSpill();
+        }
+      }
+    }
+
+    document.getElementById("generationsSpan").textContent = generationsObject.getGenerations;
     document.getElementById("aliveSpan").textContent = aliveCount;
   }
 
   //Changes gamespeed
   function selectSpeed() {
-    gameSpeed = document.getElementById("fart").value;
+    let gameSpeed = document.getElementById("fart").value;
     gameSpeed = parseInt(gameSpeed);
     switch (gameSpeed) {
       case 1:
@@ -226,6 +336,7 @@ function domloaded() {
     }
 
     document.getElementById("outSpan").textContent = speedName;
+    speedObject.setSpeed = speed;
   }
 
   function countAlives(array) {
@@ -241,30 +352,25 @@ function domloaded() {
     return aliveCount;
   }
 
-  document.getElementById("playBoxedKnapp").onclick = function() {startSpill(1)};
-  document.getElementById("playInfinityKnapp").onclick = function() {startSpill(2)};
-  document.getElementById("pauseKnapp").onclick = function() {pauseSpill()};
-  document.getElementById("fart").onchange = function() {selectSpeed()};
-
   //Starts the game
-  function startSpill(level) {
+  function startSpill() {
     //t1 = performance.now();
     started = true;
     pause = false;
     drawable = false;
-    typeLevel = level;
+    typeLevel = levelType.getTypeLevel;
 
-    spilleSpill();
     document.getElementById("playBoxedKnapp").style.display = "none";
     document.getElementById("playInfinityKnapp").style.display = "none";
     document.getElementById("pauseKnapp").style.display = "initial";
     document.getElementById("pauseKnapp").textContent = "Pause";
+    spilleSpill(typeLevel);
   }
 
   //Runs the game
-  async function spilleSpill() {
+  function spilleSpill(typeLevel) {
     changedArray = [];
-    selectSpeed();
+    speed = speedObject.getSpeed;
     // if (generations >= 100) {
     //   t2 = performance.now();
     //   totalTime += t2-t1;
@@ -276,32 +382,18 @@ function domloaded() {
     //   startSpill(2);
     // }
     if (!pause && started) {
-      if (typeLevel == 1) {
-        playGame = setTimeout(playBoxedSpill, speed);
-      } else if (typeLevel == 2) {
-        playGame = setTimeout(playInfinitySpillV4, speed); 
-      }
+      playGame = setTimeout(function () {
+        isPaused(typeLevel);
+      }, speed);
+    }
+  }
 
-      generations++;
-      aliveCount = countAlives(columnArray);
-
-      if (!equalOnce) {
-        if (aliveArray.length < 10) {
-          aliveArray.push(aliveCount);
-        } else {
-          aliveArray.shift();
-          aliveArray.push(aliveCount);
-          equal = aliveArray.every((val, ind, arr) => val === arr[0]);
-
-          if (equal) {
-            if (aliveArray.at(-1) === 0) {
-              document.getElementById("stabilizedSpan").textContent = "Life is dead"
-            } else {
-              document.getElementById("stabilizedSpan").textContent = "Life is stabilized"
-            }
-            equalOnce = true;
-          }
-        }
+  function isPaused(typeLevel) {
+    if (!pause) {
+      if (typeLevel === 1) {
+        playBoxedSpill();
+      } else if (typeLevel === 2) {
+        playInfinitySpillV4();
       }
     }
   }
@@ -313,68 +405,63 @@ function domloaded() {
       document.getElementById("pauseKnapp").textContent = "Play";
     } else if (pause) {
       pause = false;
-      spilleSpill();
+      typeLevel = levelType.getTypeLevel;
+      spilleSpill(typeLevel);
       document.getElementById("pauseKnapp").textContent = "Pause";
     }
   }
 
-  // const timeout = async ms => new Promise(res => setTimeout(res, ms));
-
-  // async function waitPause() {
-  //   while (pause) await timeout(50);
-    
-  // }
-
   // Without borders, new render, much faster than every other
-  async function playInfinitySpillV4() {
+  function playInfinitySpillV4() {
     for (var i = 0; i < columnArray.length; i++) {
       for (var j = 0; j < columnArray[i].length; j++) {
         // Checks dead cells for the number of neighbours
         if (columnArray[i][j] == 0) {
-          switch ((columnArray[mod(i-1, columnArray.length)][mod(j-1, columnArray[i].length)] 
-          + columnArray[mod(i-1, columnArray.length)][j] 
-          + columnArray[mod(i-1, columnArray.length)][mod(j+1, columnArray[i].length)])
-          + (columnArray[i][mod(j-1, columnArray[i].length)] 
-          + columnArray[i][mod(j+1, columnArray[i].length)])
-          + (columnArray[mod(i+1, columnArray.length)][mod(j-1, columnArray[i].length)] 
-          + columnArray[mod(i+1, columnArray.length)][j] 
-          + columnArray[mod(i+1, columnArray.length)][mod(j+1, columnArray[i].length)])) {
+          switch ((columnArray[mod(i - 1, columnArray.length)][mod(j - 1, columnArray[i].length)]
+            + columnArray[mod(i - 1, columnArray.length)][j]
+            + columnArray[mod(i - 1, columnArray.length)][mod(j + 1, columnArray[i].length)])
+          + (columnArray[i][mod(j - 1, columnArray[i].length)]
+            + columnArray[i][mod(j + 1, columnArray[i].length)])
+          + (columnArray[mod(i + 1, columnArray.length)][mod(j - 1, columnArray[i].length)]
+            + columnArray[mod(i + 1, columnArray.length)][j]
+            + columnArray[mod(i + 1, columnArray.length)][mod(j + 1, columnArray[i].length)])) {
             case 3:
               // Alive
               changedArray.push([i, j]);
           }
         } else
-        if (columnArray[i][j] == 1) {
-          // Checks alive cells for number of neighbours
-          switch ((columnArray[mod(i-1, columnArray.length)][mod(j-1, columnArray[i].length)] 
-          + columnArray[mod(i-1, columnArray.length)][j] 
-          + columnArray[mod(i-1, columnArray.length)][mod(j+1, columnArray[i].length)])
-          + (columnArray[i][mod(j-1, columnArray[i].length)] 
-          + columnArray[i][mod(j+1, columnArray[i].length)])
-          + (columnArray[mod(i+1, columnArray.length)][mod(j-1, columnArray[i].length)] 
-          + columnArray[mod(i+1, columnArray.length)][j] 
-          + columnArray[mod(i+1, columnArray.length)][mod(j+1, columnArray[i].length)])) {
-            case 2:
-              // Stay alive
-              break;
-            case 3:
-              // Stay alive
-              break;
-            default:
-              // Dead
-              changedArray.push([i, j]);
+          if (columnArray[i][j] == 1) {
+            // Checks alive cells for number of neighbours
+            switch ((columnArray[mod(i - 1, columnArray.length)][mod(j - 1, columnArray[i].length)]
+              + columnArray[mod(i - 1, columnArray.length)][j]
+              + columnArray[mod(i - 1, columnArray.length)][mod(j + 1, columnArray[i].length)])
+            + (columnArray[i][mod(j - 1, columnArray[i].length)]
+              + columnArray[i][mod(j + 1, columnArray[i].length)])
+            + (columnArray[mod(i + 1, columnArray.length)][mod(j - 1, columnArray[i].length)]
+              + columnArray[mod(i + 1, columnArray.length)][j]
+              + columnArray[mod(i + 1, columnArray.length)][mod(j + 1, columnArray[i].length)])) {
+              case 2:
+                // Stay alive
+                break;
+              case 3:
+                // Stay alive
+                break;
+              default:
+                // Dead
+                changedArray.push([i, j]);
+            }
           }
-        }
       }
     }
 
-    reDrawSpill(changedArray);
-    spilleSpill();
+    typeLevel = 2;
 
+    reDrawSpill(changedArray);
+    spilleSpill(typeLevel);
   }
 
   // With borders
-  async function playBoxedSpill() {
+  function playBoxedSpill() {
     for (var i = 0; i < columnArray.length; i++) {
       for (var j = 0; j < columnArray[i].length; j++) {
         // Top row
@@ -382,17 +469,17 @@ function domloaded() {
           // Top-left corner
           if (j == 0) {
             if (columnArray[i][j] == 0) {
-              switch (columnArray[i][j+1] 
-                + columnArray[i+1][j] 
-                + columnArray[i+1][j+1]) {
+              switch (columnArray[i][j + 1]
+              + columnArray[i + 1][j]
+              + columnArray[i + 1][j + 1]) {
                 case 3:
                   // Alive
                   changedArray.push([i, j]);
               }
             } else if (columnArray[i][j] == 1) {
-              switch (columnArray[i][j+1] 
-                + columnArray[i+1][j] 
-                + columnArray[i+1][j+1]) {
+              switch (columnArray[i][j + 1]
+              + columnArray[i + 1][j]
+              + columnArray[i + 1][j + 1]) {
                 case 2:
                   // Stay alive
                   break;
@@ -408,17 +495,17 @@ function domloaded() {
           // Top-right corner
           else if (j == columnArray[i].length - 1) {
             if (columnArray[i][j] == 0) {
-              switch (columnArray[i][j-1] 
-                + columnArray[i+1][j] 
-                + columnArray[i+1][j-1]) {
+              switch (columnArray[i][j - 1]
+              + columnArray[i + 1][j]
+              + columnArray[i + 1][j - 1]) {
                 case 3:
                   // Alive
                   changedArray.push([i, j]);
               }
             } else if (columnArray[i][j] == 1) {
-              switch (columnArray[i][j-1] 
-                + columnArray[i+1][j] 
-                + columnArray[i+1][j-1]) {
+              switch (columnArray[i][j - 1]
+              + columnArray[i + 1][j]
+              + columnArray[i + 1][j - 1]) {
                 case 2:
                   // Stay alive
                   break;
@@ -434,19 +521,19 @@ function domloaded() {
           // Rest of top row
           else {
             if (columnArray[i][j] == 0) {
-              switch (columnArray[i][j-1] + columnArray[i][j+1] 
-                + columnArray[i+1][j-1] + columnArray[i+1][j] 
-                + columnArray[i+1][j+1]) {
+              switch (columnArray[i][j - 1] + columnArray[i][j + 1]
+              + columnArray[i + 1][j - 1] + columnArray[i + 1][j]
+              + columnArray[i + 1][j + 1]) {
                 case 3:
                   // Alive
                   changedArray.push([i, j]);
               }
             } else if (columnArray[i][j] == 1) {
-              switch (columnArray[i][j-1] 
-                + columnArray[i][j+1] 
-                + columnArray[i+1][j-1] 
-                + columnArray[i+1][j] 
-                + columnArray[i+1][j+1]) {
+              switch (columnArray[i][j - 1]
+              + columnArray[i][j + 1]
+              + columnArray[i + 1][j - 1]
+              + columnArray[i + 1][j]
+              + columnArray[i + 1][j + 1]) {
                 case 2:
                   // Stay alive
                   break;
@@ -466,17 +553,17 @@ function domloaded() {
           // Bottom-left corner
           if (j == 0) {
             if (columnArray[i][j] == 0) {
-              switch (columnArray[i][j+1] 
-                + columnArray[i-1][j] 
-                + columnArray[i-1][j+1]) {
+              switch (columnArray[i][j + 1]
+              + columnArray[i - 1][j]
+              + columnArray[i - 1][j + 1]) {
                 case 3:
                   // Alive
                   changedArray.push([i, j]);
               }
             } else if (columnArray[i][j] == 1) {
-              switch (columnArray[i][j+1] 
-                + columnArray[i-1][j] 
-                + columnArray[i-1][j+1]) {
+              switch (columnArray[i][j + 1]
+              + columnArray[i - 1][j]
+              + columnArray[i - 1][j + 1]) {
                 case 2:
                   // Stay alive
                   break;
@@ -492,17 +579,17 @@ function domloaded() {
           // Bottom-right corner
           else if (j == columnArray[i].length - 1) {
             if (columnArray[i][j] == 0) {
-              switch (columnArray[i][j-1] 
-                + columnArray[i-1][j] 
-                + columnArray[i-1][j-1]) {
+              switch (columnArray[i][j - 1]
+              + columnArray[i - 1][j]
+              + columnArray[i - 1][j - 1]) {
                 case 3:
                   // Alive
                   changedArray.push([i, j]);
               }
             } else if (columnArray[i][j] == 1) {
-              switch (columnArray[i][j-1] 
-                + columnArray[i-1][j] 
-                + columnArray[i-1][j-1]) {
+              switch (columnArray[i][j - 1]
+              + columnArray[i - 1][j]
+              + columnArray[i - 1][j - 1]) {
                 case 2:
                   // Stay alive
                   break;
@@ -518,21 +605,21 @@ function domloaded() {
           // Rest of bottom row
           else {
             if (columnArray[i][j] == 0) {
-              switch (columnArray[i][j-1] 
-                + columnArray[i][j+1] 
-                + columnArray[i-1][j-1] 
-                + columnArray[i-1][j] 
-                + columnArray[i-1][j+1]) {
+              switch (columnArray[i][j - 1]
+              + columnArray[i][j + 1]
+              + columnArray[i - 1][j - 1]
+              + columnArray[i - 1][j]
+              + columnArray[i - 1][j + 1]) {
                 case 3:
                   // Alive
                   changedArray.push([i, j]);
               }
             } else if (columnArray[i][j] == 1) {
-              switch (columnArray[i][j-1] 
-                + columnArray[i][j+1] 
-                + columnArray[i-1][j-1] 
-                + columnArray[i-1][j] 
-                + columnArray[i-1][j+1]) {
+              switch (columnArray[i][j - 1]
+              + columnArray[i][j + 1]
+              + columnArray[i - 1][j - 1]
+              + columnArray[i - 1][j]
+              + columnArray[i - 1][j + 1]) {
                 case 2:
                   // Stay alive
                   break;
@@ -552,21 +639,21 @@ function domloaded() {
           // Left column
           if (j == 0) {
             if (columnArray[i][j] == 0) {
-              switch (columnArray[i-1][j] 
-                + columnArray[i-1][j+1] 
-                + columnArray[i][j+1] 
-                + columnArray[i+1][j] 
-                + columnArray[i+1][j+1]) {
+              switch (columnArray[i - 1][j]
+              + columnArray[i - 1][j + 1]
+              + columnArray[i][j + 1]
+              + columnArray[i + 1][j]
+              + columnArray[i + 1][j + 1]) {
                 case 3:
                   // Alive
                   changedArray.push([i, j]);
               }
             } else if (columnArray[i][j] == 1) {
-              switch (columnArray[i-1][j] 
-                + columnArray[i-1][j+1] 
-                + columnArray[i][j+1] 
-                + columnArray[i+1][j] 
-                + columnArray[i+1][j+1]) {
+              switch (columnArray[i - 1][j]
+              + columnArray[i - 1][j + 1]
+              + columnArray[i][j + 1]
+              + columnArray[i + 1][j]
+              + columnArray[i + 1][j + 1]) {
                 case 2:
                   // Stay alive
                   break;
@@ -582,21 +669,21 @@ function domloaded() {
           // Right column
           else if (j == columnArray[i].length - 1) {
             if (columnArray[i][j] == 0) {
-              switch (columnArray[i-1][j] 
-                + columnArray[i-1][j-1] 
-                + columnArray[i][j-1] 
-                + columnArray[i+1][j] 
-                + columnArray[i+1][j-1]) {
+              switch (columnArray[i - 1][j]
+              + columnArray[i - 1][j - 1]
+              + columnArray[i][j - 1]
+              + columnArray[i + 1][j]
+              + columnArray[i + 1][j - 1]) {
                 case 3:
                   // Alive
                   changedArray.push([i, j]);
               }
             } else if (columnArray[i][j] == 1) {
-              switch (columnArray[i-1][j] 
-                + columnArray[i-1][j-1] 
-                + columnArray[i][j-1] 
-                + columnArray[i+1][j] 
-                + columnArray[i+1][j-1]) {
+              switch (columnArray[i - 1][j]
+              + columnArray[i - 1][j - 1]
+              + columnArray[i][j - 1]
+              + columnArray[i + 1][j]
+              + columnArray[i + 1][j - 1]) {
                 case 2:
                   // Stay alive
                   break;
@@ -612,17 +699,17 @@ function domloaded() {
           // Middle of map
           else {
             if (columnArray[i][j] == 0) {
-              switch ((columnArray[i-1][j-1] + columnArray[i-1][j] + columnArray[i-1][j+1]) 
-                + (columnArray[i][j-1] + columnArray[i][j+1]) 
-                + (columnArray[i+1][j-1] + columnArray[i+1][j] + columnArray[i+1][j+1])) {
+              switch ((columnArray[i - 1][j - 1] + columnArray[i - 1][j] + columnArray[i - 1][j + 1])
+              + (columnArray[i][j - 1] + columnArray[i][j + 1])
+              + (columnArray[i + 1][j - 1] + columnArray[i + 1][j] + columnArray[i + 1][j + 1])) {
                 case 3:
                   // Alive
                   changedArray.push([i, j]);
               }
             } else if (columnArray[i][j] == 1) {
-              switch ((columnArray[i-1][j-1] + columnArray[i-1][j] + columnArray[i-1][j+1]) 
-              + (columnArray[i][j-1] + columnArray[i][j+1]) 
-              + (columnArray[i+1][j-1] + columnArray[i+1][j] + columnArray[i+1][j+1])) {
+              switch ((columnArray[i - 1][j - 1] + columnArray[i - 1][j] + columnArray[i - 1][j + 1])
+              + (columnArray[i][j - 1] + columnArray[i][j + 1])
+              + (columnArray[i + 1][j - 1] + columnArray[i + 1][j] + columnArray[i + 1][j + 1])) {
                 case 2:
                   // Stay alive
                   break;
@@ -639,7 +726,9 @@ function domloaded() {
       }
     }
 
+    typeLevel = 1;
+
     reDrawSpill(changedArray);
-    spilleSpill();
+    spilleSpill(typeLevel);
   }
 }
