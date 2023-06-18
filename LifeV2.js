@@ -6,6 +6,32 @@ document.addEventListener('DOMContentLoaded',domloaded,false);
 function domloaded() {
 
   // OBJECTS
+  // Stores all size and colors of the cell
+  class Cell {
+    constructor(rectSize, cubeSize, cellColor, backgroundColor) {
+      this.rectSize = rectSize;
+      this.cubeSize = cubeSize;
+      this.cellColor = cellColor;
+      this.backgroundColor = backgroundColor;
+    }
+
+    get getRectSize() {
+      return this.rectSize;
+    }
+
+    get getCubeSize() {
+      return this.cubeSize;
+    }
+
+    get getCellColor() {
+      return this.cellColor;
+    }
+
+    get getBackgroundColor() {
+      return this.backgroundColor;
+    }
+  }
+
   // Sets the speed, so that we don't have to use the switch statement each round
   const speedObject = {
     speed: 500,
@@ -73,19 +99,73 @@ function domloaded() {
     }
   }
 
-  // Change column and row...
+  const aliveCountObject = {
+    aliveCount: 0,
+
+    get getAliveCount() {
+      return this.aliveCount;
+    },
+
+    /**
+     * @param {number} aliveCount
+     */
+    set setAliveCount(aliveCount) {
+      this.aliveCount = aliveCount;
+    },
+
+    countAlives(array) {
+      aliveCount = 0;
+      array.forEach(element => {
+        element.forEach(index => {
+          if (index === 1) {
+            aliveCount += 1;
+          }
+       });
+      });
+
+      return aliveCount;
+    }
+  }
+
+  // Stores the value of pause in an object for easier access and storage
+  const pauseObject = {
+    pause: false,
+
+    get getPause() {
+      return this.pause;
+    },
+
+    /**
+     * @param {boolean} pause
+     */
+    set setPause(pause) {
+      this.pause = pause;
+    },
+
+    //Pauses/unpauses the game
+    pauseSpill() {
+      if (!this.pause) {
+        this.pause = true;
+        document.getElementById("pauseKnapp").textContent = "Play";
+      } else if (this.pause) {
+        this.pause = false;
+        typeLevel = levelType.getTypeLevel;
+        spilleSpill(typeLevel);
+        document.getElementById("pauseKnapp").textContent = "Pause";
+      }
+    }
+  }
+
+  // Global variables
   let rowArray;
   let columnArray;
   let changedArray;
 
-  let pause = false;
   let started = false;
   let drawable = false;
 
-  let rectSize = 8;
-  let cubeSize = 6;
-  let cellColor = "#0000FF"
-  let backgroundColor = "#D3D3D3"
+  // Object for cell size and colors
+  const cell = new Cell(8, 6, "#0000FF", "#D3D3D3");
 
   let playGame;
   // let t1;
@@ -93,7 +173,6 @@ function domloaded() {
   // let totalTime;
   // let averageTime;
 
-  let aliveCount;
   let aliveArray;
   let equal;
   let equalOnce;
@@ -123,7 +202,7 @@ function domloaded() {
   };
 
   document.getElementById("pauseKnapp").onclick = function () { 
-    pauseSpill();
+    pauseObject.pauseSpill();
   };
   document.getElementById("fart").onchange = function () { 
     selectSpeed();
@@ -133,7 +212,7 @@ function domloaded() {
   function populateSpill() {
     clearTimeout(playGame);
     generationsObject.setGenerations = 0;
-    aliveCount = 0;
+    aliveCount = aliveCountObject.getAliveCount;
 
     // totalTime = 0;
     // averageTime = 0;
@@ -142,7 +221,7 @@ function domloaded() {
 
     started = false;
     equalOnce = false;
-    pause = true;
+    pauseObject.setPause = true;
 
     rowArray = [];
     columnArray = [];
@@ -162,9 +241,9 @@ function domloaded() {
         percentageAlive = 50;
       }
 
-      for (var i = 0; i <= bane.height/(rectSize); i++) {
+      for (var i = 0; i <= bane.height/(cell.getRectSize); i++) {
         columnArray = [];
-        for (var j = 0; j <= bane.width/(rectSize); j++) {
+        for (var j = 0; j <= bane.width/(cell.getRectSize); j++) {
           randNum = Math.floor((Math.random() * (100/percentageAlive)) + 1);
           if (randNum <= 1) {
             columnArray[j] = 1;
@@ -181,9 +260,9 @@ function domloaded() {
 
     // The game is ready for drawing(dotting) the board
     } else if (typeSpill == 2) {
-      for (var i = 0; i <= bane.height/(rectSize); i++) {
+      for (var i = 0; i <= bane.height/(cell.getRectSize); i++) {
         columnArray = [];
-        for (var j = 0; j <= bane.width/(rectSize); j++) {
+        for (var j = 0; j <= bane.width/(cell.getRectSize); j++) {
           columnArray[j] = 0;
         }
         rowArray[i] = columnArray;
@@ -200,6 +279,7 @@ function domloaded() {
     document.getElementById("pauseKnapp").style.display = "none";
     document.getElementById("playBoxedKnapp").style.display = "initial";
     document.getElementById("playInfinityKnapp").style.display = "initial";
+    document.getElementById("stabilizedSpan").textContent = "";
   }
 
   bane.addEventListener('click', function (e) {
@@ -212,12 +292,12 @@ function domloaded() {
       const rect = bane.getBoundingClientRect();
       const x = event.clientX - rect.left;
       const y = event.clientY - rect.top;
-      let x_true = Math.floor(x / rectSize) * rectSize;
-      let y_true = Math.floor(y / rectSize) * rectSize;
-      if (rowArray[y_true/(rectSize)][x_true/(rectSize)] == 0) {
-        rowArray[y_true/(rectSize)][x_true/(rectSize)] = 1;
-      } else if (rowArray[y_true/(rectSize)][x_true/(rectSize)] == 1) {
-        rowArray[y_true/(rectSize)][x_true/(rectSize)] = 0;
+      let x_true = Math.floor(x / cell.getRectSize) * cell.getRectSize;
+      let y_true = Math.floor(y / cell.getRectSize) * cell.getRectSize;
+      if (rowArray[y_true/(cell.getRectSize)][x_true/(cell.getRectSize)] == 0) {
+        rowArray[y_true/(cell.getRectSize)][x_true/(cell.getRectSize)] = 1;
+      } else if (rowArray[y_true/(cell.getRectSize)][x_true/(cell.getRectSize)] == 1) {
+        rowArray[y_true/(cell.getRectSize)][x_true/(cell.getRectSize)] = 0;
       }
       drawSpill();
     }
@@ -229,17 +309,17 @@ function domloaded() {
       for (var j = 0; j < rowArray[i].length; j++) {
         // If the cell is alive
         if (rowArray[i][j] == 1) {
-          innhold.fillStyle = cellColor;
-          innhold.fillRect(j*rectSize,i*rectSize,cubeSize,cubeSize);
+          innhold.fillStyle = cell.getCellColor;
+          innhold.fillRect(j*cell.getRectSize,i*cell.getRectSize,cell.getCubeSize,cell.getCubeSize);
         // If the cell is alive
         } else {
-          innhold.fillStyle = backgroundColor;
-          innhold.fillRect(j*rectSize,i*rectSize,cubeSize,cubeSize);
+          innhold.fillStyle = cell.getBackgroundColor;
+          innhold.fillRect(j*cell.getRectSize,i*cell.getRectSize,cell.getCubeSize,cell.getCubeSize);
         }
       }
     }
 
-    aliveCount = countAlives(rowArray);
+    aliveCount = aliveCountObject.countAlives(rowArray);
 
     document.getElementById("generationsSpan").textContent = generationsObject.getGenerations;
     document.getElementById("aliveSpan").textContent = aliveCount;
@@ -250,19 +330,19 @@ function domloaded() {
     for (var i = 0; i < changedArray.length; i++) {
       // If the cell was alive, but is now dead
       if (rowArray[changedArray[i][0]][changedArray[i][1]] == 1) {
-        innhold.fillStyle = backgroundColor;
-        innhold.fillRect(changedArray[i][1]*rectSize,changedArray[i][0]*rectSize,cubeSize,cubeSize);
+        innhold.fillStyle = cell.getBackgroundColor;
+        innhold.fillRect(changedArray[i][1]*cell.getRectSize,changedArray[i][0]*cell.getRectSize,cell.getCubeSize,cell.getCubeSize);
         rowArray[changedArray[i][0]][changedArray[i][1]] = 0;
       // If the cell was dead, but is now alive
       } else if (rowArray[changedArray[i][0]][changedArray[i][1]] == 0) {
-        innhold.fillStyle = cellColor;
-        innhold.fillRect(changedArray[i][1]*rectSize,changedArray[i][0]*rectSize,cubeSize,cubeSize);
+        innhold.fillStyle = cell.getCellColor;
+        innhold.fillRect(changedArray[i][1]*cell.getRectSize,changedArray[i][0]*cell.getRectSize,cell.getCubeSize,cell.getCubeSize);
         rowArray[changedArray[i][0]][changedArray[i][1]] = 1;
       }
     }
 
     generationsObject.increaseGenerations();
-    aliveCount = countAlives(rowArray);
+    aliveCount = aliveCountObject.countAlives(rowArray);
 
     if (!equalOnce) {
       if (aliveArray.length < 10) {
@@ -279,7 +359,7 @@ function domloaded() {
             document.getElementById("stabilizedSpan").textContent = "Life is stabilized"
           }
           equalOnce = true;
-          pauseSpill();
+          pauseObject.pauseSpill();
         }
       }
     }
@@ -338,24 +418,11 @@ function domloaded() {
     speedObject.setSpeed = speed;
   }
 
-  function countAlives(array) {
-    aliveCount = 0;
-    array.forEach(element => {
-      element.forEach(index => {
-        if (index === 1) {
-          aliveCount += 1;
-        }
-      });
-    });
-
-    return aliveCount;
-  }
-
   //Starts the game
   function startSpill() {
     //t1 = performance.now();
     started = true;
-    pause = false;
+    pauseObject.setPause = false;
     drawable = false;
     typeLevel = levelType.getTypeLevel;
 
@@ -380,7 +447,7 @@ function domloaded() {
     //   populateSpill(1);
     //   startSpill(2);
     // }
-    if (!pause && started) {
+    if (!pauseObject.getPause && started) {
       playGame = setTimeout(function () {
         isPaused(typeLevel);
       }, speed);
@@ -388,25 +455,12 @@ function domloaded() {
   }
 
   function isPaused(typeLevel) {
-    if (!pause) {
+    if (!pauseObject.getPause) {
       if (typeLevel === 1) {
         playBoxedSpill();
       } else if (typeLevel === 2) {
         playInfinitySpillV4();
       }
-    }
-  }
-
-  //Pauses/unpauses the game
-  function pauseSpill() {
-    if (!pause) {
-      pause = true;
-      document.getElementById("pauseKnapp").textContent = "Play";
-    } else if (pause) {
-      pause = false;
-      typeLevel = levelType.getTypeLevel;
-      spilleSpill(typeLevel);
-      document.getElementById("pauseKnapp").textContent = "Pause";
     }
   }
 
