@@ -74,8 +74,8 @@ function domloaded() {
   }
 
   // Change column and row...
-  let columnArray;
   let rowArray;
+  let columnArray;
   let changedArray;
 
   let pause = false;
@@ -144,8 +144,8 @@ function domloaded() {
     equalOnce = false;
     pause = true;
 
-    columnArray = [];
     rowArray = [];
+    columnArray = [];
     changedArray = [];
     aliveArray = [];
 
@@ -163,30 +163,30 @@ function domloaded() {
       }
 
       for (var i = 0; i <= bane.height/(rectSize); i++) {
-        rowArray = [];
+        columnArray = [];
         for (var j = 0; j <= bane.width/(rectSize); j++) {
           randNum = Math.floor((Math.random() * (100/percentageAlive)) + 1);
           if (randNum <= 1) {
-            rowArray[j] = 1;
+            columnArray[j] = 1;
           } else {
-            rowArray[j] = 0;
+            columnArray[j] = 0;
           }
         }
-        columnArray[i] = rowArray;
+        rowArray[i] = columnArray;
       }
       //console.log("Populated");
-      //console.log(columnArray);
+      //console.log(rowArray);
       document.getElementById("populateKnapp").textContent = "Repopulate";
       document.getElementById("drawKnapp").textContent = "Draw";
 
     // The game is ready for drawing(dotting) the board
     } else if (typeSpill == 2) {
       for (var i = 0; i <= bane.height/(rectSize); i++) {
-        rowArray = [];
+        columnArray = [];
         for (var j = 0; j <= bane.width/(rectSize); j++) {
-          rowArray[j] = 0;
+          columnArray[j] = 0;
         }
-        columnArray[i] = rowArray;
+        rowArray[i] = columnArray;
       }
 
       document.getElementById("populateKnapp").textContent = "Populate";
@@ -214,10 +214,10 @@ function domloaded() {
       const y = event.clientY - rect.top;
       let x_true = Math.floor(x / rectSize) * rectSize;
       let y_true = Math.floor(y / rectSize) * rectSize;
-      if (columnArray[y_true/(rectSize)][x_true/(rectSize)] == 0) {
-        columnArray[y_true/(rectSize)][x_true/(rectSize)] = 1;
-      } else if (columnArray[y_true/(rectSize)][x_true/(rectSize)] == 1) {
-        columnArray[y_true/(rectSize)][x_true/(rectSize)] = 0;
+      if (rowArray[y_true/(rectSize)][x_true/(rectSize)] == 0) {
+        rowArray[y_true/(rectSize)][x_true/(rectSize)] = 1;
+      } else if (rowArray[y_true/(rectSize)][x_true/(rectSize)] == 1) {
+        rowArray[y_true/(rectSize)][x_true/(rectSize)] = 0;
       }
       drawSpill();
     }
@@ -225,10 +225,10 @@ function domloaded() {
 
   //Draws the level
   function drawSpill() {
-    for (var i = 0; i < columnArray.length; i++) {
-      for (var j = 0; j < columnArray[i].length; j++) {
+    for (var i = 0; i < rowArray.length; i++) {
+      for (var j = 0; j < rowArray[i].length; j++) {
         // If the cell is alive
-        if (columnArray[i][j] == 1) {
+        if (rowArray[i][j] == 1) {
           innhold.fillStyle = cellColor;
           innhold.fillRect(j*rectSize,i*rectSize,cubeSize,cubeSize);
         // If the cell is alive
@@ -239,7 +239,7 @@ function domloaded() {
       }
     }
 
-    aliveCount = countAlives(columnArray);
+    aliveCount = countAlives(rowArray);
 
     document.getElementById("generationsSpan").textContent = generationsObject.getGenerations;
     document.getElementById("aliveSpan").textContent = aliveCount;
@@ -249,20 +249,20 @@ function domloaded() {
   function reDrawSpill(changedArray) {
     for (var i = 0; i < changedArray.length; i++) {
       // If the cell was alive, but is now dead
-      if (columnArray[changedArray[i][0]][changedArray[i][1]] == 1) {
+      if (rowArray[changedArray[i][0]][changedArray[i][1]] == 1) {
         innhold.fillStyle = backgroundColor;
         innhold.fillRect(changedArray[i][1]*rectSize,changedArray[i][0]*rectSize,cubeSize,cubeSize);
-        columnArray[changedArray[i][0]][changedArray[i][1]] = 0;
+        rowArray[changedArray[i][0]][changedArray[i][1]] = 0;
       // If the cell was dead, but is now alive
-      } else if (columnArray[changedArray[i][0]][changedArray[i][1]] == 0) {
+      } else if (rowArray[changedArray[i][0]][changedArray[i][1]] == 0) {
         innhold.fillStyle = cellColor;
         innhold.fillRect(changedArray[i][1]*rectSize,changedArray[i][0]*rectSize,cubeSize,cubeSize);
-        columnArray[changedArray[i][0]][changedArray[i][1]] = 1;
+        rowArray[changedArray[i][0]][changedArray[i][1]] = 1;
       }
     }
 
     generationsObject.increaseGenerations();
-    aliveCount = countAlives(columnArray);
+    aliveCount = countAlives(rowArray);
 
     if (!equalOnce) {
       if (aliveArray.length < 10) {
@@ -412,33 +412,33 @@ function domloaded() {
 
   // Without borders, new render, much faster than every other
   function playInfinitySpillV4() {
-    for (var i = 0; i < columnArray.length; i++) {
-      for (var j = 0; j < columnArray[i].length; j++) {
+    for (var i = 0; i < rowArray.length; i++) {
+      for (var j = 0; j < rowArray[i].length; j++) {
         // Checks dead cells for the number of neighbours
-        if (columnArray[i][j] == 0) {
-          switch ((columnArray[mod(i - 1, columnArray.length)][mod(j - 1, columnArray[i].length)]
-            + columnArray[mod(i - 1, columnArray.length)][j]
-            + columnArray[mod(i - 1, columnArray.length)][mod(j + 1, columnArray[i].length)])
-          + (columnArray[i][mod(j - 1, columnArray[i].length)]
-            + columnArray[i][mod(j + 1, columnArray[i].length)])
-          + (columnArray[mod(i + 1, columnArray.length)][mod(j - 1, columnArray[i].length)]
-            + columnArray[mod(i + 1, columnArray.length)][j]
-            + columnArray[mod(i + 1, columnArray.length)][mod(j + 1, columnArray[i].length)])) {
+        if (rowArray[i][j] == 0) {
+          switch ((rowArray[mod(i - 1, rowArray.length)][mod(j - 1, rowArray[i].length)]
+            + rowArray[mod(i - 1, rowArray.length)][j]
+            + rowArray[mod(i - 1, rowArray.length)][mod(j + 1, rowArray[i].length)])
+          + (rowArray[i][mod(j - 1, rowArray[i].length)]
+            + rowArray[i][mod(j + 1, rowArray[i].length)])
+          + (rowArray[mod(i + 1, rowArray.length)][mod(j - 1, rowArray[i].length)]
+            + rowArray[mod(i + 1, rowArray.length)][j]
+            + rowArray[mod(i + 1, rowArray.length)][mod(j + 1, rowArray[i].length)])) {
             case 3:
               // Alive
               changedArray.push([i, j]);
           }
         } else
-          if (columnArray[i][j] == 1) {
+          if (rowArray[i][j] == 1) {
             // Checks alive cells for number of neighbours
-            switch ((columnArray[mod(i - 1, columnArray.length)][mod(j - 1, columnArray[i].length)]
-              + columnArray[mod(i - 1, columnArray.length)][j]
-              + columnArray[mod(i - 1, columnArray.length)][mod(j + 1, columnArray[i].length)])
-            + (columnArray[i][mod(j - 1, columnArray[i].length)]
-              + columnArray[i][mod(j + 1, columnArray[i].length)])
-            + (columnArray[mod(i + 1, columnArray.length)][mod(j - 1, columnArray[i].length)]
-              + columnArray[mod(i + 1, columnArray.length)][j]
-              + columnArray[mod(i + 1, columnArray.length)][mod(j + 1, columnArray[i].length)])) {
+            switch ((rowArray[mod(i - 1, rowArray.length)][mod(j - 1, rowArray[i].length)]
+              + rowArray[mod(i - 1, rowArray.length)][j]
+              + rowArray[mod(i - 1, rowArray.length)][mod(j + 1, rowArray[i].length)])
+            + (rowArray[i][mod(j - 1, rowArray[i].length)]
+              + rowArray[i][mod(j + 1, rowArray[i].length)])
+            + (rowArray[mod(i + 1, rowArray.length)][mod(j - 1, rowArray[i].length)]
+              + rowArray[mod(i + 1, rowArray.length)][j]
+              + rowArray[mod(i + 1, rowArray.length)][mod(j + 1, rowArray[i].length)])) {
               case 2:
                 // Stay alive
                 break;
@@ -461,24 +461,24 @@ function domloaded() {
 
   // With borders
   function playBoxedSpill() {
-    for (var i = 0; i < columnArray.length; i++) {
-      for (var j = 0; j < columnArray[i].length; j++) {
+    for (var i = 0; i < rowArray.length; i++) {
+      for (var j = 0; j < rowArray[i].length; j++) {
         // Top row
         if (i == 0) {
           // Top-left corner
           if (j == 0) {
-            if (columnArray[i][j] == 0) {
-              switch (columnArray[i][j + 1]
-              + columnArray[i + 1][j]
-              + columnArray[i + 1][j + 1]) {
+            if (rowArray[i][j] == 0) {
+              switch (rowArray[i][j + 1]
+              + rowArray[i + 1][j]
+              + rowArray[i + 1][j + 1]) {
                 case 3:
                   // Alive
                   changedArray.push([i, j]);
               }
-            } else if (columnArray[i][j] == 1) {
-              switch (columnArray[i][j + 1]
-              + columnArray[i + 1][j]
-              + columnArray[i + 1][j + 1]) {
+            } else if (rowArray[i][j] == 1) {
+              switch (rowArray[i][j + 1]
+              + rowArray[i + 1][j]
+              + rowArray[i + 1][j + 1]) {
                 case 2:
                   // Stay alive
                   break;
@@ -492,19 +492,19 @@ function domloaded() {
             }
           }
           // Top-right corner
-          else if (j == columnArray[i].length - 1) {
-            if (columnArray[i][j] == 0) {
-              switch (columnArray[i][j - 1]
-              + columnArray[i + 1][j]
-              + columnArray[i + 1][j - 1]) {
+          else if (j == rowArray[i].length - 1) {
+            if (rowArray[i][j] == 0) {
+              switch (rowArray[i][j - 1]
+              + rowArray[i + 1][j]
+              + rowArray[i + 1][j - 1]) {
                 case 3:
                   // Alive
                   changedArray.push([i, j]);
               }
-            } else if (columnArray[i][j] == 1) {
-              switch (columnArray[i][j - 1]
-              + columnArray[i + 1][j]
-              + columnArray[i + 1][j - 1]) {
+            } else if (rowArray[i][j] == 1) {
+              switch (rowArray[i][j - 1]
+              + rowArray[i + 1][j]
+              + rowArray[i + 1][j - 1]) {
                 case 2:
                   // Stay alive
                   break;
@@ -519,20 +519,20 @@ function domloaded() {
           }
           // Rest of top row
           else {
-            if (columnArray[i][j] == 0) {
-              switch (columnArray[i][j - 1] + columnArray[i][j + 1]
-              + columnArray[i + 1][j - 1] + columnArray[i + 1][j]
-              + columnArray[i + 1][j + 1]) {
+            if (rowArray[i][j] == 0) {
+              switch (rowArray[i][j - 1] + rowArray[i][j + 1]
+              + rowArray[i + 1][j - 1] + rowArray[i + 1][j]
+              + rowArray[i + 1][j + 1]) {
                 case 3:
                   // Alive
                   changedArray.push([i, j]);
               }
-            } else if (columnArray[i][j] == 1) {
-              switch (columnArray[i][j - 1]
-              + columnArray[i][j + 1]
-              + columnArray[i + 1][j - 1]
-              + columnArray[i + 1][j]
-              + columnArray[i + 1][j + 1]) {
+            } else if (rowArray[i][j] == 1) {
+              switch (rowArray[i][j - 1]
+              + rowArray[i][j + 1]
+              + rowArray[i + 1][j - 1]
+              + rowArray[i + 1][j]
+              + rowArray[i + 1][j + 1]) {
                 case 2:
                   // Stay alive
                   break;
@@ -548,21 +548,21 @@ function domloaded() {
         } // Top row end
 
         // Bottom row
-        else if (i == columnArray.length - 1) {
+        else if (i == rowArray.length - 1) {
           // Bottom-left corner
           if (j == 0) {
-            if (columnArray[i][j] == 0) {
-              switch (columnArray[i][j + 1]
-              + columnArray[i - 1][j]
-              + columnArray[i - 1][j + 1]) {
+            if (rowArray[i][j] == 0) {
+              switch (rowArray[i][j + 1]
+              + rowArray[i - 1][j]
+              + rowArray[i - 1][j + 1]) {
                 case 3:
                   // Alive
                   changedArray.push([i, j]);
               }
-            } else if (columnArray[i][j] == 1) {
-              switch (columnArray[i][j + 1]
-              + columnArray[i - 1][j]
-              + columnArray[i - 1][j + 1]) {
+            } else if (rowArray[i][j] == 1) {
+              switch (rowArray[i][j + 1]
+              + rowArray[i - 1][j]
+              + rowArray[i - 1][j + 1]) {
                 case 2:
                   // Stay alive
                   break;
@@ -576,19 +576,19 @@ function domloaded() {
             }
           }
           // Bottom-right corner
-          else if (j == columnArray[i].length - 1) {
-            if (columnArray[i][j] == 0) {
-              switch (columnArray[i][j - 1]
-              + columnArray[i - 1][j]
-              + columnArray[i - 1][j - 1]) {
+          else if (j == rowArray[i].length - 1) {
+            if (rowArray[i][j] == 0) {
+              switch (rowArray[i][j - 1]
+              + rowArray[i - 1][j]
+              + rowArray[i - 1][j - 1]) {
                 case 3:
                   // Alive
                   changedArray.push([i, j]);
               }
-            } else if (columnArray[i][j] == 1) {
-              switch (columnArray[i][j - 1]
-              + columnArray[i - 1][j]
-              + columnArray[i - 1][j - 1]) {
+            } else if (rowArray[i][j] == 1) {
+              switch (rowArray[i][j - 1]
+              + rowArray[i - 1][j]
+              + rowArray[i - 1][j - 1]) {
                 case 2:
                   // Stay alive
                   break;
@@ -603,22 +603,22 @@ function domloaded() {
           }
           // Rest of bottom row
           else {
-            if (columnArray[i][j] == 0) {
-              switch (columnArray[i][j - 1]
-              + columnArray[i][j + 1]
-              + columnArray[i - 1][j - 1]
-              + columnArray[i - 1][j]
-              + columnArray[i - 1][j + 1]) {
+            if (rowArray[i][j] == 0) {
+              switch (rowArray[i][j - 1]
+              + rowArray[i][j + 1]
+              + rowArray[i - 1][j - 1]
+              + rowArray[i - 1][j]
+              + rowArray[i - 1][j + 1]) {
                 case 3:
                   // Alive
                   changedArray.push([i, j]);
               }
-            } else if (columnArray[i][j] == 1) {
-              switch (columnArray[i][j - 1]
-              + columnArray[i][j + 1]
-              + columnArray[i - 1][j - 1]
-              + columnArray[i - 1][j]
-              + columnArray[i - 1][j + 1]) {
+            } else if (rowArray[i][j] == 1) {
+              switch (rowArray[i][j - 1]
+              + rowArray[i][j + 1]
+              + rowArray[i - 1][j - 1]
+              + rowArray[i - 1][j]
+              + rowArray[i - 1][j + 1]) {
                 case 2:
                   // Stay alive
                   break;
@@ -637,22 +637,22 @@ function domloaded() {
         else {
           // Left column
           if (j == 0) {
-            if (columnArray[i][j] == 0) {
-              switch (columnArray[i - 1][j]
-              + columnArray[i - 1][j + 1]
-              + columnArray[i][j + 1]
-              + columnArray[i + 1][j]
-              + columnArray[i + 1][j + 1]) {
+            if (rowArray[i][j] == 0) {
+              switch (rowArray[i - 1][j]
+              + rowArray[i - 1][j + 1]
+              + rowArray[i][j + 1]
+              + rowArray[i + 1][j]
+              + rowArray[i + 1][j + 1]) {
                 case 3:
                   // Alive
                   changedArray.push([i, j]);
               }
-            } else if (columnArray[i][j] == 1) {
-              switch (columnArray[i - 1][j]
-              + columnArray[i - 1][j + 1]
-              + columnArray[i][j + 1]
-              + columnArray[i + 1][j]
-              + columnArray[i + 1][j + 1]) {
+            } else if (rowArray[i][j] == 1) {
+              switch (rowArray[i - 1][j]
+              + rowArray[i - 1][j + 1]
+              + rowArray[i][j + 1]
+              + rowArray[i + 1][j]
+              + rowArray[i + 1][j + 1]) {
                 case 2:
                   // Stay alive
                   break;
@@ -666,23 +666,23 @@ function domloaded() {
             }
           }
           // Right column
-          else if (j == columnArray[i].length - 1) {
-            if (columnArray[i][j] == 0) {
-              switch (columnArray[i - 1][j]
-              + columnArray[i - 1][j - 1]
-              + columnArray[i][j - 1]
-              + columnArray[i + 1][j]
-              + columnArray[i + 1][j - 1]) {
+          else if (j == rowArray[i].length - 1) {
+            if (rowArray[i][j] == 0) {
+              switch (rowArray[i - 1][j]
+              + rowArray[i - 1][j - 1]
+              + rowArray[i][j - 1]
+              + rowArray[i + 1][j]
+              + rowArray[i + 1][j - 1]) {
                 case 3:
                   // Alive
                   changedArray.push([i, j]);
               }
-            } else if (columnArray[i][j] == 1) {
-              switch (columnArray[i - 1][j]
-              + columnArray[i - 1][j - 1]
-              + columnArray[i][j - 1]
-              + columnArray[i + 1][j]
-              + columnArray[i + 1][j - 1]) {
+            } else if (rowArray[i][j] == 1) {
+              switch (rowArray[i - 1][j]
+              + rowArray[i - 1][j - 1]
+              + rowArray[i][j - 1]
+              + rowArray[i + 1][j]
+              + rowArray[i + 1][j - 1]) {
                 case 2:
                   // Stay alive
                   break;
@@ -697,18 +697,18 @@ function domloaded() {
           }
           // Middle of map
           else {
-            if (columnArray[i][j] == 0) {
-              switch ((columnArray[i - 1][j - 1] + columnArray[i - 1][j] + columnArray[i - 1][j + 1])
-              + (columnArray[i][j - 1] + columnArray[i][j + 1])
-              + (columnArray[i + 1][j - 1] + columnArray[i + 1][j] + columnArray[i + 1][j + 1])) {
+            if (rowArray[i][j] == 0) {
+              switch ((rowArray[i - 1][j - 1] + rowArray[i - 1][j] + rowArray[i - 1][j + 1])
+              + (rowArray[i][j - 1] + rowArray[i][j + 1])
+              + (rowArray[i + 1][j - 1] + rowArray[i + 1][j] + rowArray[i + 1][j + 1])) {
                 case 3:
                   // Alive
                   changedArray.push([i, j]);
               }
-            } else if (columnArray[i][j] == 1) {
-              switch ((columnArray[i - 1][j - 1] + columnArray[i - 1][j] + columnArray[i - 1][j + 1])
-              + (columnArray[i][j - 1] + columnArray[i][j + 1])
-              + (columnArray[i + 1][j - 1] + columnArray[i + 1][j] + columnArray[i + 1][j + 1])) {
+            } else if (rowArray[i][j] == 1) {
+              switch ((rowArray[i - 1][j - 1] + rowArray[i - 1][j] + rowArray[i - 1][j + 1])
+              + (rowArray[i][j - 1] + rowArray[i][j + 1])
+              + (rowArray[i + 1][j - 1] + rowArray[i + 1][j] + rowArray[i + 1][j + 1])) {
                 case 2:
                   // Stay alive
                   break;
