@@ -88,11 +88,10 @@ function domloaded() {
   let backgroundColor = "#D3D3D3"
 
   let playGame;
-  let t1;
-  let t2;
-  let time;
-  let totalTime;
-  let averageTime;
+  // let t1;
+  // let t2;
+  // let totalTime;
+  // let averageTime;
 
   let aliveCount;
   let aliveArray;
@@ -136,10 +135,10 @@ function domloaded() {
     generationsObject.setGenerations = 0;
     aliveCount = 0;
 
-    totalTime = 0;
-    averageTime = 0;
-    t1 = 0;
-    t2 = 0;
+    // totalTime = 0;
+    // averageTime = 0;
+    // t1 = 0;
+    // t2 = 0;
 
     started = false;
     equalOnce = false;
