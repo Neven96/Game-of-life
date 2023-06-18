@@ -165,7 +165,7 @@ function domloaded() {
   let drawable = false;
 
   // Object for cell size and colors
-  const cell = new Cell(8, 6, "#0000FF", "#D3D3D3");
+  const cell = new Cell(8, 7, "#0000FF", "#D3D3D3");
 
   let playGame;
   // let t1;
@@ -253,8 +253,7 @@ function domloaded() {
         }
         rowArray[i] = columnArray;
       }
-      //console.log("Populated");
-      //console.log(rowArray);
+
       document.getElementById("populateKnapp").textContent = "Repopulate";
       document.getElementById("drawKnapp").textContent = "Draw";
 
@@ -290,14 +289,21 @@ function domloaded() {
   function paintLevel(bane, event) {
     if (drawable) {
       const rect = bane.getBoundingClientRect();
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
-      let x_true = Math.floor(x / cell.getRectSize) * cell.getRectSize;
-      let y_true = Math.floor(y / cell.getRectSize) * cell.getRectSize;
-      if (rowArray[y_true/(cell.getRectSize)][x_true/(cell.getRectSize)] == 0) {
-        rowArray[y_true/(cell.getRectSize)][x_true/(cell.getRectSize)] = 1;
-      } else if (rowArray[y_true/(cell.getRectSize)][x_true/(cell.getRectSize)] == 1) {
-        rowArray[y_true/(cell.getRectSize)][x_true/(cell.getRectSize)] = 0;
+      // Finds the x and y coordinates of the board
+      // This is somewhat off from my coordinates, not sure why
+      const x = event.clientX - rect.left - 3;
+      const y = event.clientY - rect.top - 3;
+      // Derives the start coordinates of the cell from the size of it
+      let x_true = (Math.floor(x / cell.getRectSize) * cell.getRectSize);
+      let y_true = (Math.floor(y / cell.getRectSize) * cell.getRectSize);
+      // Derives the index of the cell in the rowArray array
+      let x_array_index = x_true / (cell.getRectSize);
+      let y_array_index = y_true / (cell.getRectSize);
+
+      if (rowArray[y_array_index][x_array_index] == 0) {
+        rowArray[y_array_index][x_array_index] = 1;
+      } else if (rowArray[y_array_index][x_array_index] == 1) {
+        rowArray[y_array_index][x_array_index] = 0;
       }
       drawSpill();
     }
@@ -345,6 +351,11 @@ function domloaded() {
     aliveCount = aliveCountObject.countAlives(rowArray);
 
     if (!equalOnce) {
+      if (aliveCount === 0) {
+        document.getElementById("stabilizedSpan").textContent = "Life is dead"
+        equalOnce = true;
+        pauseObject.pauseSpill();
+      }
       if (aliveArray.length < 10) {
         aliveArray.push(aliveCount);
       } else {
@@ -353,11 +364,7 @@ function domloaded() {
         equal = aliveArray.every((val, ind, arr) => val === arr[0]);
 
         if (equal) {
-          if (aliveArray.at(-1) === 0) {
-            document.getElementById("stabilizedSpan").textContent = "Life is dead"
-          } else {
-            document.getElementById("stabilizedSpan").textContent = "Life is stabilized"
-          }
+          document.getElementById("stabilizedSpan").textContent = "Life is stabilized"
           equalOnce = true;
           pauseObject.pauseSpill();
         }
@@ -395,19 +402,19 @@ function domloaded() {
         break;
       case 6:
         speedName = "Fast";
-        speed = 300;
+        speed = 250;
         break;
       case 7:
         speedName = "Faster";
-        speed = 200;
+        speed = 150;
         break;
       case 8:
         speedName = "Fastest";
-        speed = 100;
+        speed = 75;
         break;
       case 9:
         speedName = "Fastester"
-        speed = 50;
+        speed = 30;
         break;
       default:
         speedName = "Normal";
