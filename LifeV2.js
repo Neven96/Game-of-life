@@ -48,10 +48,15 @@ function domloaded() {
     }
   };
 
-  // Sets the type of level, so that pause knows which game to start
-  const levelType = {
+  // Sets the type of level, type of game, if the board is drawable, if the game has started, and if the game is stagnated
+  const typeObjects = {
     typeLevel: 1,
+    typeSpill: 1,
+    drawable: false,
+    started: false,
+    equalOnce: false,
 
+    // TypeLevel
     get getTypeLevel() {
       return this.typeLevel;
     },
@@ -61,28 +66,9 @@ function domloaded() {
      */
     set setTypeLevel(typeLevel) {
       this.typeLevel = typeLevel;
-    }
-  };
-
-  const drawableObject = {
-    drawable: false,
-
-    get getDrawable() {
-      return this.drawable
     },
 
-    /**
-     * @param {boolean} drawable
-     */
-    set setDrawable(drawable) {
-      this.drawable = drawable;
-    }
-  };
-
-  // Sets the type of board, auto-populate or drawing
-  const spillType = {
-    typeSpill: 1,
-
+    // TypeSpill
     get getTypeSpill() {
       return this.typeSpill;
     },
@@ -92,12 +78,21 @@ function domloaded() {
      */
     set setTypeSpill(typeSpill) {
       this.typeSpill = typeSpill;
-    }
-  };
+    },
 
-  const startedObject = {
-    started: false,
+    // Drawable
+    get getDrawable() {
+      return this.drawable
+    },
 
+    /**
+     * @param {boolean} drawable
+     */
+    set setDrawable(drawable) {
+      this.drawable = drawable;
+    },
+
+    // Started
     get getStarted() {
       return this.started;
     },
@@ -107,11 +102,24 @@ function domloaded() {
      */
     set setStarted(started) {
       this.started = started;
+    },
+
+    // Equal Once
+    get getEqualOnce() {
+      return this.equalOnce;
+    },
+
+    /**
+     * @param {boolean} equalOnce
+     */
+    set setEqualOnce(equalOnce) {
+      this.equalOnce = equalOnce;
     }
   };
 
   const generationsObject = {
     generations: 0,
+    generationsArray: [],
 
     get getGenerations() {
       return this.generations;
@@ -122,6 +130,17 @@ function domloaded() {
      */
     set setGenerations(generations) {
       this.generations = generations;
+    },
+
+    get getGenerationsArray() {
+      return this.generationsArray;
+    },
+
+    /**
+     * @param {never[]} generationsArray
+     */
+    set setGenerationsArray(generationsArray) {
+      this.generationsArray = generationsArray;
     },
 
     increaseGenerations() {
@@ -202,7 +221,7 @@ function domloaded() {
         document.getElementById("pauseSpan").textContent = "Play";
       } else if (this.pause) {
         this.pause = false;
-        typeLevel = levelType.getTypeLevel;
+        typeLevel = typeObjects.getTypeLevel;
         spilleSpill(typeLevel);
         document.getElementById("pauseSpan").textContent = "Pause";
       }
@@ -214,14 +233,7 @@ function domloaded() {
   let columnArray;
   let changedArray;
 
-  // Object for cell size and colors
-  const cell = new Cell(8, 7, "#0000FF", "#D3D3D3");
-
-  // let playGame;
-
-  let aliveArray;
   let generationsArray;
-  let equalOnce;
 
   // Used to show the speed name at the start
   selectSpeed();
@@ -229,21 +241,22 @@ function domloaded() {
   const bane = document.getElementById("bane");
   const innhold = bane.getContext("2d");
 
+  // Buttons and their actions
   document.getElementById("populateKnapp").onclick = function() {
-    spillType.setTypeSpill = 1;
+    typeObjects.setTypeSpill = 1;
     populateSpill();
   };
   document.getElementById("drawKnapp").onclick = function() {
-    spillType.setTypeSpill = 2;
+    typeObjects.setTypeSpill = 2;
     populateSpill();
   };
 
   document.getElementById("playBoxedKnapp").onclick = function () { 
-    levelType.setTypeLevel = 1;
+    typeObjects.setTypeLevel = 1;
     startSpill();
   };
   document.getElementById("playInfinityKnapp").onclick = function () { 
-    levelType.setTypeLevel = 2;
+    typeObjects.setTypeLevel = 2;
     startSpill();
   };
 
@@ -254,14 +267,16 @@ function domloaded() {
     selectSpeed();
   };
 
-  //Creates board
+  //Creates board and chooses type of game
   function populateSpill() {
-    // clearTimeout(playGame);
+    // Object for cell size and colors
+    const cell = new Cell(8, 7, "#0000FF", "#D3D3D3");
+
     generationsObject.setGenerations = 0;
     aliveCount = aliveCountObject.getAliveCount;
 
-    startedObject.setStarted = false;
-    equalOnce = false;
+    typeObjects.setStarted = false;
+    typeObjects.setEqualOnce = false;
     pauseObject.setPause = true;
 
     rowArray = [];
@@ -269,7 +284,7 @@ function domloaded() {
     changedArray = [];
     aliveCountObject.setAliveArray = [];
 
-    typeSpill = spillType.getTypeSpill;
+    typeSpill = typeObjects.getTypeSpill;
 
     // The game auto-populates the board
     if (typeSpill == 1) {
@@ -297,7 +312,7 @@ function domloaded() {
       document.getElementById("populateSpan").textContent = "Repopulate";
       document.getElementById("drawSpan").textContent = "Draw";
 
-      drawableObject.setDrawable = false;
+      typeObjects.setDrawable = false;
 
     // The game is ready for drawing(dotting) the board
     } else if (typeSpill == 2) {
@@ -313,7 +328,7 @@ function domloaded() {
       document.getElementById("populateSpan").textContent = "Populate";
       document.getElementById("drawSpan").textContent = "Redraw";
 
-      drawableObject.setDrawable = true;
+      typeObjects.setDrawable = true;
     }
 
     drawSpill();
@@ -330,7 +345,7 @@ function domloaded() {
 
   //Allows painting on grid
   function paintLevel(bane, event) {
-    if (drawableObject.getDrawable) {
+    if (typeObjects.getDrawable) {
       const rect = bane.getBoundingClientRect();
       // Finds the x and y coordinates of the board
       // This is somewhat off from my coordinates, not sure why
@@ -398,10 +413,10 @@ function domloaded() {
       document.getElementById("aliveCell"+i).textContent = aliveArray[i];
     }
 
-    if (!equalOnce) {
+    if (!typeObjects.getEqualOnce) {
       if (aliveCount === 0) {
         document.getElementById("stabilizedSpan").textContent = "Life is dead"
-        equalOnce = true;
+        typeObjects.setEqualOnce = true;
         pauseObject.pauseSpill();
       }
 
@@ -409,7 +424,7 @@ function domloaded() {
         equal = aliveArray.every((val, ind, arr) => val === arr[0]);
         if (equal) {
           document.getElementById("stabilizedSpan").textContent = "Life is stabilized"
-          equalOnce = true;
+          typeObjects.setEqualOnce = true;
           pauseObject.pauseSpill();
         }
       } 
@@ -472,9 +487,9 @@ function domloaded() {
   //Starts the game
   function startSpill() {
 
-    startedObject.setStarted = true;
-    drawableObject.setDrawable = false;
-    typeLevel = levelType.getTypeLevel;
+    typeObjects.setStarted = true;
+    typeObjects.setDrawable = false;
+    typeLevel = typeObjects.getTypeLevel;
     
     document.getElementById("playBoxedKnapp").style.display = "none";
     document.getElementById("playInfinityKnapp").style.display = "none";
@@ -490,7 +505,7 @@ function domloaded() {
     changedArray = [];
     speed = speedObject.getSpeed;
 
-    if (!pauseObject.getPause && startedObject.getStarted) {
+    if (!pauseObject.getPause && typeObjects.getStarted) {
       playGame = setTimeout(function () {
         isPaused(typeLevel);
       }, speed);
@@ -550,7 +565,7 @@ function domloaded() {
       }
     }
 
-    typeLevel = levelType.getTypeLevel;
+    typeLevel = typeObjects.getTypeLevel;
 
     reDrawSpill(changedArray);
     spilleSpill(typeLevel);
@@ -822,7 +837,7 @@ function domloaded() {
       }
     }
 
-    typeLevel = levelType.getTypeLevel;
+    typeLevel = typeObjects.getTypeLevel;
 
     reDrawSpill(changedArray);
     spilleSpill(typeLevel);
