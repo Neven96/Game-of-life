@@ -13,33 +13,62 @@
         <h1>Game of Life</h1>
         <div id="inputChange" class="inputChange">
           <table>
-            <tr>
-              <td><label for="prosent">Life percent </label></td>
-              <td><input type="number" id="prosent" name="prosent" value="5" size="2" min="1" max="50"></td>
-            </tr>
-            <tr>
-              <td><label for="fart">Game speed </label></td>
-              <td><input type="number" id="fart" name="fart" value="5" size="1" min="1" max="9"></td>
-              <td class="speedName"><span id="outSpan"></span></td>
-            </tr>
+            <tbody>
+              <tr>
+                <td><label for="prosent"><span>Life percent</span></label></td>
+                <td><input type="number" id="prosent" name="prosent" value="5" size="2" min="1" max="50"></td>
+              </tr>
+              <tr>
+                <td><label for="fart"><span>Game speed</span></label></td>
+                <td><input type="number" id="fart" name="fart" value="5" size="1" min="1" max="9"></td>
+                <td class="speedName"><span id="speedOutSpan"></span></td>
+              </tr>
+            </tbody>
           </table>
         </div>
         <div id="buttonDiv" class="buttonDiv">
-          <button id="playBoxedKnapp" class="knapp hidden playBoxedKnapp" type="button" name="button">Play boxed</button>
-          <button id="playInfinityKnapp" class="knapp hidden playInfinityKnapp" type="button" name="button">Play infinity</button>
-          <button id="pauseKnapp" class="knapp hidden pauseKnapp"  type="button" name="button">Pause</button>
-          <button id="populateKnapp" class="knapp populateKnapp" type="button" name="button">Populate</button>
-          <button id="drawKnapp" class="knapp drawKnapp" type="button" name="button">Draw</button>
-        </div>
-        <div id="infoDiv" class="infoDiv">
-          <p id="generationsP" class="generationsP">Generations: <span id="generationsSpan" class="generationsSpan">0</span></p>
-          <p id="aliveP" class="aliveP">Alive Cells: <span id="aliveSpan" class="aliveSpan">0</span></p>
-          <p id="stabilizedP" class="stabilizedP"><span id="stabilizedSpan" class="stabilizedSpan"></span></p>
+          <button id="playBoxedKnapp" class="knapp hidden playBoxedKnapp" type="button" name="button"><span id="playBoxedSpan">Play boxed</span></button>
+          <button id="playInfinityKnapp" class="knapp hidden playInfinityKnapp" type="button" name="button"><span id="playInfinitySpan">Play infinity</span></button>
+          <button id="pauseKnapp" class="knapp hidden pauseKnapp" type="button" name="button"><span id="pauseSpan">Pause</span></button>
+          <button id="populateKnapp" class="knapp populateKnapp" type="button" name="button"><span id="populateSpan">Populate</span></button>
+          <button id="drawKnapp" class="knapp drawKnapp" type="button" name="button"><span id="drawSpan">Draw</span></button>
         </div>
       </div>
       <div id="spillDiv" class="spillDiv">
-        <div id="canvasDiv" class="canvasDiv float-child">
-          <canvas id="bane" class="bane" width="2000" height="2000"></canvas>
+        <div id="canvasDiv" class="canvasDiv">
+          <canvas id="bane" class="bane" width="1999" height="999"></canvas>
+        </div>
+        <div id="infoDiv" class="infoDiv">
+          <p id="generationsP" class="generationsP"><h2><span>Generations: </span><span id="generationsSpan" class="generationsSpan">0</span></h2></p>
+          <p id="aliveP" class="aliveP"><h2><span>Alive Cells: </span><span id="aliveSpan" class="aliveSpan">0</span></h2></p>
+          <p id="stabilizedP" class="stabilizedP"><h2><span id="stabilizedSpan" class="stabilizedSpan"></span></h2></p>
+          <table>
+            <thead>
+              <th colspan="2"><h2><span>Latest generations:</span></h2></th>
+            </thead>
+            <tbody>
+              <tr>
+                <td><h3><span id="aliveCell9" class="aliveCell"></span></h3></td>
+                <td><h3><span id="aliveCell8" class="aliveCell"></span></h3></td>
+              </tr>
+              <tr>
+                <td><h3><span id="aliveCell7" class="aliveCell"></span></h3></td>
+                <td><h3><span id="aliveCell6" class="aliveCell"></span></h3></td>
+              </tr>
+              <tr>
+                <td><h3><span id="aliveCell5" class="aliveCell"></span></h3></td>
+                <td><h3><span id="aliveCell4" class="aliveCell"></span></h3></td>
+              </tr>
+              <tr>
+                <td><h3><span id="aliveCell3" class="aliveCell"></span></h3></td>
+                <td><h3><span id="aliveCell2" class="aliveCell"></span></h3></td>
+              </tr>
+              <tr>
+                <td><h3><span id="aliveCell1" class="aliveCell"></span></h3></td>
+                <td><h3><span id="aliveCell0" class="aliveCell"></span></h3></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

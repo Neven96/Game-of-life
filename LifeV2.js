@@ -30,7 +30,7 @@ function domloaded() {
     get getBackgroundColor() {
       return this.backgroundColor;
     }
-  }
+  };
 
   // Sets the speed, so that we don't have to use the switch statement each round
   const speedObject = {
@@ -46,7 +46,7 @@ function domloaded() {
     set setSpeed(speed) {
       this.speed = speed;
     }
-  }
+  };
 
   // Sets the type of level, so that pause knows which game to start
   const levelType = {
@@ -64,6 +64,21 @@ function domloaded() {
     }
   };
 
+  const drawableObject = {
+    drawable: false,
+
+    get getDrawable() {
+      return this.drawable
+    },
+
+    /**
+     * @param {boolean} drawable
+     */
+    set setDrawable(drawable) {
+      this.drawable = drawable;
+    }
+  };
+
   // Sets the type of board, auto-populate or drawing
   const spillType = {
     typeSpill: 1,
@@ -78,7 +93,22 @@ function domloaded() {
     set setTypeSpill(typeSpill) {
       this.typeSpill = typeSpill;
     }
-  }
+  };
+
+  const startedObject = {
+    started: false,
+
+    get getStarted() {
+      return this.started;
+    },
+
+    /**
+     * @param {boolean} started
+     */
+    set setStarted(started) {
+      this.started = started;
+    }
+  };
 
   const generationsObject = {
     generations: 0,
@@ -97,10 +127,11 @@ function domloaded() {
     increaseGenerations() {
       this.generations++;
     }
-  }
+  };
 
   const aliveCountObject = {
     aliveCount: 0,
+    aliveArray: [],
 
     get getAliveCount() {
       return this.aliveCount;
@@ -113,23 +144,45 @@ function domloaded() {
       this.aliveCount = aliveCount;
     },
 
+    get getAliveArray() {
+      return this.aliveArray;
+    },
+
+    /**
+     * @param {never[]} aliveArray
+     */
+    set setAliveArray(aliveArray) {
+      this.aliveArray = aliveArray;
+    },
+
     countAlives(array) {
-      aliveCount = 0;
+      this.aliveCount = 0;
       array.forEach(element => {
         element.forEach(index => {
           if (index === 1) {
-            aliveCount += 1;
+            this.aliveCount += 1;
           }
        });
       });
 
-      return aliveCount;
+      return this.aliveCount;
+    },
+
+    createArray(aliveCount) {
+      if (this.aliveArray.length < 10) {
+        this.aliveArray.push(aliveCount);
+      } else {
+        this.aliveArray.shift();
+        this.aliveArray.push(aliveCount);
+      }
+
+      return this.aliveArray;
     }
-  }
+  };
 
   // Stores the value of pause in an object for easier access and storage
   const pauseObject = {
-    pause: false,
+    pause: true,
 
     get getPause() {
       return this.pause;
@@ -146,35 +199,28 @@ function domloaded() {
     pauseSpill() {
       if (!this.pause) {
         this.pause = true;
-        document.getElementById("pauseKnapp").textContent = "Play";
+        document.getElementById("pauseSpan").textContent = "Play";
       } else if (this.pause) {
         this.pause = false;
         typeLevel = levelType.getTypeLevel;
         spilleSpill(typeLevel);
-        document.getElementById("pauseKnapp").textContent = "Pause";
+        document.getElementById("pauseSpan").textContent = "Pause";
       }
     }
-  }
+  };
 
   // Global variables
   let rowArray;
   let columnArray;
   let changedArray;
 
-  let started = false;
-  let drawable = false;
-
   // Object for cell size and colors
   const cell = new Cell(8, 7, "#0000FF", "#D3D3D3");
 
-  let playGame;
-  // let t1;
-  // let t2;
-  // let totalTime;
-  // let averageTime;
+  // let playGame;
 
   let aliveArray;
-  let equal;
+  let generationsArray;
   let equalOnce;
 
   // Used to show the speed name at the start
@@ -210,29 +256,23 @@ function domloaded() {
 
   //Creates board
   function populateSpill() {
-    clearTimeout(playGame);
+    // clearTimeout(playGame);
     generationsObject.setGenerations = 0;
     aliveCount = aliveCountObject.getAliveCount;
 
-    // totalTime = 0;
-    // averageTime = 0;
-    // t1 = 0;
-    // t2 = 0;
-
-    started = false;
+    startedObject.setStarted = false;
     equalOnce = false;
     pauseObject.setPause = true;
 
     rowArray = [];
     columnArray = [];
     changedArray = [];
-    aliveArray = [];
+    aliveCountObject.setAliveArray = [];
 
-    let typeSpill = spillType.getTypeSpill;
+    typeSpill = spillType.getTypeSpill;
 
     // The game auto-populates the board
     if (typeSpill == 1) {
-
 
       let percentageAlive = document.getElementById("prosent").value;
       if (percentageAlive <= 0) {
@@ -254,11 +294,14 @@ function domloaded() {
         rowArray[i] = columnArray;
       }
 
-      document.getElementById("populateKnapp").textContent = "Repopulate";
-      document.getElementById("drawKnapp").textContent = "Draw";
+      document.getElementById("populateSpan").textContent = "Repopulate";
+      document.getElementById("drawSpan").textContent = "Draw";
+
+      drawableObject.setDrawable = false;
 
     // The game is ready for drawing(dotting) the board
     } else if (typeSpill == 2) {
+
       for (var i = 0; i <= bane.height/(cell.getRectSize); i++) {
         columnArray = [];
         for (var j = 0; j <= bane.width/(cell.getRectSize); j++) {
@@ -267,10 +310,10 @@ function domloaded() {
         rowArray[i] = columnArray;
       }
 
-      document.getElementById("populateKnapp").textContent = "Populate";
-      document.getElementById("drawKnapp").textContent = "Redraw";
+      document.getElementById("populateSpan").textContent = "Populate";
+      document.getElementById("drawSpan").textContent = "Redraw";
 
-      drawable = true;
+      drawableObject.setDrawable = true;
     }
 
     drawSpill();
@@ -287,12 +330,12 @@ function domloaded() {
 
   //Allows painting on grid
   function paintLevel(bane, event) {
-    if (drawable) {
+    if (drawableObject.getDrawable) {
       const rect = bane.getBoundingClientRect();
       // Finds the x and y coordinates of the board
       // This is somewhat off from my coordinates, not sure why
-      const x = event.clientX - rect.left - 3;
-      const y = event.clientY - rect.top - 3;
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
       // Derives the start coordinates of the cell from the size of it
       let x_true = (Math.floor(x / cell.getRectSize) * cell.getRectSize);
       let y_true = (Math.floor(y / cell.getRectSize) * cell.getRectSize);
@@ -349,6 +392,11 @@ function domloaded() {
 
     generationsObject.increaseGenerations();
     aliveCount = aliveCountObject.countAlives(rowArray);
+    aliveArray = aliveCountObject.createArray(aliveCount);
+
+    for (let i = 0; i < aliveArray.length; i++) {
+      document.getElementById("aliveCell"+i).textContent = aliveArray[i];
+    }
 
     if (!equalOnce) {
       if (aliveCount === 0) {
@@ -356,19 +404,15 @@ function domloaded() {
         equalOnce = true;
         pauseObject.pauseSpill();
       }
-      if (aliveArray.length < 10) {
-        aliveArray.push(aliveCount);
-      } else {
-        aliveArray.shift();
-        aliveArray.push(aliveCount);
-        equal = aliveArray.every((val, ind, arr) => val === arr[0]);
 
+      if (aliveArray.length >= 10) {
+        equal = aliveArray.every((val, ind, arr) => val === arr[0]);
         if (equal) {
           document.getElementById("stabilizedSpan").textContent = "Life is stabilized"
           equalOnce = true;
           pauseObject.pauseSpill();
         }
-      }
+      } 
     }
 
     document.getElementById("generationsSpan").textContent = generationsObject.getGenerations;
@@ -421,40 +465,32 @@ function domloaded() {
         speed = 500;
     }
 
-    document.getElementById("outSpan").textContent = speedName;
+    document.getElementById("speedOutSpan").textContent = speedName;
     speedObject.setSpeed = speed;
   }
 
   //Starts the game
   function startSpill() {
-    //t1 = performance.now();
-    started = true;
-    pauseObject.setPause = false;
-    drawable = false;
-    typeLevel = levelType.getTypeLevel;
 
+    startedObject.setStarted = true;
+    drawableObject.setDrawable = false;
+    typeLevel = levelType.getTypeLevel;
+    
     document.getElementById("playBoxedKnapp").style.display = "none";
     document.getElementById("playInfinityKnapp").style.display = "none";
     document.getElementById("pauseKnapp").style.display = "initial";
-    document.getElementById("pauseKnapp").textContent = "Pause";
-    spilleSpill(typeLevel);
+    document.getElementById("pauseSpan").textContent = "Pause";
+
+    // Starts the game by unpausing
+    pauseObject.pauseSpill();
   }
 
   //Runs the game
   function spilleSpill(typeLevel) {
     changedArray = [];
     speed = speedObject.getSpeed;
-    // if (generations >= 100) {
-    //   t2 = performance.now();
-    //   totalTime += t2-t1;
-    //   averageTime = totalTime/generations;
-    //   console.log("Average time:");
-    //   console.log(averageTime);
-    //   pauseSpill();
-    //   populateSpill(1);
-    //   startSpill(2);
-    // }
-    if (!pauseObject.getPause && started) {
+
+    if (!pauseObject.getPause && startedObject.getStarted) {
       playGame = setTimeout(function () {
         isPaused(typeLevel);
       }, speed);
@@ -514,7 +550,7 @@ function domloaded() {
       }
     }
 
-    typeLevel = 2;
+    typeLevel = levelType.getTypeLevel;
 
     reDrawSpill(changedArray);
     spilleSpill(typeLevel);
@@ -786,7 +822,7 @@ function domloaded() {
       }
     }
 
-    typeLevel = 1;
+    typeLevel = levelType.getTypeLevel;
 
     reDrawSpill(changedArray);
     spilleSpill(typeLevel);
