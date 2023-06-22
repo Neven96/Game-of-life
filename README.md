@@ -3,7 +3,7 @@
 
 ## Version 1
 
-- Includes the first 4 different rendering methods for the level, from slow to slower to more compact to fast
+- Includes the all 4 different rendering methods for the level, from slow, to slower, to more compact, to fast
 - Has the old UI
 
 
