@@ -1,5 +1,7 @@
 # Game-of-life
 
+- Game is optimized for 4K+ screens, so either use it on that or zoom out
+
 
 ## Version 1
 
