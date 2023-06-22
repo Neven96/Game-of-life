@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Game of life</title>
+    <script src="Life.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="Life.css">
+  </head>
+  <body>
+    <div id="hjem" class="hjem">
+      <div id="toppDiv" class="toppDiv">
+        <h1>Game of Life</h1>
+        <div id="inputChange" class="inputChange">
+          <table>
+            <tr>
+              <td><label for="prosent">Life percent </label></td>
+              <td><input type="number" id="prosent" name="prosent" value="5" size="2" min="1" max="50"></td>
+            </tr>
+            <tr>
+              <td><label for="fart">Game speed </label></td>
+              <td><input type="number" id="fart" name="fart" value="5" size="1" min="1" max="9"></td>
+              <td class="speedName"><span id="outSpan"></span></td>
+            </tr>
+          </table>
+        </div>
+        <div id="buttonDiv" class="buttonDiv">
+          <button id="playBoxedKnapp" class="knapp hidden playBoxedKnapp" type="button" name="button">Play boxed</button>
+          <button id="playInfinityKnapp" class="knapp hidden playInfinityKnapp" type="button" name="button">Play infinity</button>
+          <button id="pauseKnapp" class="knapp hidden pauseKnapp"  type="button" name="button">Pause</button>
+          <button id="populateKnapp" class="knapp populateKnapp" type="button" name="button">Populate</button>
+          <button id="drawKnapp" class="knapp drawKnapp" type="button" name="button">Draw</button>
+        </div>
+        <div id="generationsDiv" class="generationsDiv">
+          <p id="generationsP" class="generationsP">Generations: <span id="generationsSpan" class="generationsSpan">0</span></p>
+        </div>
+      </div>
+      <div id="spillDiv" class="spillDiv">
+        <canvas id="bane" class="bane" width="1995" height="1995"></canvas>
+      </div>
+    </div>
+  </body>
+</html>
