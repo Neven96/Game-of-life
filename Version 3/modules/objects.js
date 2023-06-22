@@ -108,7 +108,7 @@ const speedObject = {
     }
 };
 
-// Sets the type of level, type of game, if the board is drawable, if the game has started, and if the game is stagnated
+// Sets the type of level, type of game, if the board is drawable, if the game has started, and if the game is stabilized
 const typeObjects = {
     typeLevel: 1,
     typeSpill: 1,
