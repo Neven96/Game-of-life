@@ -17,6 +17,6 @@
 ## Version 3
 
 - Has everything from Version 2
-- But now alot of it is modular
+- But now it's mostly modular
 - Many smaller, but more maneuverable files
 - Has mostly same UI as Version 2, but improved a few points
