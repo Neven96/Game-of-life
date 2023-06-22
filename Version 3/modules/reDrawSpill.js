@@ -5,7 +5,7 @@ myHeaders.set("Access-Control-Allow-Origin", "*");
 import { aliveArrayChecker } from "./aliveArrayChecker.js";
 import { cell, arrayObjects} from "./objects.js";
 
-//Redraws the risen/killed cells
+// Redraws only the risen/killed cells, reducing the time per round drastically
 function reDrawSpill() {
     const bane = document.getElementById("bane");
     const innhold = bane.getContext("2d");

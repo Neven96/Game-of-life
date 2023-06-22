@@ -103,6 +103,8 @@ function domloaded() {
       percentageAlive = 50;
     }
 
+    // Randomly populates the board with cells, depending on the percentage of alive chosen
+    // randNum gives an integer from 1 to 100/percent, if it's 1 it is alive else it is dead
     for (var i = 0; i < rowArray.length; i++) {
       for (var j = 0; j < rowArray[i].length; j++) {
         let randNum = Math.floor((Math.random() * (100 / percentageAlive)) + 1);
@@ -129,7 +131,6 @@ function domloaded() {
     if (typeObjects.getDrawable) {
       const rect = bane.getBoundingClientRect();
       // Finds the x and y coordinates of the board
-      // This is somewhat off from my coordinates, not sure why
       const x = event.clientX - rect.left;
       const y = event.clientY - rect.top;
       // Derives the start coordinates of the cell from the size of it
@@ -148,7 +149,7 @@ function domloaded() {
     }
   }
 
-  //Draws the level
+  //Draws the level and fills in the alive cells
   function drawSpill() {
     let rowArray = arrayObjects.getRowArray;
     let innhold = canvasObject.getInnhold;
@@ -178,7 +179,6 @@ function domloaded() {
 
     typeObjects.setStarted = true;
     typeObjects.setDrawable = false;
-    let typeLevel = typeObjects.getTypeLevel;
     
     document.getElementById("playBoxedKnapp").style.display = "none";
     document.getElementById("playInfinityKnapp").style.display = "none";

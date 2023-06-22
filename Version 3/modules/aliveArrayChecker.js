@@ -18,6 +18,7 @@ function aliveArrayChecker() {
     let stabilizedSpan = document.getElementById("stabilizedSpan");
 
     if (!typeObjects.getEqualOnce) {
+        // Checks if the aliveCount is 0, which means that no cells are alive and none can be created
         if (aliveCount === 0) {
             stabilizedSpan.style.color = "red";
             stabilizedSpan.textContent = "Life is dead"
@@ -26,6 +27,7 @@ function aliveArrayChecker() {
         }
 
         if (aliveArray.length >= 20) {
+            // Checks if all elements in the array are equal, returns boolean
             let equal = aliveArray.every((val, ind, arr) => val === arr[0]);
             if (equal) {
                 stabilizedSpan.style.color = "green";

@@ -236,6 +236,7 @@ const aliveCountObject = {
         this.aliveArray = aliveArray;
     },
 
+    // Counts all the alive cells in the array, and returns the number
     countAlives(array) {
         this.aliveCount = 0;
         array.forEach(element => {
@@ -249,6 +250,7 @@ const aliveCountObject = {
         return this.aliveCount;
     },
 
+    // Creates an array of the alive count of cells of the previous generations
     createArray(aliveCount) {
         if (this.aliveArray.length < 20) {
             this.aliveArray.push(aliveCount);
