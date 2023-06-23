@@ -5,14 +5,14 @@
 }
 
 body {
-  background-color: #008080;
+  background-color: #414a4c;
 }
 
 h1 {
   color: #FFFFFF;
   font-family: "Comic Sans MS", "Comic Sans", cursive;
   font-size: 50px;
-  margin: 0px;
+  margin: 0;
   text-shadow: 2px 0 #000000,
       -2px 0 #000000,
       0 2px #000000,
@@ -28,7 +28,6 @@ h3 {
 }
 
 span {
-  color: #FFFFFF;
   font-family: "Comic Sans MS", "Comic Sans", bold;
   text-shadow: 2px 0 #000000,
     -2px 0 #000000,
@@ -67,6 +66,15 @@ p {
   display: none;
 }
 
+.textSpan {
+  color: #FFFFFF;
+}
+
+.buttonSpan {
+  position: relative;
+  z-index: 1;
+}
+
 .speedName {
   width: 76px;
 }
@@ -85,9 +93,9 @@ p {
   overflow: hidden;
   min-width: fit-content;
   margin-left: 100px;
-  border-spacing: 0px;
-  padding-bottom: 0px;
-  margin-bottom: 0px;
+  border-spacing: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
   display: block;
 }
 
@@ -101,4 +109,50 @@ p {
   overflow: hidden;
   max-width: 500px;
   min-width: 150px;
+}
+
+/* Button style thanks to: https://codepen.io/nuhmanpk/pen/XWqBrae */
+
+:root {
+    --clr: #0FF0FC;
+}
+
+button {
+  position: relative;
+  background: #444;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: none;
+  letter-spacing: 0.1rem;
+  font-size: 1rem;
+  padding: 1rem 3rem;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: var(--clr);
+  color: var(--clr);
+  animation: box 3s infinite;
+}
+
+button::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  background: #272822;
+}
+
+@keyframes box {
+  0% {
+    box-shadow: #27272c;
+  }
+
+  50% {
+    box-shadow: 0 0 25px var(--clr);
+  }
+
+  100% {
+    box-shadow: #27272c;
+  }
 }
