@@ -11,24 +11,24 @@ function playBoxedSpill() {
     let rowArray = arrayObjects.getRowArray;
     let changedArray = arrayObjects.getChangedArray;
 
-    for (var i = 0; i < rowArray.length; i++) {
-        for (var j = 0; j < rowArray[i].length; j++) {
+    for (let row = 0; row < rowArray.length; row++) {
+        for (let col = 0; col < rowArray[row].length; col++) {
             // Top row
-            if (i == 0) {
+            if (row == 0) {
                 // Top-left corner
-                if (j == 0) {
-                    if (rowArray[i][j] == 0) {
-                        switch (rowArray[i][j + 1]
-                        + rowArray[i + 1][j]
-                        + rowArray[i + 1][j + 1]) {
+                if (col == 0) {
+                    if (rowArray[row][col] == 0) {
+                        switch (rowArray[row][col + 1]
+                        + rowArray[row + 1][col]
+                        + rowArray[row + 1][col + 1]) {
                             case 3:
                                 // Alive
-                                changedArray.push([i, j]);
+                                changedArray.push([row, col]);
                         }
-                    } else if (rowArray[i][j] == 1) {
-                        switch (rowArray[i][j + 1]
-                        + rowArray[i + 1][j]
-                        + rowArray[i + 1][j + 1]) {
+                    } else if (rowArray[row][col] == 1) {
+                        switch (rowArray[row][col + 1]
+                        + rowArray[row + 1][col]
+                        + rowArray[row + 1][col + 1]) {
                             case 2:
                                 // Stay alive
                                 break;
@@ -37,24 +37,24 @@ function playBoxedSpill() {
                                 break;
                             default:
                                 // Dead
-                                changedArray.push([i, j]);
+                                changedArray.push([row, col]);
                         }
                     }
                 }
                 // Top-right corner
-                else if (j == rowArray[i].length - 1) {
-                    if (rowArray[i][j] == 0) {
-                        switch (rowArray[i][j - 1]
-                        + rowArray[i + 1][j]
-                        + rowArray[i + 1][j - 1]) {
+                else if (col == rowArray[row].length - 1) {
+                    if (rowArray[row][col] == 0) {
+                        switch (rowArray[row][col - 1]
+                            + rowArray[row + 1][col]
+                            + rowArray[row + 1][col - 1]) {
                             case 3:
                                 // Alive
-                                changedArray.push([i, j]);
+                                changedArray.push([row, col]);
                         }
-                    } else if (rowArray[i][j] == 1) {
-                        switch (rowArray[i][j - 1]
-                        + rowArray[i + 1][j]
-                        + rowArray[i + 1][j - 1]) {
+                    } else if (rowArray[row][col] == 1) {
+                        switch (rowArray[row][col - 1]
+                            + rowArray[row + 1][col]
+                            + rowArray[row + 1][col - 1]) {
                             case 2:
                                 // Stay alive
                                 break;
@@ -63,26 +63,28 @@ function playBoxedSpill() {
                                 break;
                             default:
                                 // Dead
-                                changedArray.push([i, j]);
+                                changedArray.push([row, col]);
                         }
                     }
                 }
                 // Rest of top row
                 else {
-                    if (rowArray[i][j] == 0) {
-                        switch (rowArray[i][j - 1] + rowArray[i][j + 1]
-                        + rowArray[i + 1][j - 1] + rowArray[i + 1][j]
-                        + rowArray[i + 1][j + 1]) {
+                    if (rowArray[row][col] == 0) {
+                        switch (rowArray[row][col - 1] 
+                            + rowArray[row][col + 1]
+                            + rowArray[row + 1][col - 1] 
+                            + rowArray[row + 1][col]
+                            + rowArray[row + 1][col + 1]) {
                             case 3:
                                 // Alive
-                                changedArray.push([i, j]);
+                                changedArray.push([row, col]);
                         }
-                    } else if (rowArray[i][j] == 1) {
-                        switch (rowArray[i][j - 1]
-                        + rowArray[i][j + 1]
-                        + rowArray[i + 1][j - 1]
-                        + rowArray[i + 1][j]
-                        + rowArray[i + 1][j + 1]) {
+                    } else if (rowArray[row][col] == 1) {
+                        switch (rowArray[row][col - 1]
+                            + rowArray[row][col + 1]
+                            + rowArray[row + 1][col - 1]
+                            + rowArray[row + 1][col]
+                            + rowArray[row + 1][col + 1]) {
                             case 2:
                                 // Stay alive
                                 break;
@@ -91,28 +93,28 @@ function playBoxedSpill() {
                                 break;
                             default:
                                 // Dead
-                                changedArray.push([i, j]);
+                                changedArray.push([row, col]);
                         }
                     }
                 }
             } // Top row end
 
             // Bottom row
-            else if (i == rowArray.length - 1) {
+            else if (row == rowArray.length - 1) {
                 // Bottom-left corner
-                if (j == 0) {
-                    if (rowArray[i][j] == 0) {
-                        switch (rowArray[i][j + 1]
-                        + rowArray[i - 1][j]
-                        + rowArray[i - 1][j + 1]) {
+                if (col == 0) {
+                    if (rowArray[row][col] == 0) {
+                        switch (rowArray[row][col + 1]
+                            + rowArray[row - 1][col]
+                            + rowArray[row - 1][col + 1]) {
                             case 3:
                                 // Alive
-                                changedArray.push([i, j]);
+                                changedArray.push([row, col]);
                         }
-                    } else if (rowArray[i][j] == 1) {
-                        switch (rowArray[i][j + 1]
-                        + rowArray[i - 1][j]
-                        + rowArray[i - 1][j + 1]) {
+                    } else if (rowArray[row][col] == 1) {
+                        switch (rowArray[row][col + 1]
+                            + rowArray[row - 1][col]
+                            + rowArray[row - 1][col + 1]) {
                             case 2:
                                 // Stay alive
                                 break;
@@ -121,24 +123,24 @@ function playBoxedSpill() {
                                 break;
                             default:
                                 // Dead
-                                changedArray.push([i, j]);
+                                changedArray.push([row, col]);
                         }
                     }
                 }
                 // Bottom-right corner
-                else if (j == rowArray[i].length - 1) {
-                    if (rowArray[i][j] == 0) {
-                        switch (rowArray[i][j - 1]
-                        + rowArray[i - 1][j]
-                        + rowArray[i - 1][j - 1]) {
+                else if (col == rowArray[row].length - 1) {
+                    if (rowArray[row][col] == 0) {
+                        switch (rowArray[row][col - 1]
+                            + rowArray[row - 1][col]
+                            + rowArray[row - 1][col - 1]) {
                             case 3:
                                 // Alive
-                                changedArray.push([i, j]);
+                                changedArray.push([row, col]);
                         }
-                    } else if (rowArray[i][j] == 1) {
-                        switch (rowArray[i][j - 1]
-                        + rowArray[i - 1][j]
-                        + rowArray[i - 1][j - 1]) {
+                    } else if (rowArray[row][col] == 1) {
+                        switch (rowArray[row][col - 1]
+                            + rowArray[row - 1][col]
+                            + rowArray[row - 1][col - 1]) {
                             case 2:
                                 // Stay alive
                                 break;
@@ -147,28 +149,28 @@ function playBoxedSpill() {
                                 break;
                             default:
                                 // Dead
-                                changedArray.push([i, j]);
+                                changedArray.push([row, col]);
                         }
                     }
                 }
                 // Rest of bottom row
                 else {
-                    if (rowArray[i][j] == 0) {
-                        switch (rowArray[i][j - 1]
-                        + rowArray[i][j + 1]
-                        + rowArray[i - 1][j - 1]
-                        + rowArray[i - 1][j]
-                        + rowArray[i - 1][j + 1]) {
+                    if (rowArray[row][col] == 0) {
+                        switch (rowArray[row][col - 1]
+                            + rowArray[row][col + 1]
+                            + rowArray[row - 1][col - 1]
+                            + rowArray[row - 1][col]
+                            + rowArray[row - 1][col + 1]) {
                             case 3:
                                 // Alive
-                                changedArray.push([i, j]);
+                                changedArray.push([row, col]);
                         }
-                    } else if (rowArray[i][j] == 1) {
-                        switch (rowArray[i][j - 1]
-                        + rowArray[i][j + 1]
-                        + rowArray[i - 1][j - 1]
-                        + rowArray[i - 1][j]
-                        + rowArray[i - 1][j + 1]) {
+                    } else if (rowArray[row][col] == 1) {
+                        switch (rowArray[row][col - 1]
+                            + rowArray[row][col + 1]
+                            + rowArray[row - 1][col - 1]
+                            + rowArray[row - 1][col]
+                            + rowArray[row - 1][col + 1]) {
                             case 2:
                                 // Stay alive
                                 break;
@@ -177,7 +179,7 @@ function playBoxedSpill() {
                                 break;
                             default:
                                 // Dead
-                                changedArray.push([i, j]);
+                                changedArray.push([row, col]);
                         }
                     }
                 }
@@ -186,23 +188,23 @@ function playBoxedSpill() {
             //Between top and bottom row
             else {
                 // Left column
-                if (j == 0) {
-                    if (rowArray[i][j] == 0) {
-                        switch (rowArray[i - 1][j]
-                        + rowArray[i - 1][j + 1]
-                        + rowArray[i][j + 1]
-                        + rowArray[i + 1][j]
-                        + rowArray[i + 1][j + 1]) {
+                if (col == 0) {
+                    if (rowArray[row][col] == 0) {
+                        switch (rowArray[row - 1][col]
+                            + rowArray[row - 1][col + 1]
+                            + rowArray[row][col + 1]
+                            + rowArray[row + 1][col]
+                            + rowArray[row + 1][col + 1]) {
                             case 3:
                                 // Alive
-                                changedArray.push([i, j]);
+                                changedArray.push([row, col]);
                         }
-                    } else if (rowArray[i][j] == 1) {
-                        switch (rowArray[i - 1][j]
-                        + rowArray[i - 1][j + 1]
-                        + rowArray[i][j + 1]
-                        + rowArray[i + 1][j]
-                        + rowArray[i + 1][j + 1]) {
+                    } else if (rowArray[row][col] == 1) {
+                        switch (rowArray[row - 1][col]
+                            + rowArray[row - 1][col + 1]
+                            + rowArray[row][col + 1]
+                            + rowArray[row + 1][col]
+                            + rowArray[row + 1][col + 1]) {
                             case 2:
                                 // Stay alive
                                 break;
@@ -211,28 +213,28 @@ function playBoxedSpill() {
                                 break;
                             default:
                                 // Dead
-                                changedArray.push([i, j]);
+                                changedArray.push([row, col]);
                         }
                     }
                 }
                 // Right column
-                else if (j == rowArray[i].length - 1) {
-                    if (rowArray[i][j] == 0) {
-                        switch (rowArray[i - 1][j]
-                        + rowArray[i - 1][j - 1]
-                        + rowArray[i][j - 1]
-                        + rowArray[i + 1][j]
-                        + rowArray[i + 1][j - 1]) {
+                else if (col == rowArray[row].length - 1) {
+                    if (rowArray[row][col] == 0) {
+                        switch (rowArray[row - 1][col]
+                            + rowArray[row - 1][col - 1]
+                            + rowArray[row][col - 1]
+                            + rowArray[row + 1][col]
+                            + rowArray[row + 1][col - 1]) {
                             case 3:
                                 // Alive
-                                changedArray.push([i, j]);
+                                changedArray.push([row, col]);
                         }
-                    } else if (rowArray[i][j] == 1) {
-                        switch (rowArray[i - 1][j]
-                        + rowArray[i - 1][j - 1]
-                        + rowArray[i][j - 1]
-                        + rowArray[i + 1][j]
-                        + rowArray[i + 1][j - 1]) {
+                    } else if (rowArray[row][col] == 1) {
+                        switch (rowArray[row - 1][col]
+                            + rowArray[row - 1][col - 1]
+                            + rowArray[row][col - 1]
+                            + rowArray[row + 1][col]
+                            + rowArray[row + 1][col - 1]) {
                             case 2:
                                 // Stay alive
                                 break;
@@ -241,24 +243,34 @@ function playBoxedSpill() {
                                 break;
                             default:
                                 // Dead
-                                changedArray.push([i, j]);
+                                changedArray.push([row, col]);
                         }
                     }
                 }
                 // Middle of map
                 else {
-                    if (rowArray[i][j] == 0) {
-                        switch ((rowArray[i - 1][j - 1] + rowArray[i - 1][j] + rowArray[i - 1][j + 1])
-                        + (rowArray[i][j - 1] + rowArray[i][j + 1])
-                        + (rowArray[i + 1][j - 1] + rowArray[i + 1][j] + rowArray[i + 1][j + 1])) {
+                    if (rowArray[row][col] == 0) {
+                        switch (rowArray[row - 1][col - 1] 
+                            + rowArray[row - 1][col] 
+                            + rowArray[row - 1][col + 1]
+                            + rowArray[row][col - 1] 
+                            + rowArray[row][col + 1]
+                            + rowArray[row + 1][col - 1] 
+                            + rowArray[row + 1][col] 
+                            + rowArray[row + 1][col + 1]) {
                             case 3:
                                 // Alive
-                                changedArray.push([i, j]);
+                                changedArray.push([row, col]);
                         }
-                    } else if (rowArray[i][j] == 1) {
-                        switch ((rowArray[i - 1][j - 1] + rowArray[i - 1][j] + rowArray[i - 1][j + 1])
-                        + (rowArray[i][j - 1] + rowArray[i][j + 1])
-                        + (rowArray[i + 1][j - 1] + rowArray[i + 1][j] + rowArray[i + 1][j + 1])) {
+                    } else if (rowArray[row][col] == 1) {
+                        switch (rowArray[row - 1][col - 1] 
+                            + rowArray[row - 1][col] 
+                            + rowArray[row - 1][col + 1]
+                            + rowArray[row][col - 1] 
+                            + rowArray[row][col + 1]
+                            + rowArray[row + 1][col - 1] 
+                            + rowArray[row + 1][col] 
+                            + rowArray[row + 1][col + 1]) {
                             case 2:
                                 // Stay alive
                                 break;
@@ -267,7 +279,7 @@ function playBoxedSpill() {
                                 break;
                             default:
                                 // Dead
-                                changedArray.push([i, j]);
+                                changedArray.push([row, col]);
                         }
                     }
                 }

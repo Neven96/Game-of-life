@@ -12,32 +12,32 @@ function playInfinitySpillV4() {
     let rowArray = arrayObjects.getRowArray;
     let changedArray = arrayObjects.getChangedArray;
 
-    for (var i = 0; i < rowArray.length; i++) {
-        for (var j = 0; j < rowArray[i].length; j++) {
+    for (var row = 0; row < rowArray.length; row++) {
+        for (var col = 0; col < rowArray[row].length; col++) {
             // Checks dead cells for the number of neighbours
-            if (rowArray[i][j] == 0) {
-                switch ((rowArray[mod(i - 1, rowArray.length)][mod(j - 1, rowArray[i].length)]
-                    + rowArray[mod(i - 1, rowArray.length)][j]
-                    + rowArray[mod(i - 1, rowArray.length)][mod(j + 1, rowArray[i].length)])
-                + (rowArray[i][mod(j - 1, rowArray[i].length)]
-                    + rowArray[i][mod(j + 1, rowArray[i].length)])
-                + (rowArray[mod(i + 1, rowArray.length)][mod(j - 1, rowArray[i].length)]
-                    + rowArray[mod(i + 1, rowArray.length)][j]
-                    + rowArray[mod(i + 1, rowArray.length)][mod(j + 1, rowArray[i].length)])) {
+            if (rowArray[row][col] == 0) {
+                switch (rowArray[mod(row - 1, rowArray.length)][mod(col - 1, rowArray[row].length)]
+                    + rowArray[mod(row - 1, rowArray.length)][col]
+                    + rowArray[mod(row - 1, rowArray.length)][mod(col + 1, rowArray[row].length)]
+                    + rowArray[row][mod(col - 1, rowArray[row].length)]
+                    + rowArray[row][mod(col + 1, rowArray[row].length)]
+                    + rowArray[mod(row + 1, rowArray.length)][mod(col - 1, rowArray[row].length)]
+                    + rowArray[mod(row + 1, rowArray.length)][col]
+                    + rowArray[mod(row + 1, rowArray.length)][mod(col + 1, rowArray[row].length)]) {
                     case 3:
                         // Alive
-                        changedArray.push([i, j]);
+                        changedArray.push([row, col]);
                 }
-            } else if (rowArray[i][j] == 1) {
+            } else if (rowArray[row][col] == 1) {
                 // Checks alive cells for number of neighbours
-                switch ((rowArray[mod(i - 1, rowArray.length)][mod(j - 1, rowArray[i].length)]
-                    + rowArray[mod(i - 1, rowArray.length)][j]
-                    + rowArray[mod(i - 1, rowArray.length)][mod(j + 1, rowArray[i].length)])
-                + (rowArray[i][mod(j - 1, rowArray[i].length)]
-                    + rowArray[i][mod(j + 1, rowArray[i].length)])
-                + (rowArray[mod(i + 1, rowArray.length)][mod(j - 1, rowArray[i].length)]
-                    + rowArray[mod(i + 1, rowArray.length)][j]
-                    + rowArray[mod(i + 1, rowArray.length)][mod(j + 1, rowArray[i].length)])) {
+                switch (rowArray[mod(row - 1, rowArray.length)][mod(col - 1, rowArray[row].length)]
+                    + rowArray[mod(row - 1, rowArray.length)][col]
+                    + rowArray[mod(row - 1, rowArray.length)][mod(col + 1, rowArray[row].length)]
+                    + rowArray[row][mod(col - 1, rowArray[row].length)]
+                    + rowArray[row][mod(col + 1, rowArray[row].length)]
+                    + rowArray[mod(row + 1, rowArray.length)][mod(col - 1, rowArray[row].length)]
+                    + rowArray[mod(row + 1, rowArray.length)][col]
+                    + rowArray[mod(row + 1, rowArray.length)][mod(col + 1, rowArray[row].length)]) {
                     case 2:
                         // Stay alive
                         break;
@@ -46,7 +46,7 @@ function playInfinitySpillV4() {
                         break;
                     default:
                         // Dead
-                        changedArray.push([i, j]);
+                        changedArray.push([row, col]);
                 }
             }
         }
