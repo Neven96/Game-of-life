@@ -10,6 +10,7 @@ function populateSpill() {
     let rowArray = arrayObjects.getRowArray;
 
     let percentageAlive = document.getElementById("prosent").value;
+    // Sets a min and max percentage, just to not break the game
     if (percentageAlive <= 0) {
         percentageAlive = 10;
     } else if (percentageAlive >= 50) {
@@ -17,15 +18,13 @@ function populateSpill() {
     }
 
     // Randomly populates the board with cells, depending on the percentage of alive chosen
-    // randNum gives an integer from 1 to 100/percent, if it's 1 it is alive else it is dead
+    // randNum gives an integer from 1 to 100/percent, if it's 1 it's alive, else it's dead
     for (var i = 0; i < rowArray.length; i++) {
         for (var j = 0; j < rowArray[i].length; j++) {
             let randNum = Math.floor((Math.random() * (100 / percentageAlive)) + 1);
             if (randNum <= 1) {
                 rowArray[i][j] = 1;
-            } else {
-                rowArray[i][j] = 0;
-            }
+            } 
         }
     }
 

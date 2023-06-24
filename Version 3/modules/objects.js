@@ -117,6 +117,7 @@ const typeObjects = {
     equalOnce: false,
 
     // TypeLevel
+    // TypeLevel: 1 means pre-populated game, TypeLevel: 2 means drawing on the board 
     get getTypeLevel() {
         return this.typeLevel;
     },
@@ -129,6 +130,7 @@ const typeObjects = {
     },
 
     // TypeSpill
+    // TypeSpill: 1 means boxed game with set borders, TypeSpill: 2 means game with looping borders
     get getTypeSpill() {
         return this.typeSpill;
     },

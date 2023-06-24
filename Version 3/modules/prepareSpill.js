@@ -28,10 +28,12 @@ function prepareSpill() {
 
     let aliveCell = document.getElementsByClassName("aliveCell");
 
+    // Empties the list of latest generations of alive cells
     for (let i = 0; i < aliveCell.length; i++) {
         aliveCell[i].textContent = "";
     }
 
+    // Creates an empty array of the board size
     for (var i = 0; i <= bane.height / (cell.getRectSize); i++) {
         columnArray = [];
         for (var j = 0; j <= bane.width / (cell.getRectSize); j++) {
@@ -43,19 +45,18 @@ function prepareSpill() {
     arrayObjects.setRowArray = rowArray;
 
     if (typeSpill === 1) {
-        populateSpill();
         typeObjects.setDrawable = false;
-
+        populateSpill();
+        
         document.getElementById("populateSpan").textContent = "Repopulate";
         document.getElementById("drawSpan").textContent = "Draw";
     } else if (typeSpill === 2) {
         typeObjects.setDrawable = true;
+        drawSpill();
 
         document.getElementById("populateSpan").textContent = "Populate";
         document.getElementById("drawSpan").textContent = "Redraw";
     }
-
-    drawSpill();
 
     document.getElementById("pauseKnapp").style.display = "none";
     document.getElementById("playBoxedKnapp").style.display = "initial";

@@ -21,6 +21,7 @@ function paintLevel(bane, event) {
         let x_array_index = x_true / (cell.getRectSize);
         let y_array_index = y_true / (cell.getRectSize);
 
+        // If the cell is empty, change it to drawn, if it is already drawn on, change to empty
         if (rowArray[y_array_index][x_array_index] == 0) {
             rowArray[y_array_index][x_array_index] = 1;
         } else if (rowArray[y_array_index][x_array_index] == 1) {

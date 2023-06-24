@@ -14,7 +14,7 @@ function playInfinitySpillV4() {
 
     for (var row = 0; row < rowArray.length; row++) {
         for (var col = 0; col < rowArray[row].length; col++) {
-            // Checks dead cells for the number of neighbours
+            // Checks dead cells for the number of alive neighbours
             if (rowArray[row][col] == 0) {
                 switch (rowArray[mod(row - 1, rowArray.length)][mod(col - 1, rowArray[row].length)]
                     + rowArray[mod(row - 1, rowArray.length)][col]
@@ -29,7 +29,7 @@ function playInfinitySpillV4() {
                         changedArray.push([row, col]);
                 }
             } else if (rowArray[row][col] == 1) {
-                // Checks alive cells for number of neighbours
+                // Checks alive cells for number of alive neighbours
                 switch (rowArray[mod(row - 1, rowArray.length)][mod(col - 1, rowArray[row].length)]
                     + rowArray[mod(row - 1, rowArray.length)][col]
                     + rowArray[mod(row - 1, rowArray.length)][mod(col + 1, rowArray[row].length)]

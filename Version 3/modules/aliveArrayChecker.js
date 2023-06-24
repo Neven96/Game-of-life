@@ -11,6 +11,7 @@ function aliveArrayChecker() {
     let aliveCount = aliveCountObject.countAlives(arrayObjects.getRowArray);
     let aliveArray = aliveCountObject.createArray(aliveCount);
 
+    // Adds the number of alive cells to the latest generations table
     for (let i = 0; i < aliveArray.length; i++) {
         document.getElementById("aliveCell" + i).textContent = aliveArray[i];
     }
