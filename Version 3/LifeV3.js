@@ -3,17 +3,20 @@ import { selectSpeed } from "./modules/selectSpeed.js";
 import { paintLevel } from "./modules/paintLevel.js";
 import { prepareSpill } from "./modules/prepareSpill.js";
 import { startSpill } from "./modules/startSpill.js";
+import { prepareBoard } from "./modules/prepareBoard.js";
 
 document.addEventListener("DOMContentLoaded", domLoaded, false);
 function domLoaded() {
-  // Used to show the speed name at the start
-  selectSpeed();
-
   // Gets the canvas and its context
   canvasObject.setBane = document.getElementById("bane");
   const bane = canvasObject.getBane;
 
   canvasObject.setInnhold = bane.getContext("2d");
+
+  // Used to show the speed name at the start
+  selectSpeed();
+  // Sets the board to show the cells at start
+  prepareBoard();
 
   // Buttons and their actions
   // Readies a pre-populated game board

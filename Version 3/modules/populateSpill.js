@@ -24,9 +24,13 @@ function populateSpill() {
             let randNum = Math.floor((Math.random() * (100 / percentageAlive)) + 1);
             if (randNum <= 1) {
                 rowArray[i][j] = 1;
-            } 
+            } else {
+                rowArray[i][j] = 0;
+            }
         }
     }
+
+    arrayObjects.setRowArray = rowArray;
 
     drawSpill();
 }
