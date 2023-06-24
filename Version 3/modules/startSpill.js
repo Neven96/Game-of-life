@@ -2,7 +2,8 @@ const myHeaders = new Headers();
 
 myHeaders.set("Access-Control-Allow-Origin", "*");
 
-import { typeObjects, pauseObject } from "./objects.js";
+import { typeObjects } from "./objects.js";
+import { pauseObject } from "./pauseSpill.js";
 
 // Starts the game
 function startSpill() {

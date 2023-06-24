@@ -1,9 +1,10 @@
-import { canvasObject, typeObjects, pauseObject } from "./modules/objects.js";
+import { canvasObject, typeObjects } from "./modules/objects.js";
 import { selectSpeed } from "./modules/selectSpeed.js";
 import { paintLevel } from "./modules/paintLevel.js";
 import { prepareSpill } from "./modules/prepareSpill.js";
 import { startSpill } from "./modules/startSpill.js";
 import { prepareBoard } from "./modules/prepareBoard.js";
+import { pauseObject } from "./modules/pauseSpill.js";
 
 document.addEventListener("DOMContentLoaded", domLoaded, false);
 function domLoaded() {
@@ -49,7 +50,7 @@ function domLoaded() {
   };
 
   // Gets the game speed form user input
-  document.getElementById("fart").onchange = function () { 
+  document.getElementById("speed").onchange = function () { 
     selectSpeed();
   };
 

@@ -2,9 +2,10 @@ const myHeaders = new Headers();
 
 myHeaders.set("Access-Control-Allow-Origin", "*");
 
-import { arrayObjects, typeObjects, generationsObject, aliveCountObject, pauseObject } from "./objects.js";
+import { arrayObjects, typeObjects, generationsObject, aliveCountObject } from "./objects.js";
 import { populateSpill } from "./populateSpill.js";
 import { prepareBoard } from "./prepareBoard.js";
+import { pauseObject } from "./pauseSpill.js";
 
 // Creates board and chooses gametype
 function prepareSpill() {

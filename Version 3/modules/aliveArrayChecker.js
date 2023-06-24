@@ -2,7 +2,8 @@ const myHeaders = new Headers();
 
 myHeaders.set("Access-Control-Allow-Origin", "*");
 
-import { typeObjects, generationsObject, aliveCountObject, pauseObject, arrayObjects } from "./objects.js";
+import { typeObjects, generationsObject, aliveCountObject, arrayObjects } from "./objects.js";
+import { pauseObject } from "./pauseSpill.js";
 
 // Function for updating the list of previous generations, and checking if life is dead or stabilized
 function aliveArrayChecker() { 
@@ -18,15 +19,15 @@ function aliveArrayChecker() {
 
     let stabilizedSpan = document.getElementById("stabilizedSpan");
 
-    if (!typeObjects.getEqualOnce) {
-        // Checks if the aliveCount is 0, which means that no cells are alive and none can be created
-        if (aliveCount === 0) {
-            stabilizedSpan.style.color = "red";
-            stabilizedSpan.textContent = "Life is dead"
-            typeObjects.setEqualOnce = true;
-            pauseObject.pauseSpill();
-        }
+    // Checks if the aliveCount is 0, which means that no cells are alive and none can be created
+    if (aliveCount === 0) {
+        stabilizedSpan.style.color = "red";
+        stabilizedSpan.textContent = "Life is dead"
+        typeObjects.setEqualOnce = true;
+        pauseObject.pauseSpill();
+    }
 
+    if (!typeObjects.getEqualOnce) {
         if (aliveArray.length >= 20) {
             // Checks if all elements in the array are equal, returns boolean
             let equal = aliveArray.every((val, ind, arr) => val === arr[0]);

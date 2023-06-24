@@ -6,7 +6,7 @@ import { speedObject } from "./objects.js";
 
 //Changes gamespeed
 function selectSpeed() {
-    let gameSpeed = document.getElementById("fart").value;
+    let gameSpeed = document.getElementById("speed").value;
     let speedName;
     let speed;
     gameSpeed = parseInt(gameSpeed);

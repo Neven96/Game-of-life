@@ -9,7 +9,7 @@ import { drawSpill } from "./drawSpill.js";
 function populateSpill() {
     let rowArray = arrayObjects.getRowArray;
 
-    let percentageAlive = document.getElementById("prosent").value;
+    let percentageAlive = document.getElementById("percent").value;
     // Sets a min and max percentage, just to not break the game
     if (percentageAlive <= 0) {
         percentageAlive = 10;
