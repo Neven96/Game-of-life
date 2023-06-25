@@ -19,7 +19,7 @@ function prepareGame() {
     arrayObjects.setChangedArray = [];
     aliveCountObject.setAliveArray = [];
 
-    let typeSpill = typeObjects.getTypeSpill;
+    let typeGame = typeObjects.getTypeGame;
 
     let aliveCell = document.getElementsByClassName("aliveCell");
 
@@ -28,13 +28,13 @@ function prepareGame() {
         aliveCell[i].textContent = "";
     }
 
-    if (typeSpill === 1) {
+    if (typeGame === 1) {
         typeObjects.setDrawable = false;
         populateGame();
         
         document.getElementById("populateSpan").textContent = "Repopulate";
         document.getElementById("drawSpan").textContent = "Draw";
-    } else if (typeSpill === 2) {
+    } else if (typeGame === 2) {
         typeObjects.setDrawable = true;
         prepareBoard();
 

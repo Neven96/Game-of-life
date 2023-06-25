@@ -34,29 +34,29 @@ const cell = new Cell(8, 7, "#0000FF", "#D3D3D3");
 
 // The object for storing data about the canvas
 const canvasObject = {
-    bane: "",
-    innhold: "",
+    board: "",
+    content: "",
 
-    get getBane() {
-        return this.bane;
+    get getBoard() {
+        return this.board;
     },
 
     /**
-     * @param {HTMLElement | null} bane
+     * @param {HTMLElement | null} board
      */
-    set setBane(bane) {
-        this.bane = bane;
+    set setBoard(board) {
+        this.board = board;
     },
 
-    get getInnhold() {
-        return this.innhold;
+    get getContent() {
+        return this.content;
     },
 
     /**
-     * @param {any} innhold
+     * @param {any} content
      */
-    set setInnhold(innhold) {
-        this.innhold = innhold;
+    set setContent(content) {
+        this.content = content;
     }
 };
 
@@ -109,7 +109,7 @@ const speedObject = {
 // Sets the type of level, type of game, if the board is drawable, if the game has started, and if the game is stabilized
 const typeObjects = {
     typeLevel: 1,
-    typeSpill: 1,
+    typeGame: 1,
     drawable: false,
     started: false,
     equalOnce: false,
@@ -127,17 +127,17 @@ const typeObjects = {
         this.typeLevel = typeLevel;
     },
 
-    // TypeSpill
-    // TypeSpill: 1 means boxed game with set borders, TypeSpill: 2 means game with looping borders
-    get getTypeSpill() {
-        return this.typeSpill;
+    // TypeGame
+    // TypeGame: 1 means boxed game with set borders, TypeGame: 2 means game with looping borders
+    get getTypeGame() {
+        return this.typeGame;
     },
 
     /**
-     * @param {number} typeSpill
+     * @param {number} typeGame
      */
-    set setTypeSpill(typeSpill) {
-        this.typeSpill = typeSpill;
+    set setTypeGame(typeGame) {
+        this.typeGame = typeGame;
     },
 
     // Drawable

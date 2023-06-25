@@ -6,11 +6,11 @@ import { cell, typeObjects, arrayObjects } from "./objects.js";
 import { drawGame } from "./drawGame.js";
 
 //Allows painting on grid
-function paintLevel(bane, event) {
+function paintLevel(board, event) {
     let rowArray = arrayObjects.getRowArray;
 
     if (typeObjects.getDrawable) {
-        const rect = bane.getBoundingClientRect();
+        const rect = board.getBoundingClientRect();
         // Finds the x and y coordinates of the board
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
