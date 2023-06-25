@@ -1,5 +1,6 @@
 # Game-of-life
 
+- A version of Conway's Game of Life
 - Game is best viewed on 4K+ screens, so either use it on that or zoom out
 
 
