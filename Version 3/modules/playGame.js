@@ -6,7 +6,7 @@ import { isPaused } from "./isPaused.js";
 import { speedObject, typeObjects, arrayObjects } from "./objects.js";
 
 //Runs the game
-function spilleSpill() {
+function playGame() {
     arrayObjects.setChangedArray = [];
     let speed = speedObject.getSpeed;
 
@@ -15,4 +15,4 @@ function spilleSpill() {
     }
 }
 
-export {spilleSpill};
+export {playGame};

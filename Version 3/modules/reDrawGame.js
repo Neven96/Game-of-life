@@ -6,7 +6,7 @@ import { aliveArrayChecker } from "./aliveArrayChecker.js";
 import { cell, arrayObjects} from "./objects.js";
 
 // Redraws only the risen/killed cells, reducing the time per round drastically
-function reDrawSpill() {
+function reDrawGame() {
     const bane = document.getElementById("bane");
     const innhold = bane.getContext("2d");
 
@@ -32,4 +32,4 @@ function reDrawSpill() {
     aliveArrayChecker();
 }
 
-export {reDrawSpill};
+export {reDrawGame};

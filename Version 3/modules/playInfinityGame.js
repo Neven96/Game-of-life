@@ -3,12 +3,12 @@ const myHeaders = new Headers();
 myHeaders.set("Access-Control-Allow-Origin", "*");
 
 import { arrayObjects } from "./objects.js";
-import { reDrawSpill } from "./reDrawSpill.js";
-import { spilleSpill } from "./spilleSpill.js";
+import { reDrawGame } from "./reDrawGame.js";
+import { playGame } from "./playGame.js";
 import { mod } from "./modulo.js";
 
 // Without borders, new render, much faster than every other
-function playInfinitySpillV4() {
+function playInfinityGame() {
     let rowArray = arrayObjects.getRowArray;
     let changedArray = arrayObjects.getChangedArray;
 
@@ -54,8 +54,8 @@ function playInfinitySpillV4() {
 
     arrayObjects.setChangedArray = changedArray;
 
-    reDrawSpill();
-    spilleSpill();
+    reDrawGame();
+    playGame();
 }
 
-export { playInfinitySpillV4 };
+export { playInfinityGame };

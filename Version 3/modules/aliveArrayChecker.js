@@ -3,7 +3,7 @@ const myHeaders = new Headers();
 myHeaders.set("Access-Control-Allow-Origin", "*");
 
 import { typeObjects, generationsObject, aliveCountObject, arrayObjects } from "./objects.js";
-import { pauseObject } from "./pauseSpill.js";
+import { pauseObject } from "./pauseGame.js";
 
 // Function for updating the list of previous generations, and checking if life is dead or stabilized
 function aliveArrayChecker() { 
@@ -24,7 +24,7 @@ function aliveArrayChecker() {
         stabilizedSpan.style.color = "red";
         stabilizedSpan.textContent = "Life is dead"
         typeObjects.setEqualOnce = true;
-        pauseObject.pauseSpill();
+        pauseObject.pauseGame();
     }
 
     if (!typeObjects.getEqualOnce) {
@@ -35,7 +35,7 @@ function aliveArrayChecker() {
                 stabilizedSpan.style.color = "green";
                 stabilizedSpan.textContent = "Life is stabilized"
                 typeObjects.setEqualOnce = true;
-                pauseObject.pauseSpill();
+                pauseObject.pauseGame();
             }
         }
     }

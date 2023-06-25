@@ -3,13 +3,13 @@ const myHeaders = new Headers();
 myHeaders.set("Access-Control-Allow-Origin", "*");
 
 import { arrayObjects } from "./objects.js";
-import { drawSpill } from "./drawSpill.js";
+import { drawGame } from "./drawGame.js";
 
 // Populates the board randomly
-function populateSpill() {
+function populateGame() {
     let rowArray = arrayObjects.getRowArray;
 
-    let percentageAlive = document.getElementById("percent").value;
+    let percentageAlive = document.getElementById("lifePercent").value;
     // Sets a min and max percentage, just to not break the game
     if (percentageAlive <= 0) {
         percentageAlive = 10;
@@ -32,7 +32,7 @@ function populateSpill() {
 
     arrayObjects.setRowArray = rowArray;
 
-    drawSpill();
+    drawGame();
 }
 
-export { populateSpill };
+export { populateGame };

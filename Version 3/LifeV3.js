@@ -1,10 +1,10 @@
 import { canvasObject, typeObjects } from "./modules/objects.js";
 import { selectSpeed } from "./modules/selectSpeed.js";
 import { paintLevel } from "./modules/paintLevel.js";
-import { prepareSpill } from "./modules/prepareSpill.js";
-import { startSpill } from "./modules/startSpill.js";
+import { prepareGame } from "./modules/prepareGame.js";
+import { startGame } from "./modules/startGame.js";
 import { prepareBoard } from "./modules/prepareBoard.js";
-import { pauseObject } from "./modules/pauseSpill.js";
+import { pauseObject } from "./modules/pauseGame.js";
 
 document.addEventListener("DOMContentLoaded", domLoaded, false);
 function domLoaded() {
@@ -23,30 +23,30 @@ function domLoaded() {
   // Readies a pre-populated game board
   document.getElementById("populateKnapp").onclick = function() {
     typeObjects.setTypeSpill = 1;
-    prepareSpill();
+    prepareGame();
   };
 
   // Readies the board for drawing 
   document.getElementById("drawKnapp").onclick = function() {
     typeObjects.setTypeSpill = 2;
-    prepareSpill();
+    prepareGame();
   };
 
   // Starts a game confied to the size of the board
   document.getElementById("playBoxedKnapp").onclick = function () { 
     typeObjects.setTypeLevel = 1;
-    startSpill();
+    startGame();
   };
 
   // Starts a game where the borders loop around
   document.getElementById("playInfinityKnapp").onclick = function () { 
     typeObjects.setTypeLevel = 2;
-    startSpill();
+    startGame();
   };
 
   // Pauses the game
   document.getElementById("pauseKnapp").onclick = function () { 
-    pauseObject.pauseSpill();
+    pauseObject.pauseGame();
   };
 
   // Gets the game speed form user input

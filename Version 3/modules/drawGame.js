@@ -5,7 +5,7 @@ myHeaders.set("Access-Control-Allow-Origin", "*");
 import { cell, canvasObject, arrayObjects, generationsObject, aliveCountObject  } from "./objects.js";
 
 //Draws the level and fills in the alive cells
-function drawSpill() {
+function drawGame() {
     let rowArray = arrayObjects.getRowArray;
     let innhold = canvasObject.getInnhold;
 
@@ -29,4 +29,4 @@ function drawSpill() {
     document.getElementById("aliveSpan").textContent = aliveCount;
 }
 
-export { drawSpill };
+export { drawGame };

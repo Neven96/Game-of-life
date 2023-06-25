@@ -2,8 +2,7 @@ const myHeaders = new Headers();
 
 myHeaders.set("Access-Control-Allow-Origin", "*");
 
-import { typeObjects } from "./objects.js";
-import { spilleSpill } from "./spilleSpill.js";
+import { playGame } from "./playGame.js";
 
 // Stores the value of pause in an object for easier access and storage
 const pauseObject = {
@@ -21,7 +20,7 @@ const pauseObject = {
     },
 
     //Pauses/unpauses the game
-    pauseSpill() {
+    pauseGame() {
         if (!this.pause) {
 
             this.pause = true;
@@ -31,8 +30,7 @@ const pauseObject = {
 
             this.pause = false;
 
-            let typeLevel = typeObjects.getTypeLevel;
-            spilleSpill(typeLevel);
+            playGame();
 
             document.getElementById("pauseSpan").textContent = "Pause";
         }

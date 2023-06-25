@@ -3,12 +3,12 @@ const myHeaders = new Headers();
 myHeaders.set("Access-Control-Allow-Origin", "*");
 
 import { arrayObjects, typeObjects, generationsObject, aliveCountObject } from "./objects.js";
-import { populateSpill } from "./populateSpill.js";
+import { populateGame } from "./populateGame.js";
 import { prepareBoard } from "./prepareBoard.js";
-import { pauseObject } from "./pauseSpill.js";
+import { pauseObject } from "./pauseGame.js";
 
 // Creates board and chooses gametype
-function prepareSpill() {
+function prepareGame() {
     generationsObject.setGenerations = 0;
     aliveCountObject.setAliveCount = 0;
 
@@ -30,7 +30,7 @@ function prepareSpill() {
 
     if (typeSpill === 1) {
         typeObjects.setDrawable = false;
-        populateSpill();
+        populateGame();
         
         document.getElementById("populateSpan").textContent = "Repopulate";
         document.getElementById("drawSpan").textContent = "Draw";
@@ -48,4 +48,4 @@ function prepareSpill() {
     document.getElementById("stabilizedSpan").textContent = "";
 }
 
-export { prepareSpill };
+export { prepareGame };

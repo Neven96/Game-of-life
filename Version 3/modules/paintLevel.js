@@ -3,7 +3,7 @@ const myHeaders = new Headers();
 myHeaders.set("Access-Control-Allow-Origin", "*");
 
 import { cell, typeObjects, arrayObjects } from "./objects.js";
-import { drawSpill } from "./drawSpill.js";
+import { drawGame } from "./drawGame.js";
 
 //Allows painting on grid
 function paintLevel(bane, event) {
@@ -27,7 +27,7 @@ function paintLevel(bane, event) {
         } else if (rowArray[y_array_index][x_array_index] == 1) {
             rowArray[y_array_index][x_array_index] = 0;
         }
-        drawSpill();
+        drawGame();
     }
 }
 

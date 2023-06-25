@@ -3,7 +3,7 @@ const myHeaders = new Headers();
 myHeaders.set("Access-Control-Allow-Origin", "*");
 
 import { cell, canvasObject, arrayObjects } from "./objects.js";
-import { drawSpill } from "./drawSpill.js";
+import { drawGame } from "./drawGame.js";
 
 // Creates an empty board ready for use
 function prepareBoard() {
@@ -23,7 +23,7 @@ function prepareBoard() {
 
     arrayObjects.setRowArray = rowArray;
 
-    drawSpill();
+    drawGame();
 }
 
 export { prepareBoard };
