@@ -9,12 +9,10 @@ import { pauseObject } from "./pauseGame.js";
 
 // Checks if game is paused after a new generation has been started and pauses it
 function isPaused() {
-    let typeLevel = typeObjects.getTypeLevel;
-
     if (!pauseObject.getPause) {
-        if (typeLevel === 1) {
+        if (typeObjects.getTypeLevel === 1) {
             playBoxedGame();
-        } else if (typeLevel === 2) {
+        } else if (typeObjects.getTypeLevel === 2) {
             playInfinityGame();
         }
     }

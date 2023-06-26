@@ -7,7 +7,6 @@ import { pauseObject } from "./pauseGame.js";
 
 // Starts the game
 function startGame() {
-
     typeObjects.setStarted = true;
     typeObjects.setDrawable = false;
 

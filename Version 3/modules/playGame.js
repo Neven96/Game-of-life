@@ -8,10 +8,9 @@ import { speedObject, typeObjects, arrayObjects } from "./objects.js";
 //Runs the game
 function playGame() {
     arrayObjects.setChangedArray = [];
-    let speed = speedObject.getSpeed;
 
     if (typeObjects.getStarted) {
-        setTimeout(isPaused, speed);
+        setTimeout(isPaused, speedObject.getSpeed);
     }
 }
 

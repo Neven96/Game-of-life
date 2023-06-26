@@ -11,12 +11,12 @@ function drawGame() {
 
     for (var i = 0; i < rowArray.length; i++) {
         for (var j = 0; j < rowArray[i].length; j++) {
-            // If the cell is alive
             if (rowArray[i][j] == 1) {
+                // If the cell is alive
                 content.fillStyle = cell.getCellColor;
                 content.fillRect(j * cell.getRectSize, i * cell.getRectSize, cell.getCellSize, cell.getCellSize);
-                // If the cell is alive
             } else {
+                // If the cell is dead
                 content.fillStyle = cell.getBackgroundColor;
                 content.fillRect(j * cell.getRectSize, i * cell.getRectSize, cell.getCellSize, cell.getCellSize);
             }
