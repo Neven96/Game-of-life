@@ -14,11 +14,11 @@ function drawGame() {
             // If the cell is alive
             if (rowArray[i][j] == 1) {
                 content.fillStyle = cell.getCellColor;
-                content.fillRect(j * cell.getRectSize, i * cell.getRectSize, cell.getCubeSize, cell.getCubeSize);
+                content.fillRect(j * cell.getRectSize, i * cell.getRectSize, cell.getCellSize, cell.getCellSize);
                 // If the cell is alive
             } else {
                 content.fillStyle = cell.getBackgroundColor;
-                content.fillRect(j * cell.getRectSize, i * cell.getRectSize, cell.getCubeSize, cell.getCubeSize);
+                content.fillRect(j * cell.getRectSize, i * cell.getRectSize, cell.getCellSize, cell.getCellSize);
             }
         }
     }

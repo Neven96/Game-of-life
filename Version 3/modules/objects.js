@@ -5,9 +5,9 @@ myHeaders.set("Access-Control-Allow-Origin", "*");
 // OBJECTS
 // Stores all size and colors of the cell
 class Cell {
-    constructor(rectSize, cubeSize, cellColor, backgroundColor) {
+    constructor(rectSize, cellSize, cellColor, backgroundColor) {
         this.rectSize = rectSize;
-        this.cubeSize = cubeSize;
+        this.cellSize = cellSize;
         this.cellColor = cellColor;
         this.backgroundColor = backgroundColor;
     }
@@ -16,8 +16,8 @@ class Cell {
         return this.rectSize;
     }
 
-    get getCubeSize() {
-        return this.cubeSize;
+    get getCellSize() {
+        return this.cellSize;
     }
 
     get getCellColor() {
@@ -30,7 +30,7 @@ class Cell {
 };
 
 // Object for cell size and colors
-const cell = new Cell(8, 7, "#0000FF", "#D3D3D3");
+const cell = new Cell(8, 7, "#2C3E4C", "#FFFFFF");
 
 // The object for storing data about the canvas
 const canvasObject = {
