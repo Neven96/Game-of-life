@@ -12,7 +12,7 @@ function reDrawGame() {
     let rowArray = arrayObjects.getRowArray;
     let changedArray = arrayObjects.getChangedArray;
 
-    for (var i = 0; i < changedArray.length; i++) {
+    for (let i = 0; i < changedArray.length; i++) {
         // If the cell was alive, but is now dead
         if (rowArray[changedArray[i][0]][changedArray[i][1]] == 1) {
             content.fillStyle = cell.getBackgroundColor;

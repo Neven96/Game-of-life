@@ -11,9 +11,9 @@ function prepareBoard() {
     let board = canvasObject.getBoard;
 
     // Creates an empty array of the board size
-    for (var i = 0; i <= board.height / (cell.getRectSize); i++) {
+    for (let i = 0; i <= board.height / (cell.getRectSize); i++) {
         let columnArray = [];
-        for (var j = 0; j <= board.width / (cell.getRectSize); j++) {
+        for (let j = 0; j <= board.width / (cell.getRectSize); j++) {
             columnArray[j] = 0;
         }
         rowArray[i] = columnArray;

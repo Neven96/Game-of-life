@@ -12,8 +12,8 @@ function playInfinityGame() {
     let rowArray = arrayObjects.getRowArray;
     let changedArray = arrayObjects.getChangedArray;
 
-    for (var row = 0; row < rowArray.length; row++) {
-        for (var col = 0; col < rowArray[row].length; col++) {
+    for (let row = 0; row < rowArray.length; row++) {
+        for (let col = 0; col < rowArray[row].length; col++) {
             // Checks dead cells for the number of alive neighbours
             if (rowArray[row][col] == 0) {
                 switch (rowArray[mod(row - 1, rowArray.length)][mod(col - 1, rowArray[row].length)]

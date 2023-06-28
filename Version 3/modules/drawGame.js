@@ -8,9 +8,9 @@ import { cell, canvasObject, arrayObjects, generationsObject, aliveCountObject  
 function drawGame() {
     let rowArray = arrayObjects.getRowArray;
     let content = canvasObject.getContent;
-
-    for (var i = 0; i < rowArray.length; i++) {
-        for (var j = 0; j < rowArray[i].length; j++) {
+    
+    for (let i = 0; i < rowArray.length; i++) {
+        for (let j = 0; j < rowArray[i].length; j++) {
             if (rowArray[i][j] == 1) {
                 // If the cell is alive
                 content.fillStyle = cell.getCellColor;
