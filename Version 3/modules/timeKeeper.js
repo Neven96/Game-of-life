@@ -1,6 +1,4 @@
-const myHeaders = new Headers();
-
-myHeaders.set("Access-Control-Allow-Origin", "*");
+import { myHeaders } from "./header.js";
 
 // For measuring the speed of various functions
 const timeKeeper = {

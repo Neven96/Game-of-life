@@ -1,6 +1,4 @@
-const myHeaders = new Headers();
-
-myHeaders.set("Access-Control-Allow-Origin", "*");
+import { myHeaders } from "./header.js";
 
 // OBJECTS
 // Stores all size and colors of the cell

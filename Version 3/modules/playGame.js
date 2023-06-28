@@ -1,7 +1,4 @@
-const myHeaders = new Headers();
-
-myHeaders.set("Access-Control-Allow-Origin", "*");
-
+import { myHeaders } from "./header.js";
 import { isPaused } from "./isPaused.js";
 import { speedObject, typeObjects, arrayObjects } from "./objects.js";
 

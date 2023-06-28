@@ -1,7 +1,4 @@
-const myHeaders = new Headers();
-
-myHeaders.set("Access-Control-Allow-Origin", "*");
-
+import { myHeaders } from "./header.js";
 import { playGame } from "./playGame.js";
 
 // Stores the value of pause in an object for easier access and storage

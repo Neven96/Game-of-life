@@ -1,7 +1,4 @@
-const myHeaders = new Headers();
-
-myHeaders.set("Access-Control-Allow-Origin", "*");
-
+import { myHeaders } from "./header.js";
 import { arrayObjects, typeObjects, generationsObject, aliveCountObject } from "./objects.js";
 import { populateGame } from "./populateGame.js";
 import { prepareBoard } from "./prepareBoard.js";

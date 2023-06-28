@@ -1,6 +1,4 @@
-const myHeaders = new Headers();
-
-myHeaders.set("Access-Control-Allow-Origin", "*");
+import { myHeaders } from "./header.js";
 
 // Proper modulo function for JavaScript
 function mod(n, m) {

@@ -1,7 +1,4 @@
-const myHeaders = new Headers();
-
-myHeaders.set("Access-Control-Allow-Origin", "*");
-
+import { myHeaders } from "./header.js";
 import { aliveArrayChecker } from "./aliveArrayChecker.js";
 import { cell, canvasObject, arrayObjects} from "./objects.js";
 

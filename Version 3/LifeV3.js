@@ -1,3 +1,4 @@
+import { myHeaders } from "./modules/header.js";
 import { canvasObject, typeObjects } from "./modules/objects.js";
 import { selectSpeed } from "./modules/selectSpeed.js";
 import { paintLevel } from "./modules/paintLevel.js";
