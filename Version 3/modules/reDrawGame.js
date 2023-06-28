@@ -7,7 +7,7 @@ import { cell, canvasObject, arrayObjects} from "./objects.js";
 
 // Redraws only the risen/killed cells, reducing the time per round drastically
 function reDrawGame() {
-    let content = canvasObject.getContent;
+    const content = canvasObject.getContent;
 
     let rowArray = arrayObjects.getRowArray;
     let changedArray = arrayObjects.getChangedArray;

@@ -8,7 +8,7 @@ import { drawGame } from "./drawGame.js";
 // Creates an empty board ready for use
 function prepareBoard() {
     let rowArray = arrayObjects.getRowArray;
-    let board = canvasObject.getBoard;
+    const board = canvasObject.getBoard;
 
     // Creates an empty array of the board size
     for (let i = 0; i <= board.height / (cell.getRectSize); i++) {

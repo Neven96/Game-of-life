@@ -7,7 +7,7 @@ import { cell, canvasObject, arrayObjects, generationsObject, aliveCountObject  
 //Draws the level and fills in the alive cells
 function drawGame() {
     let rowArray = arrayObjects.getRowArray;
-    let content = canvasObject.getContent;
+    const content = canvasObject.getContent;
     
     for (let i = 0; i < rowArray.length; i++) {
         for (let j = 0; j < rowArray[i].length; j++) {
