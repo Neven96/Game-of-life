@@ -45,7 +45,6 @@ table {
 }
 
 th {
-  display: block;
   font-size: 1.5em;
   margin-top: 0.83em;
   margin-bottom: 0.83em;
@@ -123,6 +122,26 @@ p {
   overflow: hidden;
   max-width: 500px;
   min-width: 150px;
+}
+
+.infoP {
+  display: block;
+  font-size: 1.5em;
+  margin-top: 0.83em;
+  margin-bottom: 0.83em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+
+.aliveCellTD {
+  font-size: 1.17em;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+  padding-top: 10px;
 }
 
 /* Button style thanks to: https://codepen.io/nuhmanpk/pen/XWqBrae */
