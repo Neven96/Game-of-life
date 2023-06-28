@@ -16,11 +16,12 @@
             <tbody>
               <tr>
                 <td><label for="lifePercent"><span class="textSpan">Life percentage</span></label></td>
-                <td><input type="number" id="lifePercent" name="lifePercent" value="5" size="3" min="1" max="50"></td>
+                <td><input type="number" id="lifePercent" class="numberInput" name="lifePercent" value="5" min="1" max="50"></td>
+                <td></td>
               </tr>
               <tr>
                 <td><label for="speed"><span class="textSpan">Game speed</span></label></td>
-                <td><input type="number" id="speed" name="speed" value="5" size="3" min="1" max="9"></td>
+                <td><input type="number" id="speed" class="numberInput" name="speed" value="5" min="1" max="9"></td>
                 <td class="speedName"><span id="speedOutSpan" class="textSpan">Normal</span></td>
               </tr>
             </tbody>
@@ -39,12 +40,14 @@
           <canvas id="board" class="board" width="1999" height="999"></canvas>
         </div>
         <div id="infoDiv" class="infoDiv">
-          <p id="generationsP" class="generationsP"><h2><span class="textSpan">Generations: </span><span id="generationsSpan" class="generationsSpan textSpan">0</span></h2></p>
-          <p id="aliveP" class="aliveP"><h2><span class="textSpan">Alive Cells: </span><span id="aliveSpan" class="aliveSpan textSpan">0</span></h2></p>
-          <p id="stabilizedP" class="stabilizedP"><h2><span id="stabilizedSpan" class="stabilizedSpan textSpan"></span></h2></p>
+          <h2 id="generationsP" class="generationsP"><span class="textSpan">Generations: </span><span id="generationsSpan" class="generationsSpan textSpan">0</span></h2>
+          <h2 id="aliveP" class="aliveP"><span class="textSpan">Alive Cells: </span><span id="aliveSpan" class="aliveSpan textSpan">0</span></h2>
+          <h2 id="stabilizedP" class="stabilizedP"><span id="stabilizedSpan" class="stabilizedSpan textSpan"></span></h2>
           <table>
             <thead>
-              <th colspan="2"><h2><span class="textSpan">Latest generations:</span></h2></th>
+              <tr>
+                <th colspan="2"><span class="textSpan">Latest generations:</span></th>
+              </tr>
             </thead>
             <tbody>
               <tr>
