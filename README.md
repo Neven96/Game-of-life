@@ -22,4 +22,4 @@
 - Has everything from Version 2
 - But now it's mostly modular
 - Many smaller, but more maneuverable files
-- Has mostly same UI as Version 2, but improved a few points
+- Has an even more improved UI
