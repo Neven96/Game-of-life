@@ -1,5 +1,4 @@
 import { myHeaders } from "./header.js";
-import { aliveArrayChecker } from "./aliveArrayChecker.js";
 import { cell, canvasObject, arrayObjects} from "./objects.js";
 
 // Redraws only the risen/killed cells, reducing the time per round drastically
@@ -24,8 +23,6 @@ function reDrawGame() {
     }
 
     arrayObjects.setRowArray = rowArray;
-
-    aliveArrayChecker();
 }
 
 export {reDrawGame};

@@ -261,4 +261,31 @@ const aliveCountObject = {
     }
 };
 
-export { Cell, cell, canvasObject, arrayObjects, speedObject, typeObjects, generationsObject, aliveCountObject };
+const paintObject = {
+    addPaint: false,
+    locked: false,
+
+    get getAddPaint() {
+        return this.addPaint;
+    },
+
+    /**
+     * @param {boolean} addPaint
+     */
+    set setAddPaint(addPaint) {
+        this.addPaint = addPaint;
+    },
+
+    get getLocked() {
+        return this.locked;
+    },
+
+    /**
+     * @param {boolean} locked
+     */
+    set setLocked(locked) {
+        this.locked = locked;
+    }  
+};
+
+export { Cell, cell, canvasObject, arrayObjects, speedObject, typeObjects, generationsObject, aliveCountObject, paintObject };

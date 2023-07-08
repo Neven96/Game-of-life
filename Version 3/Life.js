@@ -1,7 +1,7 @@
 import { myHeaders } from "./modules/header.js";
 import { canvasObject, typeObjects } from "./modules/objects.js";
 import { selectSpeed } from "./modules/selectSpeed.js";
-import { paintLevel } from "./modules/paintLevel.js";
+import { paintLevel, stopPainting } from "./modules/paintLevel.js";
 import { prepareGame } from "./modules/prepareGame.js";
 import { startGame } from "./modules/startGame.js";
 import { prepareBoard } from "./modules/prepareBoard.js";
@@ -55,8 +55,24 @@ function domLoaded() {
     selectSpeed();
   };
 
-  // Eventlistener for each time the board is clicked
-  board.addEventListener('click', function (event) {
-    paintLevel(board, event)
+  if (!typeObjects.getStarted) {
+    // Eventlistener for each time the board is clicked
+    board.addEventListener("mousedown", function (event) {
+      paintLevel(board, event)
+    });
+    board.addEventListener("mousemove", function (event) {
+      paintLevel(board, event)
+    });
+    board.addEventListener("mouseup", function (event) {
+      stopPainting(event)
+    });
+    board.addEventListener("mouseleave", function (event) {
+      stopPainting(event)
+    });
+  }
+  
+  // Allows to right-clicking the board without the meny popping up
+  board.addEventListener("contextmenu", (event) => {
+    event.preventDefault();
   });
 }

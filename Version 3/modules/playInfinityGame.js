@@ -2,6 +2,7 @@ import { myHeaders } from "./header.js";
 import { arrayObjects } from "./objects.js";
 import { reDrawGame } from "./reDrawGame.js";
 import { playGame } from "./playGame.js";
+import { aliveArrayChecker } from "./aliveArrayChecker.js";
 import { mod } from "./modulo.js";
 
 // Without borders, new render, much faster than every other
@@ -52,6 +53,7 @@ function playInfinityGame() {
     arrayObjects.setChangedArray = changedArray;
 
     reDrawGame();
+    aliveArrayChecker();
     playGame();
 }
 

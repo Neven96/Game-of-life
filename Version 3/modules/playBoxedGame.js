@@ -2,6 +2,7 @@ import { myHeaders } from "./header.js";
 import { arrayObjects } from "./objects.js";
 import { reDrawGame } from "./reDrawGame.js";
 import { playGame } from "./playGame.js";
+import { aliveArrayChecker } from "./aliveArrayChecker.js";
 
 // With borders
 function playBoxedGame() {
@@ -287,6 +288,7 @@ function playBoxedGame() {
     arrayObjects.setChangedArray = changedArray;
 
     reDrawGame();
+    aliveArrayChecker();
     playGame();
 }
 
