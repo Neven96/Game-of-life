@@ -9,6 +9,9 @@ function prepareGame() {
     generationsObject.setGenerations = 0;
     aliveCountObject.setAliveCount = 0;
 
+    document.getElementById("generationsSpan").textContent = generationsObject.getGenerations;
+    document.getElementById("aliveSpan").textContent = aliveCountObject.getAliveCount;
+
     typeObjects.setStarted = false;
     typeObjects.setEqualOnce = false;
     pauseObject.setPause = true;
@@ -25,6 +28,7 @@ function prepareGame() {
 
     if (typeObjects.getTypeGame === 1) {
         typeObjects.setDrawable = false;
+        prepareBoard();
         populateGame();
         
         document.getElementById("populateSpan").textContent = "Repopulate";

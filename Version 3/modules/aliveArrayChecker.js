@@ -38,7 +38,7 @@ function aliveArrayChecker() {
     }
 
     document.getElementById("generationsSpan").textContent = generationsObject.getGenerations;
-    document.getElementById("aliveSpan").textContent = aliveCount;    
+    document.getElementById("aliveSpan").textContent = aliveCount;
 }
 
 export { aliveArrayChecker };

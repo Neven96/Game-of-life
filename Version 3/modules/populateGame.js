@@ -1,10 +1,12 @@
 import { myHeaders } from "./header.js";
-import { arrayObjects } from "./objects.js";
-import { drawGame } from "./drawGame.js";
+import { arrayObjects, generationsObject, aliveCountObject } from "./objects.js";
+import { reDrawGame } from "./reDrawGame.js";
 
 // Populates the board randomly
 function populateGame() {
     let rowArray = arrayObjects.getRowArray;
+    arrayObjects.setChangedArray = [];
+    let changedArray = arrayObjects.getChangedArray;
 
     let percentageAlive = document.getElementById("lifePercent").value;
     // Sets a min and max percentage, just to not break the game
@@ -20,16 +22,19 @@ function populateGame() {
         for (let j = 0; j < rowArray[i].length; j++) {
             let randNum = Math.floor((Math.random() * (100 / percentageAlive)) + 1);
             if (randNum <= 1) {
-                rowArray[i][j] = 1;
-            } else {
-                rowArray[i][j] = 0;
+                changedArray.push([i, j])
             }
         }
     }
 
-    arrayObjects.setRowArray = rowArray;
+    arrayObjects.setChangedArray = changedArray;
 
-    drawGame();
+    reDrawGame();
+
+    let aliveCount = aliveCountObject.countAlives(arrayObjects.getRowArray);
+
+    document.getElementById("generationsSpan").textContent = generationsObject.getGenerations;
+    document.getElementById("aliveSpan").textContent = aliveCount;
 }
 
 export { populateGame };

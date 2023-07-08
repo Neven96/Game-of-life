@@ -1,6 +1,6 @@
-import { drawGame } from "./drawGame.js";
 import { myHeaders } from "./header.js";
-import { cell, typeObjects, arrayObjects, paintObject } from "./objects.js";
+import { cell, typeObjects, arrayObjects, generationsObject, aliveCountObject, paintObject } from "./objects.js";
+import { reDrawGame } from "./reDrawGame.js";
 
 //Allows painting on grid
 function paintLevel(board, event) {
@@ -21,24 +21,30 @@ function paintLevel(board, event) {
         let y_array_index = y_true / (cell.getRectSize);
 
         // Gives the ability to draw by holding down the mouse button
-        if (event.type === "mousedown" && rowArray[y_array_index][x_array_index] === 0 && !paintObject.getLocked) {
+        // Left click to draw, right click to delete
+        if (event.type === "mousedown" && event.buttons === 1) {
             paintObject.setAddPaint = true;
             paintObject.setLocked = true;
-            drawGame();
-        } else if (event.type === "mousedown" && rowArray[y_array_index][x_array_index] === 1 && !paintObject.getLocked) {
+        } else if (event.type === "mousedown" && event.buttons === 2) {
             paintObject.setAddPaint = false;
             paintObject.setLocked = true;
-            drawGame();
         }
 
-        // If the cell is empty, change it to drawn, if it is already drawn on, change to empty
+        // Checks if we are allowed to draw and then keeps drawing, only on the right cells
+        // The rowArray check is for not changedArray to not be called on the wrong cells
+        // ChangedArray doesn't care what status the cell has, it changes it either way
         if (paintObject.getAddPaint && paintObject.getLocked && rowArray[y_array_index][x_array_index] === 0) {
-            rowArray[y_array_index][x_array_index] = 1;
-            drawGame();
+            changedArray.push([y_array_index, x_array_index]);
         } else if (!paintObject.getAddPaint && paintObject.getLocked && rowArray[y_array_index][x_array_index] === 1) {
-            rowArray[y_array_index][x_array_index] = 0;
-            drawGame();
+            changedArray.push([y_array_index, x_array_index]);
         }
+
+        arrayObjects.setChangedArray = changedArray;
+
+        reDrawGame();
+
+        document.getElementById("generationsSpan").textContent = generationsObject.getGenerations;
+        document.getElementById("aliveSpan").textContent = aliveCountObject.countAlives(arrayObjects.getRowArray);
     }
 }
 
