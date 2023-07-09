@@ -4,8 +4,6 @@ import { pauseObject } from "./pauseGame.js";
 
 // Function for updating the list of previous generations, and checking if life is dead or stabilized
 function aliveArrayChecker() { 
-    generationsObject.increaseGenerations();
-
     let aliveCount = aliveCountObject.countAlives(arrayObjects.getRowArray);
     let aliveArray = aliveCountObject.addToAliveArray(aliveCount);
 
