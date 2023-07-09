@@ -35,3 +35,4 @@
 - Same as version 3, but minified for speed
 - A little faster loading
 - Probably will not be updated again
+- Run like version 3
