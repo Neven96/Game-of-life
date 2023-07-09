@@ -144,11 +144,7 @@ p {
   padding-top: 10px;
 }
 
-/* Button style thanks to: https://codepen.io/nuhmanpk/pen/XWqBrae */
-
-:root {
-    --clr: #0FF0FC;
-}
+/* Button style thanks to: https: //freefrontend.com/css-buttons/ & https: //codepen.io/nuhmanpk/pen/XWqBrae */
 
 button {
   position: relative;
@@ -164,8 +160,8 @@ button {
 }
 
 button:hover {
-  background: var(--clr);
-  color: var(--clr);
+  background: #0FF0FC;
+  color: #0FF0FC;
   animation: box 3s infinite;
 }
 
@@ -178,14 +174,14 @@ button::before {
 
 @keyframes box {
   0% {
-    box-shadow: #27272C;
+    box-shadow: 0 0 25px #27272C;
   }
 
   50% {
-    box-shadow: 0 0 25px var(--clr);
+    box-shadow: 0 0 25px #0FF0FC;
   }
 
   100% {
-    box-shadow: #27272C;
+    box-shadow: 0 0 25px #27272C;
   }
 }
