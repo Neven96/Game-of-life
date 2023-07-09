@@ -23,9 +23,15 @@
 - But now it's mostly modular
 - Many smaller, but more maneuverable files
 - Has an even more improved UI
+- Required to run on server, use either python:
+  - python -m http.server
+- or npm:
+  1. npm install http-server -g
+  2. http-server 
 
 
 ## Version 4
 
 - Same as version 3, but minified for speed
+- A little faster loading
 - Probably will not be updated again
