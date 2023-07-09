@@ -23,3 +23,9 @@
 - But now it's mostly modular
 - Many smaller, but more maneuverable files
 - Has an even more improved UI
+
+
+## Version 4
+
+- Same as version 3, but minified for speed
+- Probably will not be updated again
