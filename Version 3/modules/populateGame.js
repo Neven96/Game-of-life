@@ -1,5 +1,5 @@
 import { myHeaders } from "./header.js";
-import { arrayObjects, generationsObject, aliveCountObject } from "./objects.js";
+import { arrayObjects } from "./objects.js";
 import { reDrawGame } from "./reDrawGame.js";
 
 // Populates the board randomly
@@ -30,11 +30,6 @@ function populateGame() {
     arrayObjects.setChangedArray = changedArray;
 
     reDrawGame();
-
-    let aliveCount = aliveCountObject.countAlives(arrayObjects.getRowArray);
-
-    document.getElementById("generationsSpan").textContent = generationsObject.getGenerations;
-    document.getElementById("aliveSpan").textContent = aliveCount;
 }
 
 export { populateGame };

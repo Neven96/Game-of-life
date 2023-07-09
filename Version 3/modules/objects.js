@@ -249,7 +249,7 @@ const aliveCountObject = {
     },
 
     // Creates an array of the alive count of cells of the previous generations
-    createArray(aliveCount) {
+    addToAliveArray(aliveCount) {
         if (this.aliveArray.length < 20) {
             this.aliveArray.push(aliveCount);
         } else {
@@ -261,6 +261,7 @@ const aliveCountObject = {
     }
 };
 
+// Values for making painting and unpainting multiple cells possible
 const paintObject = {
     addPaint: false,
     locked: false,

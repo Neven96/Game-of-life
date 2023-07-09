@@ -1,5 +1,5 @@
 import { myHeaders } from "./header.js";
-import { cell, typeObjects, arrayObjects, generationsObject, aliveCountObject, paintObject } from "./objects.js";
+import { cell, typeObjects, arrayObjects, paintObject } from "./objects.js";
 import { reDrawGame } from "./reDrawGame.js";
 
 //Allows painting on grid
@@ -42,9 +42,6 @@ function paintLevel(board, event) {
         arrayObjects.setChangedArray = changedArray;
 
         reDrawGame();
-
-        document.getElementById("generationsSpan").textContent = generationsObject.getGenerations;
-        document.getElementById("aliveSpan").textContent = aliveCountObject.countAlives(arrayObjects.getRowArray);
     }
 }
 

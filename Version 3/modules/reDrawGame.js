@@ -1,5 +1,5 @@
 import { myHeaders } from "./header.js";
-import { cell, canvasObject, arrayObjects} from "./objects.js";
+import { cell, canvasObject, arrayObjects, generationsObject, aliveCountObject} from "./objects.js";
 
 // Redraws only the risen/killed cells, reducing the time per round drastically
 function reDrawGame() {
@@ -23,6 +23,10 @@ function reDrawGame() {
     }
 
     arrayObjects.setRowArray = rowArray;
+
+    // Updating the alive count and generations
+    document.getElementById("generationsSpan").textContent = generationsObject.getGenerations;
+    document.getElementById("aliveSpan").textContent = aliveCountObject.countAlives(rowArray);
 }
 
 export {reDrawGame};

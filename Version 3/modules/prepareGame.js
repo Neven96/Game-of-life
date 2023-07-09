@@ -37,6 +37,11 @@ function prepareGame() {
         typeObjects.setDrawable = true;
         prepareBoard();
 
+        let pencilArray = [" ", "pointer", "crosshair", "url('./images/pencil.cur'), auto", "url('./images/pencil.cur'), auto", "url('./images/pencil.cur'), auto"]
+        let randArrayNumb = Math.floor(Math.random() * pencilArray.length);
+
+        document.getElementById("board").style.cursor = pencilArray[randArrayNumb];
+
         document.getElementById("populateSpan").textContent = "Populate";
         document.getElementById("drawSpan").textContent = "Redraw";
     }

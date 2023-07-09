@@ -56,13 +56,14 @@ function domLoaded() {
   };
 
   if (!typeObjects.getStarted) {
-    // Eventlistener for each time the board is clicked
+    // Eventlisteners for painting on the board
     board.addEventListener("mousedown", function (event) {
       paintLevel(board, event)
     });
     board.addEventListener("mousemove", function (event) {
       paintLevel(board, event)
     });
+    // Eventlisteners for stopping painting on the board
     board.addEventListener("mouseup", function (event) {
       stopPainting(event)
     });
