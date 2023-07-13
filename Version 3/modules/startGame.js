@@ -7,6 +7,7 @@ function startGame() {
     typeObjects.setStarted = true;
     typeObjects.setDrawable = false;
 
+    // Fixes buttons to either disappear or appear
     document.getElementById("playBoxedKnapp").style.display = "none";
     document.getElementById("playInfinityKnapp").style.display = "none";
     document.getElementById("pauseKnapp").style.display = "initial";

@@ -37,7 +37,9 @@ function prepareGame() {
         typeObjects.setDrawable = true;
         prepareBoard();
 
-        let pencilArray = [" ", "pointer", "crosshair", "url('./images/pencil.cur'), auto", "url('./images/pencil.cur'), auto", "url('./images/pencil.cur'), auto"]
+        // Array of different pointers, will be given randomly on each click of the draw button
+        let pencilArray = [" ", "pointer", "crosshair", "url('./images/pencil.cur'), auto", 
+                           "url('./images/pencil2.cur'), auto", "url('./images/pencil3.cur'), auto"]
         let randArrayNumb = Math.floor(Math.random() * pencilArray.length);
 
         document.getElementById("board").style.cursor = pencilArray[randArrayNumb];

@@ -24,8 +24,10 @@ function aliveArrayChecker() {
 
     if (!typeObjects.getEqualOnce) {
         if (aliveArray.length >= 20) {
+
             // Checks if all elements in the array are equal, returns boolean
             let equal = aliveArray.every((val, ind, arr) => val === arr[0]);
+            
             if (equal) {
                 stabilizedSpan.style.color = "green";
                 stabilizedSpan.textContent = "Life is stabilized"

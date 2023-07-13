@@ -9,15 +9,23 @@ function reDrawGame() {
     let changedArray = arrayObjects.getChangedArray;
 
     for (let i = 0; i < changedArray.length; i++) {
+
         // If the cell was alive, but is now dead
         if (rowArray[changedArray[i][0]][changedArray[i][1]] == 1) {
             content.fillStyle = cell.getBackgroundColor;
-            content.fillRect(changedArray[i][1] * cell.getRectSize, changedArray[i][0] * cell.getRectSize, cell.getCellSize, cell.getCellSize);
+            content.fillRect(changedArray[i][1] * cell.getRectSize, changedArray[i][0] * cell.getRectSize, 
+                             cell.getCellSize, cell.getCellSize);
+            
+            // Kills the cell
             rowArray[changedArray[i][0]][changedArray[i][1]] = 0;
+
             // If the cell was dead, but is now alive
         } else if (rowArray[changedArray[i][0]][changedArray[i][1]] == 0) {
             content.fillStyle = cell.getCellColor;
-            content.fillRect(changedArray[i][1] * cell.getRectSize, changedArray[i][0] * cell.getRectSize, cell.getCellSize, cell.getCellSize);
+            content.fillRect(changedArray[i][1] * cell.getRectSize, changedArray[i][0] * cell.getRectSize, 
+                             cell.getCellSize, cell.getCellSize);
+            
+            // Awakens the cell
             rowArray[changedArray[i][0]][changedArray[i][1]] = 1;
         }
     }

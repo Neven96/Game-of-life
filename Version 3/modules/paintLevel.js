@@ -10,7 +10,7 @@ function paintLevel(board, event) {
 
     if (typeObjects.getDrawable) {
         const rect = board.getBoundingClientRect();
-        // Finds the x and y coordinates of the board
+        // Gets the x and y coordinates of the board
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
         // Derives the start coordinates of the cell from the size of it
@@ -32,7 +32,7 @@ function paintLevel(board, event) {
 
         // Checks if we are allowed to draw and then keeps drawing, only on the right cells
         // The rowArray check is for not changedArray to not be called on the wrong cells
-        // ChangedArray doesn't care what status the cell has, it changes it either way
+        // because changedArray doesn't care what status the cell has, it changes it either way
         if (paintObject.getAddPaint && paintObject.getLocked && rowArray[y_array_index][x_array_index] === 0) {
             changedArray.push([y_array_index, x_array_index]);
         } else if (!paintObject.getAddPaint && paintObject.getLocked && rowArray[y_array_index][x_array_index] === 1) {
