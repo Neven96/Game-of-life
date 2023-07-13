@@ -33,6 +33,6 @@
 ## Version 4
 
 - Same as version 3, but minified for speed
-- A little faster loading
+- A small improvement to loading speed for the webpage
 - Probably will not be updated again
 - Run like version 3
