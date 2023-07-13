@@ -10,16 +10,44 @@ class Cell {
         this.backgroundColor = backgroundColor;
     }
 
+    /**
+     * @param {int} rectSize
+     */
+    set setRectSize(rectSize) {
+        this.rectSize = rectSize;
+    }
+
     get getRectSize() {
         return this.rectSize;
+    }
+
+    /**
+     * @param {int} cellSize
+     */
+    set setCellSize(cellSize) {
+        this.cellSize = cellSize;
     }
 
     get getCellSize() {
         return this.cellSize;
     }
 
+    /**
+     * @param {any} cellColor
+     */
+    set setCellColor(cellColor) {
+        this.cellColor = cellColor;
+    }
+
     get getCellColor() {
         return this.cellColor;
+    }
+
+    /**
+     * @param {any} backgroundColor
+     */
+    set setBackgroundColor(backgroundColor) {
+        this.backgroundColor = backgroundColor;
     }
 
     get getBackgroundColor() {
@@ -291,4 +319,4 @@ const paintObject = {
     }  
 };
 
-export { Cell, cell, canvasObject, arrayObjects, speedObject, typeObjects, generationsObject, aliveCountObject, paintObject };
+export { cell, canvasObject, arrayObjects, speedObject, typeObjects, generationsObject, aliveCountObject, paintObject };

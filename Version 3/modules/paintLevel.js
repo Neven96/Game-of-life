@@ -47,7 +47,7 @@ function paintLevel(board, event) {
 
 // Stops the drawing
 function stopPainting(event) {
-    if (event.type === "mouseup" || event.type === "mouseleave") {
+    if (event.type === "mouseup") {
         paintObject.setLocked = false;
     }
 }

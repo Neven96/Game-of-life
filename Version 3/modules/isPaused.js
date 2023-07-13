@@ -8,6 +8,7 @@ import { pauseObject } from "./pauseGame.js";
 function isPaused() {
     if (!pauseObject.getPause) {
         generationsObject.increaseGenerations();
+        
         if (typeObjects.getTypeLevel === 1) {
             playBoxedGame();
         } else if (typeObjects.getTypeLevel === 2) {

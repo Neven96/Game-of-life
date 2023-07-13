@@ -63,11 +63,9 @@ function domLoaded() {
 		board.addEventListener("mousemove", function (event) {
 		paintLevel(board, event)
 		});
-		// Eventlisteners for stopping painting on the board
-		board.addEventListener("mouseup", function (event) {
-		stopPainting(event)
-		});
-		board.addEventListener("mouseleave", function (event) {
+		// Eventlistener for stopping painting on the board
+        // Is called on the entire page for better handling
+		document.addEventListener("mouseup", function (event) {
 		stopPainting(event)
 		});
 	}
