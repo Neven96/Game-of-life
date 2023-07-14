@@ -1,5 +1,5 @@
 import { myHeaders } from "./header.js";
-import { playGame } from "./playGame.js";
+import { waitGame } from "./playGame.js";
 
 // Stores the value of pause in an object for easier access and storage
 const pauseObject = {
@@ -27,7 +27,7 @@ const pauseObject = {
 
             this.pause = false;
 
-            playGame();
+            waitGame();
 
             document.getElementById("pauseSpan").textContent = "Pause";
         }

@@ -1,15 +1,29 @@
 import { myHeaders } from "./header.js";
-import { isPaused } from "./isPaused.js";
-import { speedObject, typeObjects, arrayObjects } from "./objects.js";
+import { speedObject, typeObjects, arrayObjects, generationsObject } from "./objects.js";
+import { playBoxedGame } from "./playBoxedGame.js";
+import { playInfinityGame } from "./playInfinityGame.js";
+import { pauseObject } from "./pauseGame.js";
 
 // Runs the game
-function playGame() {
-    arrayObjects.setChangedArray = [];
-
+function waitGame() {
     // Sets the tick rate of the game
     if (typeObjects.getStarted) {
-        setTimeout(isPaused, speedObject.getSpeed);
+        setTimeout(playGame, speedObject.getSpeed);
     }
 }
 
-export {playGame};
+// Checks if game is paused after a new generation has been started and pauses it
+function playGame() {
+    if (!pauseObject.getPause) {
+        generationsObject.increaseGenerations();
+        let changedArray = arrayObjects.setChangedArray = [];
+
+        if (typeObjects.getTypeLevel === 1) {
+            playBoxedGame(changedArray);
+        } else if (typeObjects.getTypeLevel === 2) {
+            playInfinityGame(changedArray);
+        }
+    }
+}
+
+export { waitGame, playGame };
