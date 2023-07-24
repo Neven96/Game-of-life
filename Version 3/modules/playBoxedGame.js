@@ -1,7 +1,7 @@
 import { myHeaders } from "./header.js";
 import { arrayObjects } from "./objects.js";
 import { reDrawGame } from "./reDrawGame.js";
-import { waitGame } from "./playGame.js";
+import { tickGame } from "./playGame.js";
 import { aliveArrayChecker } from "./aliveArrayChecker.js";
 
 function switchHelper(row, col, rowArray, changedArray, sum) {
@@ -120,7 +120,7 @@ function playBoxedGame(changedArray) {
 
     reDrawGame();
     aliveArrayChecker();
-    waitGame();
+    tickGame();
 }
 
 export {playBoxedGame};

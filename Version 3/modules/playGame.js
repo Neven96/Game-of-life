@@ -5,7 +5,7 @@ import { playInfinityGame } from "./playInfinityGame.js";
 import { pauseObject } from "./pauseGame.js";
 
 // Waits for the next tick of the game
-function waitGame() {
+function tickGame() {
     if (typeObjects.getStarted && !pauseObject.getPause) {
         setTimeout(playGame, speedObject.getSpeed);
     }
@@ -26,4 +26,4 @@ function playGame() {
     }
 }
 
-export { waitGame, playGame };
+export { tickGame, playGame };

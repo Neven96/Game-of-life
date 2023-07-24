@@ -1,7 +1,7 @@
 import { myHeaders } from "./header.js";
 import { arrayObjects } from "./objects.js";
 import { reDrawGame } from "./reDrawGame.js";
-import { waitGame } from "./playGame.js";
+import { tickGame } from "./playGame.js";
 import { aliveArrayChecker } from "./aliveArrayChecker.js";
 import { mod } from "./modulo.js";
 
@@ -48,7 +48,7 @@ function playInfinityGame(changedArray) {
 
     reDrawGame();
     aliveArrayChecker();
-    waitGame();
+    tickGame();
 }
 
 export { playInfinityGame };
