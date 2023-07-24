@@ -47,6 +47,7 @@ function selectSpeed() {
         default:
             speedName = "Normal";
             speed = 500;
+            document.getElementById("speed").value = 5;
     }
 
     document.getElementById("speedOutSpan").textContent = speedName;

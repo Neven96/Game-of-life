@@ -4,17 +4,17 @@ import { playBoxedGame } from "./playBoxedGame.js";
 import { playInfinityGame } from "./playInfinityGame.js";
 import { pauseObject } from "./pauseGame.js";
 
-// Runs the game
+// Waits for the next tick of the game
 function waitGame() {
-    // Sets the tick rate of the game
-    if (typeObjects.getStarted) {
+    if (typeObjects.getStarted && !pauseObject.getPause) {
         setTimeout(playGame, speedObject.getSpeed);
     }
 }
 
-// Checks if game is paused after a new generation has been started and pauses it
+// Calls the correct type of level and plays the game
 function playGame() {
     if (!pauseObject.getPause) {
+        // Increment the generations and resets the changedArray array
         generationsObject.increaseGenerations();
         let changedArray = arrayObjects.setChangedArray = [];
 

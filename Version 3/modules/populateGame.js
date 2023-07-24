@@ -11,9 +11,9 @@ function populateGame() {
     let percentageAlive = document.getElementById("lifePercent").value;
     // Sets a min and max percentage, just to not break the game
     if (percentageAlive <= 0) {
-        percentageAlive = 10;
+        document.getElementById("lifePercent").value = percentageAlive = 10;
     } else if (percentageAlive >= 50) {
-        percentageAlive = 50;
+        document.getElementById("lifePercent").value = percentageAlive = 50;
     }
 
     // Randomly populates the board with cells, depending on the percentage of alive chosen

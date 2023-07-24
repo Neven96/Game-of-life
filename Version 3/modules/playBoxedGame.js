@@ -8,8 +8,13 @@ import { aliveArrayChecker } from "./aliveArrayChecker.js";
 function playBoxedGame(changedArray) {
     let rowArray = arrayObjects.getRowArray;
 
-    for (let row = 0; row < rowArray.length; row++) {
-        for (let col = 0; col < rowArray[row].length; col++) {
+    // Get the length before the array to speed it up a little
+    let rowArrayLength = rowArray.length;
+    for (let row = 0; row < rowArrayLength; row++) {
+
+        // Get the length before the array to speed it up a little
+        let rowArrayRowLength = rowArray[row].length;
+        for (let col = 0; col < rowArrayRowLength; col++) {
             // Top row
             if (row == 0) {
                 // Top-left corner
