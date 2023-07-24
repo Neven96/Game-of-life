@@ -4,6 +4,7 @@ import { reDrawGame } from "./reDrawGame.js";
 import { tickGame } from "./playGame.js";
 import { aliveArrayChecker } from "./aliveArrayChecker.js";
 import { mod } from "./modulo.js";
+import { switchHelper } from "./switchHelper.js";
 
 // Without borders
 function playInfinityGame(changedArray) {
@@ -17,34 +18,16 @@ function playInfinityGame(changedArray) {
         let rowArrayRowLength = rowArray[row].length;
         for (let col = 0; col < rowArrayRowLength; col++) {
             // Finds the number of neighbors of one cell
-            switch (rowArray[mod(row - 1, rowArray.length)][mod(col - 1, rowArray[row].length)]
-                  + rowArray[mod(row - 1, rowArray.length)][col]
-                  + rowArray[mod(row - 1, rowArray.length)][mod(col + 1, rowArray[row].length)]
-                  + rowArray[row][mod(col - 1, rowArray[row].length)]
-                  + rowArray[row][mod(col + 1, rowArray[row].length)]
-                  + rowArray[mod(row + 1, rowArray.length)][mod(col - 1, rowArray[row].length)]
-                  + rowArray[mod(row + 1, rowArray.length)][col]
-                  + rowArray[mod(row + 1, rowArray.length)][mod(col + 1, rowArray[row].length)]) {
-                case 2:
-                    // Stay alive/dead
-                    break;
-                case 3:
-                    // Stay alive/awaken
-                    if (rowArray[row][col] == 0) {
-                        changedArray.push([row, col]);
-                    }
-                    break;                    
-                default:
-                    // Killed
-                    if (rowArray[row][col] == 1) {
-                        changedArray.push([row, col]);
-                    }
-                    break;
-            }
+            switchHelper(row, col, rowArray, changedArray, rowArray[mod(row - 1, rowArray.length)][mod(col - 1, rowArray[row].length)]
+                       + rowArray[mod(row - 1, rowArray.length)][col]
+                       + rowArray[mod(row - 1, rowArray.length)][mod(col + 1, rowArray[row].length)]
+                       + rowArray[row][mod(col - 1, rowArray[row].length)]
+                       + rowArray[row][mod(col + 1, rowArray[row].length)]
+                       + rowArray[mod(row + 1, rowArray.length)][mod(col - 1, rowArray[row].length)]
+                       + rowArray[mod(row + 1, rowArray.length)][col]
+                       + rowArray[mod(row + 1, rowArray.length)][mod(col + 1, rowArray[row].length)])
         }
     }
-
-    arrayObjects.setChangedArray = changedArray;
 
     reDrawGame();
     aliveArrayChecker();
