@@ -19,8 +19,6 @@ function switchHelper(row, col, rowArray, changedArray, sum) {
             }
             break;
     }
-
-    arrayObjects.setChangedArray = changedArray;
 }
 
 export { switchHelper };

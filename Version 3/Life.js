@@ -30,22 +30,51 @@ function domLoaded() {
 	// Readies the board for drawing 
 	document.getElementById("drawKnapp").onclick = function() {
 		typeObjects.setTypeGame = 2;
+
+		// Eventlisteners for painting on the board
+		board.addEventListener("mousedown", paintEvent);
+		board.addEventListener("mousemove", paintEvent);
+
+		// Eventlistener for stopping painting on the board
+		// Is called on the entire page for better handling
+		document.addEventListener("mouseup", stopPaintEvent);
+
 		prepareGame();
 	};
 
+	// The functions which the mousedown and mousemove events calls
+	function paintEvent(event) {
+		paintLevel(board, event);
+	}
+
+	// The function which the mouseup event calls
+	function stopPaintEvent(event) {
+		stopPainting(event);
+	}
+
 	// Starts a game confied to the size of the board
-	document.getElementById("playBoxedKnapp").onclick = function () { 
-		typeObjects.setTypeLevel = 1;
-		startGame();
-	};
+	document.getElementById("playBoxedKnapp").addEventListener("click", function () {
+		startClickEvent(1);
+	});
 
 	// Starts a game where the borders loop around
-	document.getElementById("playInfinityKnapp").onclick = function () { 
-		typeObjects.setTypeLevel = 2;
-		startGame();
-	};
+	document.getElementById("playInfinityKnapp").addEventListener("click", function () {
+		startClickEvent(2);
+	});
 
-	// Pauses the game
+	// Function to be called when either start button is clicked
+	function startClickEvent(typeLevel) {
+		typeObjects.setTypeLevel = typeLevel;
+
+		// Removes the eventlisteners when the game is started
+		board.removeEventListener("mousedown", paintEvent);
+		board.removeEventListener("mousemove", paintEvent);
+		document.removeEventListener("mouseup", stopPaintEvent);
+
+		startGame();
+	}
+
+	// Pauses/unpauses the game
 	document.getElementById("pauseKnapp").onclick = function () { 
 		pauseObject.pauseGame();
 	};
@@ -54,23 +83,8 @@ function domLoaded() {
 	document.getElementById("speed").onchange = function () { 
 		selectSpeed();
 	};
-
-	if (!typeObjects.getStarted) {
-		// Eventlisteners for painting on the board
-		board.addEventListener("mousedown", function (event) {
-		paintLevel(board, event)
-		});
-		board.addEventListener("mousemove", function (event) {
-		paintLevel(board, event)
-		});
-		// Eventlistener for stopping painting on the board
-        // Is called on the entire page for better handling
-		document.addEventListener("mouseup", function (event) {
-		stopPainting(event)
-		});
-	}
 	
-	// Allows to right-clicking the board without the meny popping up
+	// Allows to right-clicking the board without the menu popping up
 	board.addEventListener("contextmenu", (event) => {
 		event.preventDefault();
 	});

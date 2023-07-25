@@ -18,7 +18,8 @@ function playInfinityGame(changedArray) {
         let rowArrayRowLength = rowArray[row].length;
         for (let col = 0; col < rowArrayRowLength; col++) {
             // Finds the number of neighbors of one cell
-            switchHelper(row, col, rowArray, changedArray, rowArray[mod(row - 1, rowArray.length)][mod(col - 1, rowArray[row].length)]
+            switchHelper(row, col, rowArray, changedArray, 
+                         rowArray[mod(row - 1, rowArray.length)][mod(col - 1, rowArray[row].length)]
                        + rowArray[mod(row - 1, rowArray.length)][col]
                        + rowArray[mod(row - 1, rowArray.length)][mod(col + 1, rowArray[row].length)]
                        + rowArray[row][mod(col - 1, rowArray[row].length)]

@@ -4,11 +4,11 @@ import { reDrawGame } from "./reDrawGame.js";
 
 //Allows painting on grid
 function paintLevel(board, event) {
-    let rowArray = arrayObjects.getRowArray;
-    arrayObjects.setChangedArray = [];
-    let changedArray = arrayObjects.getChangedArray;
-
     if (typeObjects.getDrawable) {
+        let rowArray = arrayObjects.getRowArray;
+        arrayObjects.setChangedArray = [];
+        let changedArray = arrayObjects.getChangedArray;
+
         const rect = board.getBoundingClientRect();
         // Gets the x and y coordinates of the board
         const x = event.clientX - rect.left;
@@ -22,10 +22,10 @@ function paintLevel(board, event) {
 
         // Gives the ability to draw by holding down the mouse button
         // Left click to draw, right click to delete
-        if (event.type === "mousedown" && event.buttons === 1) {
+        if (event.type === "mousedown" && event.buttons === 1 && !paintObject.getLocked) {
             paintObject.setAddPaint = true;
             paintObject.setLocked = true;
-        } else if (event.type === "mousedown" && event.buttons === 2) {
+        } else if (event.type === "mousedown" && event.buttons === 2 && !paintObject.getLocked) {
             paintObject.setAddPaint = false;
             paintObject.setLocked = true;
         }
