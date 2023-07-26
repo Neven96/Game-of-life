@@ -1,5 +1,4 @@
 import { myHeaders } from "./header.js";
-import { arrayObjects } from "./objects.js";
 
 function switchHelper(row, col, rowArray, changedArray, sum) {
     switch (sum) {
