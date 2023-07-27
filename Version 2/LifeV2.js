@@ -522,44 +522,23 @@ function domloaded() {
 
   // Without borders, new render, much faster than every other
   function playInfinitySpillV4() {
-    for (var i = 0; i < rowArray.length; i++) {
-      for (var j = 0; j < rowArray[i].length; j++) {
-        // Checks dead cells for the number of neighbours
-        if (rowArray[i][j] == 0) {
-          switch ((rowArray[mod(i - 1, rowArray.length)][mod(j - 1, rowArray[i].length)]
-            + rowArray[mod(i - 1, rowArray.length)][j]
-            + rowArray[mod(i - 1, rowArray.length)][mod(j + 1, rowArray[i].length)])
-          + (rowArray[i][mod(j - 1, rowArray[i].length)]
-            + rowArray[i][mod(j + 1, rowArray[i].length)])
-          + (rowArray[mod(i + 1, rowArray.length)][mod(j - 1, rowArray[i].length)]
-            + rowArray[mod(i + 1, rowArray.length)][j]
-            + rowArray[mod(i + 1, rowArray.length)][mod(j + 1, rowArray[i].length)])) {
-            case 3:
-              // Alive
-              changedArray.push([i, j]);
-          }
-        } else
-          if (rowArray[i][j] == 1) {
-            // Checks alive cells for number of neighbours
-            switch ((rowArray[mod(i - 1, rowArray.length)][mod(j - 1, rowArray[i].length)]
-              + rowArray[mod(i - 1, rowArray.length)][j]
-              + rowArray[mod(i - 1, rowArray.length)][mod(j + 1, rowArray[i].length)])
-            + (rowArray[i][mod(j - 1, rowArray[i].length)]
-              + rowArray[i][mod(j + 1, rowArray[i].length)])
-            + (rowArray[mod(i + 1, rowArray.length)][mod(j - 1, rowArray[i].length)]
-              + rowArray[mod(i + 1, rowArray.length)][j]
-              + rowArray[mod(i + 1, rowArray.length)][mod(j + 1, rowArray[i].length)])) {
-              case 2:
-                // Stay alive
-                break;
-              case 3:
-                // Stay alive
-                break;
-              default:
-                // Dead
-                changedArray.push([i, j]);
-            }
-          }
+    // Get the length before the array to speed it up a little
+    let rowArrayLength = rowArray.length;
+    for (let row = 0; row < rowArrayLength; row++) {
+
+      // Get the length before the array to speed it up a little
+      let rowArrayRowLength = rowArray[row].length;
+      for (let col = 0; col < rowArrayRowLength; col++) {
+        // Finds the number of neighbors of one cell
+        switchHelper(row, col, rowArray, changedArray,
+          rowArray[mod(row - 1, rowArray.length)][mod(col - 1, rowArray[row].length)]
+          + rowArray[mod(row - 1, rowArray.length)][col]
+          + rowArray[mod(row - 1, rowArray.length)][mod(col + 1, rowArray[row].length)]
+          + rowArray[row][mod(col - 1, rowArray[row].length)]
+          + rowArray[row][mod(col + 1, rowArray[row].length)]
+          + rowArray[mod(row + 1, rowArray.length)][mod(col - 1, rowArray[row].length)]
+          + rowArray[mod(row + 1, rowArray.length)][col]
+          + rowArray[mod(row + 1, rowArray.length)][mod(col + 1, rowArray[row].length)])
       }
     }
 
@@ -571,265 +550,89 @@ function domloaded() {
 
   // With borders
   function playBoxedSpill() {
-    for (var i = 0; i < rowArray.length; i++) {
-      for (var j = 0; j < rowArray[i].length; j++) {
+    // Get the length before the array to speed it up a little
+    let rowArrayLength = rowArray.length;
+    for (let row = 0; row < rowArrayLength; row++) {
+
+      // Get the length before the array to speed it up a little
+      let rowArrayRowLength = rowArray[row].length;
+      for (let col = 0; col < rowArrayRowLength; col++) {
         // Top row
-        if (i == 0) {
+        if (row == 0) {
           // Top-left corner
-          if (j == 0) {
-            if (rowArray[i][j] == 0) {
-              switch (rowArray[i][j + 1]
-              + rowArray[i + 1][j]
-              + rowArray[i + 1][j + 1]) {
-                case 3:
-                  // Alive
-                  changedArray.push([i, j]);
-              }
-            } else if (rowArray[i][j] == 1) {
-              switch (rowArray[i][j + 1]
-              + rowArray[i + 1][j]
-              + rowArray[i + 1][j + 1]) {
-                case 2:
-                  // Stay alive
-                  break;
-                case 3:
-                  // Stay alive
-                  break;
-                default:
-                  // Dead
-                  changedArray.push([i, j]);
-              }
-            }
+          if (col == 0) {
+            switchHelper(row, col, rowArray, changedArray, rowArray[row][col + 1]
+              + rowArray[row + 1][col]
+              + rowArray[row + 1][col + 1]);
           }
           // Top-right corner
-          else if (j == rowArray[i].length - 1) {
-            if (rowArray[i][j] == 0) {
-              switch (rowArray[i][j - 1]
-              + rowArray[i + 1][j]
-              + rowArray[i + 1][j - 1]) {
-                case 3:
-                  // Alive
-                  changedArray.push([i, j]);
-              }
-            } else if (rowArray[i][j] == 1) {
-              switch (rowArray[i][j - 1]
-              + rowArray[i + 1][j]
-              + rowArray[i + 1][j - 1]) {
-                case 2:
-                  // Stay alive
-                  break;
-                case 3:
-                  // Stay alive
-                  break;
-                default:
-                  // Dead
-                  changedArray.push([i, j]);
-              }
-            }
+          else if (col == rowArray[row].length - 1) {
+            switchHelper(row, col, rowArray, changedArray, rowArray[row][col - 1]
+              + rowArray[row + 1][col]
+              + rowArray[row + 1][col - 1]);
           }
           // Rest of top row
           else {
-            if (rowArray[i][j] == 0) {
-              switch (rowArray[i][j - 1] + rowArray[i][j + 1]
-              + rowArray[i + 1][j - 1] + rowArray[i + 1][j]
-              + rowArray[i + 1][j + 1]) {
-                case 3:
-                  // Alive
-                  changedArray.push([i, j]);
-              }
-            } else if (rowArray[i][j] == 1) {
-              switch (rowArray[i][j - 1]
-              + rowArray[i][j + 1]
-              + rowArray[i + 1][j - 1]
-              + rowArray[i + 1][j]
-              + rowArray[i + 1][j + 1]) {
-                case 2:
-                  // Stay alive
-                  break;
-                case 3:
-                  // Stay alive
-                  break;
-                default:
-                  // Dead
-                  changedArray.push([i, j]);
-              }
-            }
+            switchHelper(row, col, rowArray, changedArray, rowArray[row][col - 1]
+              + rowArray[row][col + 1]
+              + rowArray[row + 1][col - 1]
+              + rowArray[row + 1][col]
+              + rowArray[row + 1][col + 1]);
           }
         } // Top row end
 
         // Bottom row
-        else if (i == rowArray.length - 1) {
+        else if (row == rowArray.length - 1) {
           // Bottom-left corner
-          if (j == 0) {
-            if (rowArray[i][j] == 0) {
-              switch (rowArray[i][j + 1]
-              + rowArray[i - 1][j]
-              + rowArray[i - 1][j + 1]) {
-                case 3:
-                  // Alive
-                  changedArray.push([i, j]);
-              }
-            } else if (rowArray[i][j] == 1) {
-              switch (rowArray[i][j + 1]
-              + rowArray[i - 1][j]
-              + rowArray[i - 1][j + 1]) {
-                case 2:
-                  // Stay alive
-                  break;
-                case 3:
-                  // Stay alive
-                  break;
-                default:
-                  // Dead
-                  changedArray.push([i, j]);
-              }
-            }
+          if (col == 0) {
+            switchHelper(row, col, rowArray, changedArray, rowArray[row][col + 1]
+              + rowArray[row - 1][col]
+              + rowArray[row - 1][col + 1]);
           }
           // Bottom-right corner
-          else if (j == rowArray[i].length - 1) {
-            if (rowArray[i][j] == 0) {
-              switch (rowArray[i][j - 1]
-              + rowArray[i - 1][j]
-              + rowArray[i - 1][j - 1]) {
-                case 3:
-                  // Alive
-                  changedArray.push([i, j]);
-              }
-            } else if (rowArray[i][j] == 1) {
-              switch (rowArray[i][j - 1]
-              + rowArray[i - 1][j]
-              + rowArray[i - 1][j - 1]) {
-                case 2:
-                  // Stay alive
-                  break;
-                case 3:
-                  // Stay alive
-                  break;
-                default:
-                  // Dead
-                  changedArray.push([i, j]);
-              }
-            }
+          else if (col == rowArray[row].length - 1) {
+            switchHelper(row, col, rowArray, changedArray, rowArray[row][col - 1]
+              + rowArray[row - 1][col]
+              + rowArray[row - 1][col - 1]);
           }
           // Rest of bottom row
           else {
-            if (rowArray[i][j] == 0) {
-              switch (rowArray[i][j - 1]
-              + rowArray[i][j + 1]
-              + rowArray[i - 1][j - 1]
-              + rowArray[i - 1][j]
-              + rowArray[i - 1][j + 1]) {
-                case 3:
-                  // Alive
-                  changedArray.push([i, j]);
-              }
-            } else if (rowArray[i][j] == 1) {
-              switch (rowArray[i][j - 1]
-              + rowArray[i][j + 1]
-              + rowArray[i - 1][j - 1]
-              + rowArray[i - 1][j]
-              + rowArray[i - 1][j + 1]) {
-                case 2:
-                  // Stay alive
-                  break;
-                case 3:
-                  // Stay alive
-                  break;
-                default:
-                  // Dead
-                  changedArray.push([i, j]);
-              }
-            }
+            switchHelper(row, col, rowArray, changedArray, rowArray[row][col - 1]
+              + rowArray[row][col + 1]
+              + rowArray[row - 1][col - 1]
+              + rowArray[row - 1][col]
+              + rowArray[row - 1][col + 1]);
           }
         } // Bottom row end
 
         //Between top and bottom row
         else {
           // Left column
-          if (j == 0) {
-            if (rowArray[i][j] == 0) {
-              switch (rowArray[i - 1][j]
-              + rowArray[i - 1][j + 1]
-              + rowArray[i][j + 1]
-              + rowArray[i + 1][j]
-              + rowArray[i + 1][j + 1]) {
-                case 3:
-                  // Alive
-                  changedArray.push([i, j]);
-              }
-            } else if (rowArray[i][j] == 1) {
-              switch (rowArray[i - 1][j]
-              + rowArray[i - 1][j + 1]
-              + rowArray[i][j + 1]
-              + rowArray[i + 1][j]
-              + rowArray[i + 1][j + 1]) {
-                case 2:
-                  // Stay alive
-                  break;
-                case 3:
-                  // Stay alive
-                  break;
-                default:
-                  // Dead
-                  changedArray.push([i, j]);
-              }
-            }
+          if (col == 0) {
+            switchHelper(row, col, rowArray, changedArray, rowArray[row - 1][col]
+              + rowArray[row - 1][col + 1]
+              + rowArray[row][col + 1]
+              + rowArray[row + 1][col]
+              + rowArray[row + 1][col + 1]);
           }
           // Right column
-          else if (j == rowArray[i].length - 1) {
-            if (rowArray[i][j] == 0) {
-              switch (rowArray[i - 1][j]
-              + rowArray[i - 1][j - 1]
-              + rowArray[i][j - 1]
-              + rowArray[i + 1][j]
-              + rowArray[i + 1][j - 1]) {
-                case 3:
-                  // Alive
-                  changedArray.push([i, j]);
-              }
-            } else if (rowArray[i][j] == 1) {
-              switch (rowArray[i - 1][j]
-              + rowArray[i - 1][j - 1]
-              + rowArray[i][j - 1]
-              + rowArray[i + 1][j]
-              + rowArray[i + 1][j - 1]) {
-                case 2:
-                  // Stay alive
-                  break;
-                case 3:
-                  // Stay alive
-                  break;
-                default:
-                  // Dead
-                  changedArray.push([i, j]);
-              }
-            }
+          else if (col == rowArray[row].length - 1) {
+            switchHelper(row, col, rowArray, changedArray, rowArray[row - 1][col]
+              + rowArray[row - 1][col - 1]
+              + rowArray[row][col - 1]
+              + rowArray[row + 1][col]
+              + rowArray[row + 1][col - 1]);
           }
           // Middle of map
           else {
-            if (rowArray[i][j] == 0) {
-              switch ((rowArray[i - 1][j - 1] + rowArray[i - 1][j] + rowArray[i - 1][j + 1])
-              + (rowArray[i][j - 1] + rowArray[i][j + 1])
-              + (rowArray[i + 1][j - 1] + rowArray[i + 1][j] + rowArray[i + 1][j + 1])) {
-                case 3:
-                  // Alive
-                  changedArray.push([i, j]);
-              }
-            } else if (rowArray[i][j] == 1) {
-              switch ((rowArray[i - 1][j - 1] + rowArray[i - 1][j] + rowArray[i - 1][j + 1])
-              + (rowArray[i][j - 1] + rowArray[i][j + 1])
-              + (rowArray[i + 1][j - 1] + rowArray[i + 1][j] + rowArray[i + 1][j + 1])) {
-                case 2:
-                  // Stay alive
-                  break;
-                case 3:
-                  // Stay alive
-                  break;
-                default:
-                  // Dead
-                  changedArray.push([i, j]);
-              }
-            }
+            switchHelper(row, col, rowArray, changedArray, rowArray[row - 1][col - 1]
+              + rowArray[row - 1][col]
+              + rowArray[row - 1][col + 1]
+              + rowArray[row][col - 1]
+              + rowArray[row][col + 1]
+              + rowArray[row + 1][col - 1]
+              + rowArray[row + 1][col]
+              + rowArray[row + 1][col + 1]);
           }
         }
       }
@@ -839,5 +642,25 @@ function domloaded() {
 
     reDrawSpill(changedArray);
     spilleSpill(typeLevel);
+  }
+
+  function switchHelper(row, col, rowArray, changedArray, sum) {
+    switch (sum) {
+      case 2:
+        // Stay alive/dead
+        break;
+      case 3:
+        // Stay alive/awaken
+        if (rowArray[row][col] == 0) {
+          changedArray.push([row, col]);
+        }
+        break;
+      default:
+        // Killed
+        if (rowArray[row][col] == 1) {
+          changedArray.push([row, col]);
+        }
+        break;
+    }
   }
 }
