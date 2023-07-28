@@ -281,10 +281,10 @@ const aliveCountObject = {
     // Creates an array of the alive count of cells of the previous generations
     addToAliveArray(aliveCount) {
         if (this.aliveArray.length < 20) {
-            this.aliveArray.push(aliveCount);
+            this.aliveArray.unshift(aliveCount);
         } else {
-            this.aliveArray.shift();
-            this.aliveArray.push(aliveCount);
+            this.aliveArray.pop();
+            this.aliveArray.unshift(aliveCount);
         }
 
         return this.aliveArray;
