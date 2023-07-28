@@ -24,7 +24,7 @@
 - Many smaller, but more maneuverable files
 - Has an even more improved UI
 - Required to run on server, use either python:
-  - python -m http.server
+  - python -m http.server [port]
 - or npm:
   1. npm install http-server -g
   2. http-server 
