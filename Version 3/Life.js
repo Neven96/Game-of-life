@@ -10,8 +10,7 @@ import { pauseObject } from "./modules/pauseGame.js";
 document.addEventListener("DOMContentLoaded", domLoaded, false);
 function domLoaded() {
 	// Gets the canvas and its context
-	canvasObject.setBoard = document.getElementById("board");
-	const board = canvasObject.getBoard;
+	const board = canvasObject.setBoard = document.getElementById("board");
 
 	canvasObject.setContent = board.getContext("2d");
 
@@ -52,7 +51,7 @@ function domLoaded() {
 		stopPainting(event);
 	}
 
-	// Starts a game confied to the size of the board
+	// Starts a game confined to the size of the board
 	document.getElementById("playBoxedKnapp").addEventListener("click", function () {
 		startClickEvent(1);
 	});
@@ -66,7 +65,7 @@ function domLoaded() {
 	function startClickEvent(typeLevel) {
 		typeObjects.setTypeLevel = typeLevel;
 
-		// Removes the eventlisteners when the game is started
+		// Removes the eventlisteners for drawing when the game is started
 		board.removeEventListener("mousedown", paintEvent);
 		board.removeEventListener("mousemove", paintEvent);
 		document.removeEventListener("mouseup", stopPaintEvent);

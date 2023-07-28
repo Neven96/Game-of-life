@@ -5,8 +5,7 @@ import { reDrawGame } from "./reDrawGame.js";
 // Populates the board randomly
 function populateGame() {
     let rowArray = arrayObjects.getRowArray;
-    arrayObjects.setChangedArray = [];
-    let changedArray = arrayObjects.getChangedArray;
+    let changedArray = arrayObjects.setChangedArray = [];
 
     let percentageAlive = document.getElementById("lifePercent").value;
     // Sets a min and max percentage, just to not break the game
