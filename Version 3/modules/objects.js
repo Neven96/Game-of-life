@@ -97,7 +97,7 @@ const arrayObjects = {
     },
 
     /**
-     * @param {never[]} rowArray
+     * @param {any[]} rowArray
      */
     set setRowArray(rowArray) {
         this.rowArray = rowArray;
@@ -109,7 +109,7 @@ const arrayObjects = {
     },
 
     /**
-     * @param {never[]} changedArray
+     * @param {any[]} changedArray
      */
     set setChangedArray(changedArray) {
         this.changedArray = changedArray;
@@ -226,7 +226,7 @@ const generationsObject = {
     },
 
     /**
-     * @param {never[]} generationsArray
+     * @param {any[]} generationsArray
      */
     set setGenerationsArray(generationsArray) {
         this.generationsArray = generationsArray;
@@ -258,7 +258,7 @@ const aliveCountObject = {
     },
 
     /**
-     * @param {never[]} aliveArray
+     * @param {any[]} aliveArray
      */
     set setAliveArray(aliveArray) {
         this.aliveArray = aliveArray;
