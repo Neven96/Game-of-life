@@ -1,4 +1,4 @@
-import { myHeaders } from "./header.js";
+import { myHeaders } from "../helpers/header.js";
 import { cell, canvasObject, arrayObjects } from "./objects.js";
 
 // Creates an empty board ready for use

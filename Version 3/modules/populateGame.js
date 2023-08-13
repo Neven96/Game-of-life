@@ -1,4 +1,4 @@
-import { myHeaders } from "./header.js";
+import { myHeaders } from "../helpers/header.js";
 import { arrayObjects } from "./objects.js";
 import { reDrawGame } from "./reDrawGame.js";
 

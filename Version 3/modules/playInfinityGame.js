@@ -1,9 +1,9 @@
-import { myHeaders } from "./header.js";
+import { myHeaders } from "../helpers/header.js";
 import { arrayObjects } from "./objects.js";
 import { reDrawGame } from "./reDrawGame.js";
 import { tickGame } from "./playGame.js";
 import { aliveArrayChecker } from "./aliveArrayChecker.js";
-import { mod } from "./modulo.js";
+import { mod } from "../helpers/modulo.js";
 import { switchHelper } from "./switchHelper.js";
 
 // Without borders

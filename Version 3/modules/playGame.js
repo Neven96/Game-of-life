@@ -1,4 +1,4 @@
-import { myHeaders } from "./header.js";
+import { myHeaders } from "../helpers/header.js";
 import { speedObject, typeObjects, arrayObjects, generationsObject } from "./objects.js";
 import { playBoxedGame } from "./playBoxedGame.js";
 import { playInfinityGame } from "./playInfinityGame.js";

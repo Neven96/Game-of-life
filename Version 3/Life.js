@@ -1,4 +1,4 @@
-import { myHeaders } from "./modules/header.js";
+import { myHeaders } from "./helpers/header.js";
 import { canvasObject, typeObjects } from "./modules/objects.js";
 import { selectSpeed } from "./modules/selectSpeed.js";
 import { paintLevel, stopPainting } from "./modules/paintLevel.js";

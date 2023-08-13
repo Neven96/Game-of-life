@@ -1,4 +1,4 @@
-import { myHeaders } from "./header.js";
+import { myHeaders } from "../helpers/header.js";
 import { typeObjects, generationsObject, aliveCountObject, arrayObjects } from "./objects.js";
 import { pauseObject } from "./pauseGame.js";
 

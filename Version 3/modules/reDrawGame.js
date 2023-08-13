@@ -1,4 +1,4 @@
-import { myHeaders } from "./header.js";
+import { myHeaders } from "../helpers/header.js";
 import { cell, canvasObject, arrayObjects, generationsObject, aliveCountObject} from "./objects.js";
 
 // Redraws only the risen/killed cells, reducing the time per round drastically

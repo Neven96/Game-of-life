@@ -1,4 +1,4 @@
-import { myHeaders } from "./header.js";
+import { myHeaders } from "../helpers/header.js";
 import { arrayObjects, typeObjects, generationsObject, aliveCountObject } from "./objects.js";
 import { populateGame } from "./populateGame.js";
 import { prepareBoard } from "./prepareBoard.js";

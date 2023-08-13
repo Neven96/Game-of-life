@@ -1,4 +1,4 @@
-import { myHeaders } from "./header.js";
+import { myHeaders } from "../helpers/header.js";
 import { speedObject } from "./objects.js";
 
 //Changes gamespeed

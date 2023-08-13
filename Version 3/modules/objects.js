@@ -1,4 +1,4 @@
-import { myHeaders } from "./header.js";
+import { myHeaders } from "../helpers/header.js";
 
 // OBJECTS
 // Stores all size and colors of the cell

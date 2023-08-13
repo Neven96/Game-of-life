@@ -1,4 +1,4 @@
-import { myHeaders } from "./header.js";
+import { myHeaders } from "../helpers/header.js";
 
 function switchHelper(row, col, rowArray, changedArray, sum) {
     switch (sum) {
