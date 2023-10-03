@@ -5,26 +5,20 @@ import { tickGame } from "./playGame.js";
 const pauseObject = {
     pause: true,
 
-    get getPause() {
-        return this.pause;
-    },
-
     /**
      * @param {boolean} pause
      */
-    set setPause(pause) {
-        this.pause = pause;
-    },
+    set setPause(pause) {this.pause = pause;},
+
+    get getPause() {return this.pause;},
 
     //Pauses/unpauses the game
     pauseGame() {
         if (!this.pause) {
-
             this.pause = true;
 
             document.getElementById("pauseSpan").textContent = "Play";
         } else if (this.pause) {
-
             this.pause = false;
 
             tickGame();

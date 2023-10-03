@@ -7,13 +7,13 @@ function switchHelper(row, col, rowArray, changedArray, sum) {
             break;
         case 3:
             // Stay alive/awaken
-            if (rowArray[row][col] == 0) {
+            if (rowArray[row][col] === 0) {
                 changedArray.push([row, col]);
             }
             break;
         default:
             // Killed
-            if (rowArray[row][col] == 1) {
+            if (rowArray[row][col] === 1) {
                 changedArray.push([row, col]);
             }
             break;

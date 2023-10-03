@@ -23,19 +23,13 @@ function aliveArrayChecker() {
         pauseObject.pauseGame();
     }
 
-    if (!typeObjects.getEqualOnce) {
-        if (aliveArray.length >= 20) {
-
-            // Checks if all elements in the array are equal, returns boolean
-            let equal = aliveArray.every((val, ind, arr) => val === arr[0]);
-            
-            if (equal) {
-                stabilizedSpan.style.color = "#00FF00";
-                stabilizedSpan.textContent = "Life is stabilized"
-                typeObjects.setEqualOnce = true;
-                pauseObject.pauseGame();
-            }
-        }
+    // Checks if all elements in the array are equal
+    let equal = aliveArray.every((val, ind, arr) => val === arr[0]);
+    if (!typeObjects.getEqualOnce && aliveArray.length >= 20 && equal) {
+        stabilizedSpan.style.color = "#00FF00";
+        stabilizedSpan.textContent = "Life is stabilized"
+        typeObjects.setEqualOnce = true;
+        pauseObject.pauseGame();
     }
 }
 
