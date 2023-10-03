@@ -13,46 +13,30 @@ class Cell {
     /**
      * @param {int} rectSize
      */
-    set setRectSize(rectSize) {
-        this.rectSize = rectSize;
-    }
+    set setRectSize(rectSize) {this.rectSize = rectSize;}
 
-    get getRectSize() {
-        return this.rectSize;
-    }
+    get getRectSize() {return this.rectSize;}
 
     /**
      * @param {int} cellSize
      */
-    set setCellSize(cellSize) {
-        this.cellSize = cellSize;
-    }
+    set setCellSize(cellSize) {this.cellSize = cellSize;}
 
-    get getCellSize() {
-        return this.cellSize;
-    }
+    get getCellSize() {return this.cellSize;}
 
     /**
      * @param {any} cellColor
      */
-    set setCellColor(cellColor) {
-        this.cellColor = cellColor;
-    }
+    set setCellColor(cellColor) {this.cellColor = cellColor;}
 
-    get getCellColor() {
-        return this.cellColor;
-    }
+    get getCellColor() {return this.cellColor;}
 
     /**
      * @param {any} backgroundColor
      */
-    set setBackgroundColor(backgroundColor) {
-        this.backgroundColor = backgroundColor;
-    }
+    set setBackgroundColor(backgroundColor) {this.backgroundColor = backgroundColor;}
 
-    get getBackgroundColor() {
-        return this.backgroundColor;
-    }
+    get getBackgroundColor() {return this.backgroundColor;}
 };
 
 // Object for cell size and colors
@@ -63,27 +47,19 @@ const canvasObject = {
     board: "",
     content: "",
 
-    get getBoard() {
-        return this.board;
-    },
-
     /**
      * @param {HTMLElement | null} board
      */
-    set setBoard(board) {
-        this.board = board;
-    },
+    set setBoard(board) {this.board = board;},
 
-    get getContent() {
-        return this.content;
-    },
+    get getBoard() {return this.board;},
 
     /**
      * @param {any} content
      */
-    set setContent(content) {
-        this.content = content;
-    }
+    set setContent(content) {this.content = content;},
+
+    get getContent() {return this.content;}
 };
 
 // The arrays for the entire level and for the redraws
@@ -92,44 +68,32 @@ const arrayObjects = {
     changedArray: [],
 
     // RowArray
-    get getRowArray() {
-        return this.rowArray;
-    },
-
     /**
      * @param {any[]} rowArray
      */
-    set setRowArray(rowArray) {
-        this.rowArray = rowArray;
-    },
+    set setRowArray(rowArray) {this.rowArray = rowArray;},
+    
+    get getRowArray() {return this.rowArray;},
 
     // ChangedArray
-    get getChangedArray() {
-        return this.changedArray;
-    },
-
     /**
      * @param {any[]} changedArray
      */
-    set setChangedArray(changedArray) {
-        this.changedArray = changedArray;
-    }
+    set setChangedArray(changedArray) {this.changedArray = changedArray;},
+
+    get getChangedArray() {return this.changedArray;}
 };
 
 // Sets the speed, so that we don't have to use the switch statement each round
 const speedObject = {
     speed: 500,
 
-    get getSpeed() {
-        return this.speed;
-    },
-
     /**
      * @param {number} speed
      */
-    set setSpeed(speed) {
-        this.speed = speed;
-    }
+    set setSpeed(speed) {this.speed = speed;},
+
+    get getSpeed() {return this.speed;},
 };
 
 // Sets the type of level, type of game, if the board is drawable, if the game has started, and if the game is stabilized
@@ -143,66 +107,46 @@ const typeObjects = {
     // TypeLevel
     // TypeLevel: 1 means pre-populated game
     // TypeLevel: 2 means drawing on the board 
-    get getTypeLevel() {
-        return this.typeLevel;
-    },
-
     /**
      * @param {number} typeLevel
      */
-    set setTypeLevel(typeLevel) {
-        this.typeLevel = typeLevel;
-    },
+    set setTypeLevel(typeLevel) {this.typeLevel = typeLevel;},
+
+    get getTypeLevel() {return this.typeLevel;},
 
     // TypeGame
     // TypeGame: 1 means boxed game with set borders
     // TypeGame: 2 means game with looping borders
-    get getTypeGame() {
-        return this.typeGame;
-    },
-
     /**
      * @param {number} typeGame
      */
-    set setTypeGame(typeGame) {
-        this.typeGame = typeGame;
-    },
+    set setTypeGame(typeGame) {this.typeGame = typeGame;},
+
+    get getTypeGame() {return this.typeGame;},
 
     // Drawable
-    get getDrawable() {
-        return this.drawable
-    },
-
     /**
      * @param {boolean} drawable
      */
-    set setDrawable(drawable) {
-        this.drawable = drawable;
-    },
+    set setDrawable(drawable) {this.drawable = drawable;},
+
+    get getDrawable() {return this.drawable},
 
     // Started
-    get getStarted() {
-        return this.started;
-    },
-
     /**
      * @param {boolean} started
      */
-    set setStarted(started) {
-        this.started = started;
-    },
+    set setStarted(started) {this.started = started;},
+
+    get getStarted() {return this.started;},
 
     // Equal Once
-    get getEqualOnce() {
-        return this.equalOnce;
-    },
-
     /**
      * @param {boolean} equalOnce
      */
-    set setEqualOnce(equalOnce) {
-        this.equalOnce = equalOnce;
-    }
+    set setEqualOnce(equalOnce) {this.equalOnce = equalOnce;},
+
+    get getEqualOnce() {return this.equalOnce;}
 };
 
 // Generations the cells have lived
@@ -210,27 +154,19 @@ const generationsObject = {
     generations: 0,
     generationsArray: [],
 
-    get getGenerations() {
-        return this.generations;
-    },
-
     /**
      * @param {number} generations
      */
-    set setGenerations(generations) {
-        this.generations = generations;
-    },
+    set setGenerations(generations) {this.generations = generations;},
 
-    get getGenerationsArray() {
-        return this.generationsArray;
-    },
+    get getGenerations() {return this.generations;},
 
     /**
      * @param {any[]} generationsArray
      */
-    set setGenerationsArray(generationsArray) {
-        this.generationsArray = generationsArray;
-    },
+    set setGenerationsArray(generationsArray) {this.generationsArray = generationsArray;},
+
+    get getGenerationsArray() {return this.generationsArray;},
 
     increaseGenerations() {
         this.generations++;
@@ -242,27 +178,19 @@ const aliveCountObject = {
     aliveCount: 0,
     aliveArray: [],
 
-    get getAliveCount() {
-        return this.aliveCount;
-    },
-
     /**
      * @param {number} aliveCount
      */
-    set setAliveCount(aliveCount) {
-        this.aliveCount = aliveCount;
-    },
+    set setAliveCount(aliveCount) {this.aliveCount = aliveCount;},
 
-    get getAliveArray() {
-        return this.aliveArray;
-    },
+    get getAliveCount() {return this.aliveCount;},
 
     /**
      * @param {any[]} aliveArray
      */
-    set setAliveArray(aliveArray) {
-        this.aliveArray = aliveArray;
-    },
+    set setAliveArray(aliveArray) {this.aliveArray = aliveArray;},
+
+    get getAliveArray() {return this.aliveArray;},
 
     // Counts all the alive cells in the array, and returns the number
     countAlives(array) {
@@ -296,27 +224,19 @@ const paintObject = {
     addPaint: false,
     locked: false,
 
-    get getAddPaint() {
-        return this.addPaint;
-    },
-
     /**
      * @param {boolean} addPaint
      */
-    set setAddPaint(addPaint) {
-        this.addPaint = addPaint;
-    },
+    set setAddPaint(addPaint) {this.addPaint = addPaint;},
 
-    get getLocked() {
-        return this.locked;
-    },
+    get getAddPaint() {return this.addPaint;},
 
     /**
      * @param {boolean} locked
      */
-    set setLocked(locked) {
-        this.locked = locked;
-    }  
+    set setLocked(locked) {this.locked = locked;},
+
+    get getLocked() {return this.locked;}
 };
 
 export { cell, canvasObject, arrayObjects, speedObject, typeObjects, generationsObject, aliveCountObject, paintObject };
