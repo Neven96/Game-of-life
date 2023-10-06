@@ -1,46 +1,41 @@
 import { myHeaders } from "../helpers/header.js";
 
 // OBJECTS
-// Stores all size and colors of the cell
-class Cell {
-    constructor(rectSize, cellSize, cellColor, backgroundColor) {
-        this.rectSize = rectSize;
-        this.cellSize = cellSize;
-        this.cellColor = cellColor;
-        this.backgroundColor = backgroundColor;
-    }
+// Object for cell size and colors
+const cell = {
+    rectSize: 8,
+    cellSize: 7,
+    cellColor: "#2C3E4C",
+    backgroundColor: "#FFFFFF",
 
     /**
      * @param {int} rectSize
      */
-    set setRectSize(rectSize) {this.rectSize = rectSize;}
+    set setRectSize(rectSize) {this.rectSize = rectSize;},
 
-    get getRectSize() {return this.rectSize;}
+    get getRectSize() {return this.rectSize;},
 
     /**
      * @param {int} cellSize
      */
-    set setCellSize(cellSize) {this.cellSize = cellSize;}
+    set setCellSize(cellSize) {this.cellSize = cellSize;},
 
-    get getCellSize() {return this.cellSize;}
-
-    /**
-     * @param {any} cellColor
-     */
-    set setCellColor(cellColor) {this.cellColor = cellColor;}
-
-    get getCellColor() {return this.cellColor;}
+    get getCellSize() {return this.cellSize;},
 
     /**
-     * @param {any} backgroundColor
+     * @param {string} cellColor
      */
-    set setBackgroundColor(backgroundColor) {this.backgroundColor = backgroundColor;}
+    set setCellColor(cellColor) {this.cellColor = cellColor;},
+
+    get getCellColor() {return this.cellColor;},
+
+    /**
+     * @param {string} backgroundColor
+     */
+    set setBackgroundColor(backgroundColor) {this.backgroundColor = backgroundColor;},
 
     get getBackgroundColor() {return this.backgroundColor;}
 };
-
-// Object for cell size and colors
-const cell = new Cell(8, 7, "#2C3E4C", "#FFFFFF");
 
 // The object for storing data about the canvas
 const canvasObject = {
