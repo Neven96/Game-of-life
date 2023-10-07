@@ -17,15 +17,15 @@ function playBoxedGame(changedArray) {
         let rowArrayRowLength = rowArray[row].length;
         for (let col = 0; col < rowArrayRowLength; col++) {
             // Top row
-            if (row == 0) {
+            if (row === 0) {
                 // Top-left corner
-                if (col == 0) {
+                if (col === 0) {
                     switchHelper(row, col, rowArray, changedArray, rowArray[row][col + 1]
                                + rowArray[row + 1][col]
                                + rowArray[row + 1][col + 1]);
                 }
                 // Top-right corner
-                else if (col == rowArray[row].length - 1) {
+                else if (col === rowArray[row].length - 1) {
                     switchHelper(row, col, rowArray, changedArray, rowArray[row][col - 1]
                                + rowArray[row + 1][col]
                                + rowArray[row + 1][col - 1]);
@@ -41,15 +41,15 @@ function playBoxedGame(changedArray) {
             } // Top row end
 
             // Bottom row
-            else if (row == rowArray.length - 1) {
+            else if (row === rowArray.length - 1) {
                 // Bottom-left corner
-                if (col == 0) {
+                if (col === 0) {
                     switchHelper(row, col, rowArray, changedArray, rowArray[row][col + 1]
                                + rowArray[row - 1][col]
                                + rowArray[row - 1][col + 1]);
                 }
                 // Bottom-right corner
-                else if (col == rowArray[row].length - 1) {
+                else if (col === rowArray[row].length - 1) {
                     switchHelper(row, col, rowArray, changedArray, rowArray[row][col - 1]
                                + rowArray[row - 1][col]
                                + rowArray[row - 1][col - 1]);
@@ -67,7 +67,7 @@ function playBoxedGame(changedArray) {
             //Between top and bottom row
             else {
                 // Left column
-                if (col == 0) {
+                if (col === 0) {
                     switchHelper(row, col, rowArray, changedArray, rowArray[row - 1][col]
                                + rowArray[row - 1][col + 1]
                                + rowArray[row][col + 1]
@@ -75,7 +75,7 @@ function playBoxedGame(changedArray) {
                                + rowArray[row + 1][col + 1]);
                 }
                 // Right column
-                else if (col == rowArray[row].length - 1) {
+                else if (col === rowArray[row].length - 1) {
                     switchHelper(row, col, rowArray, changedArray, rowArray[row - 1][col]
                                + rowArray[row - 1][col - 1]
                                + rowArray[row][col - 1]
