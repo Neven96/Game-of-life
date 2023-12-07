@@ -190,9 +190,9 @@ const aliveCountObject = {
     // Counts all the alive cells in the array, and returns the number
     countAlives(array) {
         this.aliveCount = 0;
-        array.forEach(element => {
-            element.forEach(index => {
-                if (index === 1) {
+        array.forEach(row => {
+            row.forEach(col => {
+                if (col === 1) {
                     this.aliveCount += 1;
                 }
             });
